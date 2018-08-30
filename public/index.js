@@ -21,6 +21,7 @@ const MOCK_PATIENT_DATA = {
                 "work": "1234565432"
             }
         },
+
         {
             "id": "12344",
             "clinicId": "abs",
@@ -42,6 +43,7 @@ const MOCK_PATIENT_DATA = {
                 "work": null
             }
         },
+
         {
             "id": "23456",
             "clinicId": "abs",
@@ -66,6 +68,48 @@ const MOCK_PATIENT_DATA = {
     ]
 };
 
+const MOCK_CLINIC_DATA = {
+    "clinics": [
+        {
+            "id": "74642",
+            "address": {
+                "street": "21 Maple Street",
+                "city": "Jacksonville",
+                "state": "Florida",
+                "zipcode": "32034"
+            },
+            "phoneNumber": "5434534456",
+            "faxNumber": "5434532345",
+            "clinicManager": "Sally Student"
+        },
+
+        {
+            "id": "93847",
+            "address": {
+                "street": "847 Jefferson Lane",
+                "city": "Jacksonville",
+                "state": "Florida",
+                "zipcode": "94321"
+            },
+            "phoneNumber": "9477223742",
+            "faxNumber": "9477229293",
+            "clinicManager": "Rich Paul"
+        },
+
+        {
+            "id": "64728",
+            "address": {
+                "street": "3 Washington Drive",
+                "city": "Orange Park",
+                "state": "Florida",
+                "zipcode": "92884"
+            },
+            "phoneNumber": "6362828372",
+            "faxNumber": "6362820283",
+            "clinicManager": "Jack Skellington"
+        }
+    ]
+};
 
 
 function getPatientInformation(callbackFn) {
