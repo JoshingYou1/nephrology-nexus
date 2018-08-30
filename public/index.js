@@ -111,6 +111,81 @@ const MOCK_CLINIC_DATA = {
     ]
 };
 
+const MOCK_LAB_RESULTS_DATA = {
+    "labResults": [
+        {
+            "id": "12345",
+            "hematology": {
+                "wbcCount": "5.97",
+                "rbcCount": "4.28",
+                "hemoglobin": "11.1",
+                "hematocrit": "33.8",
+                "plateletCount": "207"
+            },
+            "chemistry": {
+                "bun": "44",
+                "creatinine": "8.42",
+                "sodium": "137",
+                "potassium": "4.1",
+                "calcium": "10.3",
+                "phosphorus": "4.6",
+                "albumin": "4.2",
+                "glucose": "184",
+                "iron": "67",
+                "cholesterol": "194",
+                "triglycerides": "439"
+            }
+        },
+
+        {
+            "id": "12344",
+            "hematology": {
+                "wbcCount": "6.32",
+                "rbcCount": "5.13",
+                "hemoglobin": "12.4",
+                "hematocrit": "35.2",
+                "plateletCount": "194"
+            },
+            "chemistry": {
+                "bun": "51",
+                "creatinine": "6.95",
+                "sodium": "143",
+                "potassium": "3.7",
+                "calcium": "10.8",
+                "phosphorus": "3.9",
+                "albumin": "5.3",
+                "glucose": "154",
+                "iron": "72",
+                "cholesterol": "148",
+                "triglycerides": "398"
+            }
+        },
+
+        {
+            "id": "23456",
+            "hematology": {
+                "wbcCount": "5.32",
+                "rbcCount": "5.11",
+                "hemoglobin": "21.8",
+                "hematocrit": "29.7",
+                "plateletCount": "197"
+            },
+            "chemistry": {
+                "bun": "42",
+                "creatinine": "9.15",
+                "sodium": "153",
+                "potassium": "4.9",
+                "calcium": "10.8",
+                "phosphorus": "4.2",
+                "albumin": "5.7",
+                "glucose": "179",
+                "iron": "61",
+                "cholesterol": "123",
+                "triglycerides": "419"
+            }
+        }
+    ]
+};
 
 function getPatientInformation(callbackFn) {
     setTimeout(function() {callbackFn(MOCK_PATIENT_DATA)}, 100);
