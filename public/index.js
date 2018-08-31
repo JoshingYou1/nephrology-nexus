@@ -2,7 +2,7 @@ const MOCK_PATIENT_DATA = {
     "patients": [
         {
             "id": "12345",
-            "clinicId": "abc",
+            "clinicId": "74642",
             "firstName": "John",
             "middleName": "Robert",
             "lastName": "Doe",
@@ -72,6 +72,7 @@ const MOCK_CLINIC_DATA = {
     "clinics": [
         {
             "id": "74642",
+            "name": "North Florida Dialysis",
             "address": {
                 "street": "21 Maple Street",
                 "city": "Jacksonville",
@@ -85,6 +86,7 @@ const MOCK_CLINIC_DATA = {
 
         {
             "id": "93847",
+            "name": "First Coast Dialysis",
             "address": {
                 "street": "847 Jefferson Lane",
                 "city": "Jacksonville",
@@ -98,6 +100,7 @@ const MOCK_CLINIC_DATA = {
 
         {
             "id": "64728",
+            "name": "Dialysis, Inc.",
             "address": {
                 "street": "3 Washington Drive",
                 "city": "Orange Park",
@@ -115,6 +118,7 @@ const MOCK_LAB_RESULTS_DATA = {
     "labResults": [
         {
             "id": "12345",
+            "patientId": "12345",
             "hematology": {
                 "wbcCount": "5.97",
                 "rbcCount": "4.28",
@@ -139,6 +143,7 @@ const MOCK_LAB_RESULTS_DATA = {
 
         {
             "id": "12344",
+            "patientId": "12344",
             "hematology": {
                 "wbcCount": "6.32",
                 "rbcCount": "5.13",
@@ -163,6 +168,7 @@ const MOCK_LAB_RESULTS_DATA = {
 
         {
             "id": "23456",
+            "patientId": "23456",
             "hematology": {
                 "wbcCount": "5.32",
                 "rbcCount": "5.11",
@@ -201,6 +207,36 @@ function getAndDisplayPatientInformation() {
     getPatientData(displayPatientInformation);
 }
 
+function getClinicInformation(callbackFn) {
+    setTimeout(function() {callbackFn(MOCK_CLINIC_DATA)}, 100);
+}
+
+function displayClinicInformation(data) {
+    for (let index in data.clinics) {
+        $("body").append(`<p>${data.clinics[index].name} ${data.clinics[index].phoneNumber}</p>`);
+    }
+}
+
+function getAndDisplayClinicInformation() {
+    getClinicInformation(displayClinicInformation);
+}
+
+function getLabResults(callbackFn) {
+    setTimeout(function() {callbackFn(MOCK_LAB_RESULTS_DATA)}, 100);
+}
+
+function displayLabResults(data) {
+    for (let index in data.labResults) {
+        $("body").append(`<p>${data.labResults[index].hematology}</p>`);
+    }
+}
+
+function getAndDisplayLabResults() {
+    getLabResults(displayLabResults);
+}
+
 $(function() {
     getAndDisplayPatientInformation();
+    getAndDisplayClinicInformation();
+    getAndDisplayLabResults();
 })
