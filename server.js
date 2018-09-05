@@ -2,6 +2,10 @@
 
 const express = require('express');
 const morgan = require("morgan");
+const mongoose = require("mongoose");
+mongoose.Promise = global.Promise;
+
+const {DATABASE_URL, PORT} = require("./config");
 
 const app = express();
 
@@ -19,6 +23,9 @@ app.get("/", (req, res) => {
 app.use("/patients", patientsRouter);
 app.use("/clinics", clinicsRouter);
 app.use("/lab-results", labResultsRouter);
+app.use('*', function (req, res) {
+    res.status(404).json({ message: 'Not Found' });
+  });
 
 let server;
 
