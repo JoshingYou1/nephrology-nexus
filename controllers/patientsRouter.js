@@ -10,7 +10,7 @@ const {Patient} = require("../models/patients");
 router.get("/", (req, res) => {
     Patient
         .find()
-        .then(patients => res.render("/views/patients/index", {patients: patients}))
+        .then(patients => res.render("patients/index", {patients: patients}))
         .catch(
             err => {
                 console.error(err);
@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
     Patient
         .findById(req.params.id)
-        .then(patients => res.render("/views/patients/index", {patients: patients}))
+        .then(patients => res.render("patients/index", {patients: patients}))
         .catch(err => {
             console.error(err);
             res.status(500).json({message: "Internal server error"});

@@ -7,9 +7,9 @@ const mongoose = require("mongoose");
 
 const expect = chai.expect;
 
-const {Patient} = require("../models/patients");
-const {TEST_DATABASE_URL} = require("../config");
-const {app, runServer, closeServer} = require("../server");
+const {Patient} = require("../../models/patients");
+const {TEST_DATABASE_URL} = require("../../config");
+const {app, runServer, closeServer} = require("../../server");
 
 chai.use(chaiHttp);
 
@@ -75,52 +75,37 @@ describe("Patient API resource", function() {
     });
 
     describe("GET endpoint for patients", function() {
-        it("Should retrieve all existing patients", function() {
-            let res;
-            
+        it("Should return patients with the correct fields", function() {
+            let resPatient;
             return chai
                 .request(app)
                 .get("/patients")
-                .then(function(_res) {
-                    res = _res;
+                .then(function(res) {
                     expect(res).to.have.status(200);
+                    expect(res.body).to.be.a("array");
                     expect(res.body).to.have.lengthOf.at.least(1);
-                    return Patient.count();
+                
+                    res.body.forEach(function(patient) {
+                        expect(patient).to.be.a("object");
+                        expect(patient).to.include.keys("id", "firstName", "lastName", "dateOfBirth", "gender", "socialSecurityNumber", "address",
+                        "phoneNumbers");
+                    });
+                    resPatient = res.body[0];
+                    return Patient.findById(resPatient.id)
                 })
                 .then(function(patient) {
-                    expect(res.body).to.have.lengthOf(patient);
-                })
+                    expect(resPatient.firstName).to.equal(patient.firstName);
+                    expect(resPatient.lastName).to.equal(patient.lastName);
+                    expect(resPatient.dateOfBirth).to.equal(patient.dateOfBirth);
+                    expect(resPatient.gender).to.equal(patient.gender);
+                    expect(resPatient.socialSecurityNumber).to.equal(patient.socialSecurityNumber);
+                    expect(resPatient.address).to.equal(patient.address);
+                    expect(resPatient.phoneNumbers).to.equal(patient.phoneNumbers);
+                });
         });
     });
 
-    it("Should return patients with the correct fields", function() {
-        let resPatient;
-        return chai
-            .request(app)
-            .get("/patients")
-            .then(function(res) {
-                expect(res).to.have.status(200);
-                expect(res.body).to.be.a("array");
-                expect(res.body).to.have.lengthOf.at.least(1);
-                
-                res.body.forEach(function(patient) {
-                    expect(patient).to.be.a("object");
-                    expect(patient).to.include.keys("id", "firstName", "lastName", "dateOfBirth", "gender", "socialSecurityNumber", "address",
-                    "phoneNumbers");
-                });
-                resPatient = res.body[0];
-                return Patient.findById(resPatient.id)
-            })
-            .then(function(patient) {
-                expect(resPatient.firstName).to.equal(patient.firstName);
-                expect(resPatient.lastName).to.equal(patient.lastName);
-                expect(resPatient.dateOfBirth).to.equal(patient.dateOfBirth);
-                expect(resPatient.gender).to.equal(patient.gender);
-                expect(resPatient.socialSecurityNumber).to.equal(patient.socialSecurityNumber);
-                expect(resPatient.address).to.equal(patient.address);
-                expect(resPatient.phoneNumbers).to.equal(patient.phoneNumbers);
-            });
-    });
+    
 
 
 });
