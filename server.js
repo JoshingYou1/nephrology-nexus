@@ -9,12 +9,13 @@ const {DATABASE_URL, PORT} = require("./config");
 
 const app = express();
 
-const patientsRouter = require("./patientsRouter");
-const clinicsRouter = require("./clinicsRouter");
-const labResultsRouter = require("./labResultsRouter");
+const patientsRouter = require("./controllers/patientsRouter");
+const clinicsRouter = require("./controllers/clinicsRouter");
+const labResultsRouter = require("./controllers/labResultsRouter");
 
 app.use(express.static('public'));
 app.use(morgan("common"));
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
