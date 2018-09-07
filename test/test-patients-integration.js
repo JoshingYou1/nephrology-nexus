@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 
 const expect = chai.expect;
 
-const {Patient} = require("../models");
+const {Patient} = require("../models/patients");
 const {TEST_DATABASE_URL} = require("../config");
 const {app, runServer, closeServer} = require("../server");
 
@@ -29,7 +29,7 @@ function generatePatientData() {
             street: faker.address.streetAddress("###"),
             city: faker.address.city(3),
             state: faker.address.stateAbbr(),
-            zipcode: faker.address.zipcode()
+            zipCode: faker.address.zipCode("#####")
         },
         phoneNumbers: {
             home: faker.phone.phoneNumberFormat(1),
@@ -45,7 +45,7 @@ function seedPatientData() {
     for (let i = 1; i <= 10; i++) {
         seedData.push(generatePatientData());
     }
-    return BlogPost.insertMany(seedData);
+    return Patient.insertMany(seedData);
 }
 
 function tearDownDb() {
@@ -76,6 +76,8 @@ describe("Patient API resource", function() {
 
     describe("GET endpoint for patients", function() {
         it("Should retrieve all existing patients", function() {
+            let res;
+            
             return chai
                 .request(app)
                 .get("/patients")
@@ -120,5 +122,5 @@ describe("Patient API resource", function() {
             });
     });
 
-    
+
 });

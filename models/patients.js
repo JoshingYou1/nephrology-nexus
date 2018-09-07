@@ -13,7 +13,7 @@ const patientSchema = mongoose.Schema({
         street: {type: String},
         city: {type: String},
         state: {type: String},
-        zipcode: {type: Number}
+        zipCode: {type: Number}
     },
     phoneNumbers: {
         home: {type: String},
@@ -24,7 +24,7 @@ const patientSchema = mongoose.Schema({
 
 patientSchema.virtual("addressString").get(function() {
     return `${this.address.street}\n
-            ${this.address.city}, ${this.address.state} ${this.address.zipcode}`;
+            ${this.address.city}, ${this.address.state} ${this.address.zipCode}`;
 });
 
 patientSchema.virtual("phoneNumbersString").get(function() {
@@ -33,7 +33,7 @@ patientSchema.virtual("phoneNumbersString").get(function() {
             Work: ${this.phoneNumbers.work}`;
 });
 
-patientSchema.methods.serialize() = function() {
+patientSchema.methods.serialize = function() {
     return {
         id: this._id,
         firstName: this.firstName,
