@@ -4,16 +4,18 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const patientSchema = mongoose.Schema({
+    name: {
     firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
+    lastName: {type: String, required: true}
+    },
     dateOfBirth: {type: String, required: true},
     gender: {type: String, required: true},
     socialSecurityNumber: {type: String, required: true},
     address: {
-        street: {type: String},
-        city: {type: String},
-        state: {type: String},
-        zipCode: {type: Number}
+        street: {type: String, required: true},
+        city: {type: String, required: true},
+        state: {type: String, required: true},
+        zipCode: {type: Number, required: true}
     },
     phoneNumbers: {
         home: {type: String},
@@ -21,6 +23,10 @@ const patientSchema = mongoose.Schema({
         work: {type: String}
     }
 });
+
+patientSchema.virtual("patientName").get(function() {
+    return `${this.name.lastName}, ${this.name.firstName}`;
+})
 
 patientSchema.virtual("addressString").get(function() {
     return `${this.address.street}\n
@@ -36,8 +42,7 @@ patientSchema.virtual("phoneNumbersString").get(function() {
 patientSchema.methods.serialize = function() {
     return {
         id: this._id,
-        firstName: this.firstName,
-        lastName: this.lastName,
+        name: this.patientName,
         dateOfBirth: this.dateOfBirth,
         gender: this.gender,
         socialSecurityNumber: this.socialSecurityNumber,

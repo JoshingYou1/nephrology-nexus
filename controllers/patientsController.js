@@ -10,7 +10,10 @@ const {Patient} = require("../models/patients");
 router.get("/", (req, res) => {
     Patient
         .find()
-        .then(patients => res.render("patients/index", {patients: patients}))
+        .then(patients => {
+            console.log(patients);
+            res.render("patients/index", {patients: patients})
+    })
         .catch(
             err => {
                 console.error(err);
@@ -27,6 +30,8 @@ router.get("/:id", (req, res) => {
             res.status(500).json({message: "Internal server error"});
         });
 });
+
+
 
 module.exports = router;
 

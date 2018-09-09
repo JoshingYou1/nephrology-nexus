@@ -1,1 +1,7 @@
-<h1>patient</h1>
+<h1>patients</h1>
+<ul>
+    <%patients.forEach(patient => {%>
+        <ol><%=patient.lastName%>, <%=patient.firstName%></ol>
+    <%});%>
+        
+</ul>

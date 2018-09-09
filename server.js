@@ -9,9 +9,9 @@ const {DATABASE_URL, PORT} = require("./config");
 
 const app = express();
 
-const patientsRouter = require("./controllers/patientsRouter");
-const clinicsRouter = require("./controllers/clinicsRouter");
-const labResultsRouter = require("./controllers/labResultsRouter");
+const patientsController = require("./controllers/patientsController");
+const clinicsController = require("./controllers/clinicsController");
+const labResultsController = require("./controllers/labResultsController");
 
 app.use(express.static('public'));
 app.use(morgan("common"));
@@ -21,9 +21,9 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
 
-app.use("/patients", patientsRouter);
-app.use("/clinics", clinicsRouter);
-app.use("/lab-results", labResultsRouter);
+app.use("/patients", patientsController);
+app.use("/clinics", clinicsController);
+app.use("/lab-results", labResultsController);
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Not Found' });
   });

@@ -4,6 +4,8 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const faker = require("faker");
 const mongoose = require("mongoose");
+const sinon = require("sinon");
+require("sinon-mongoose");
 
 const expect = chai.expect;
 
@@ -20,8 +22,10 @@ function generateGender() {
 
 function generatePatientData() {
     return {
+        name: {
         firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
+        lastName: faker.name.lastName()
+        },
         dateOfBirth: faker.date.past(),
         gender: generateGender(),
         socialSecurityNumber: faker.helpers.replaceSymbolWithNumber("###-##-####"),
@@ -29,7 +33,7 @@ function generatePatientData() {
             street: faker.address.streetAddress("###"),
             city: faker.address.city(3),
             state: faker.address.stateAbbr(),
-            zipCode: faker.address.zipCode("#####")
+            zipCode: faker.random.number({min: "00000", max: "99999"})
         },
         phoneNumbers: {
             home: faker.phone.phoneNumberFormat(1),
@@ -74,38 +78,46 @@ describe("Patient API resource", function() {
         return closeServer();
     });
 
-    describe("GET endpoint for patients", function() {
-        it("Should return patients with the correct fields", function() {
-            let resPatient;
-            return chai
-                .request(app)
-                .get("/patients")
-                .then(function(res) {
-                    expect(res).to.have.status(200);
-                    expect(res.body).to.be.a("array");
-                    expect(res.body).to.have.lengthOf.at.least(1);
-                
-                    res.body.forEach(function(patient) {
-                        expect(patient).to.be.a("object");
-                        expect(patient).to.include.keys("id", "firstName", "lastName", "dateOfBirth", "gender", "socialSecurityNumber", "address",
-                        "phoneNumbers");
-                    });
-                    resPatient = res.body[0];
-                    return Patient.findById(resPatient.id)
-                })
-                .then(function(patient) {
-                    expect(resPatient.firstName).to.equal(patient.firstName);
-                    expect(resPatient.lastName).to.equal(patient.lastName);
-                    expect(resPatient.dateOfBirth).to.equal(patient.dateOfBirth);
-                    expect(resPatient.gender).to.equal(patient.gender);
-                    expect(resPatient.socialSecurityNumber).to.equal(patient.socialSecurityNumber);
-                    expect(resPatient.address).to.equal(patient.address);
-                    expect(resPatient.phoneNumbers).to.equal(patient.phoneNumbers);
-                });
+    describe("Patient model", function() {
+        it("Should initialize patient data with the correct fields", function(done) {
+            const generatedPatient = generatePatientData();
+            const patient = new Patient(generatedPatient);
+
+            patient.save(function(err, result) {
+                expect(result).to.exist;
+                expect(err).to.not.exist;
+                expect(result.name.firstName).to.equal(generatedPatient.name.firstName);
+                expect(result.name.lastName).to.equal(generatedPatient.name.lastName);
+                expect(result.gender).to.equal(generatedPatient.gender);
+                expect(result.socialSecurityNumber).to.equal(generatedPatient.socialSecurityNumber);
+                expect(result.address.street).to.equal(generatedPatient.address.street);
+                expect(result.address.city).to.equal(generatedPatient.address.city);
+                expect(result.address.state).to.equal(generatedPatient.address.state);
+                expect(result.address.zipCode).to.equal(generatedPatient.address.zipCode);
+                done();
+            });
+        });
+        
+        it("Should not create a patient if required fields are missing", function(done) {
+            const generatedPatient = {};
+            const patient = new Patient(generatedPatient);
+
+            patient.save(function(err, result) {
+                expect(err).to.exist;
+                expect(result).to.not.exist;
+                done();
+            })
+        });
+
+        it("Should not create a patient if the zip code is anything other than a number", function(done) {
+            const generatedPatient = generatePatientData();
+            generatedPatient.address.zipCode = "abc";
+            const patient = new Patient(generatedPatient);
+
+            patient.save(function(err, result) {
+                expect(err).to.exist;
+                done();
+            });
         });
     });
-
-    
-
-
 });
