@@ -36,9 +36,9 @@ function generatePatientData() {
             zipCode: faker.random.number({min: "00000", max: "99999"})
         },
         phoneNumbers: {
-            home: faker.phone.phoneNumberFormat(1),
-            cell: faker.phone.phoneNumberFormat(1),
-            work: faker.phone.phoneNumberFormat(1)
+            home: faker.phone.phoneNumberFormat(0),
+            cell: faker.phone.phoneNumberFormat(0),
+            work: faker.phone.phoneNumberFormat(0)
         }
     };
 }
@@ -121,3 +121,5 @@ describe("Patient API resource", function() {
         });
     });
 });
+
+module.exports = {generatePatientData};

@@ -3,6 +3,9 @@
 const express = require('express');
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const flash = require("req-flash");
+const session = require("express-session");
+const bodyParser = require("body-parser");
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL, PORT} = require("./config");
@@ -15,6 +18,9 @@ const labResultsController = require("./controllers/labResultsController");
 
 app.use(express.static('public'));
 app.use(morgan("common"));
+app.use(bodyParser());
+app.use(session({ secret: '123' }));
+app.use(flash());
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {

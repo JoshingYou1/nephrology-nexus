@@ -10,11 +10,14 @@
   "author": "Joshua Drumm",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "express-session": "^1.15.6",
     "mongoose": "^5.2.13",
     "morgan": "^1.9.0",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "req-flash": "0.0.3"
   },
   "devDependencies": {
     "chai": "^4.1.2",

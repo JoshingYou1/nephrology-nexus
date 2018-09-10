@@ -1,7 +1,7 @@
 <h1>patients</h1>
 <ul>
     <%patients.forEach(patient => {%>
-        <ol><%=patient.lastName%>, <%=patient.firstName%></ol>
+        <ol><%=patient.name.lastName%>, <%=patient.name.firstName%></ol>
     <%});%>
         
 </ul>
