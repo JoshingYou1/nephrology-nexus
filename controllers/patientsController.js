@@ -44,6 +44,10 @@ router.get("/:id/update", (req, res) => {
         });
 });
 
+router.get("/create", (req, res) => {
+    res.render("patients/create", {patient: {}, formMethod: "post"});
+});
+
 router.post("/", (req, res) => {
     let patientData = new Patient(req.body);
     patientData.save((err, patient) => {
