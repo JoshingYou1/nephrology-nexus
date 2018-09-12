@@ -3,26 +3,33 @@
 const express = require('express');
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const flash = require("req-flash");
+const session = require("express-session");
+const bodyParser = require("body-parser");
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL, PORT} = require("./config");
 
 const app = express();
 
-const patientsRouter = require("./patientsRouter");
-const clinicsRouter = require("./clinicsRouter");
-const labResultsRouter = require("./labResultsRouter");
+const patientsController = require("./controllers/patientsController");
+const clinicsController = require("./controllers/clinicsController");
+const labResultsController = require("./controllers/labResultsController");
 
 app.use(express.static('public'));
 app.use(morgan("common"));
+app.use(bodyParser());
+app.use(session({ secret: '123' }));
+app.use(flash());
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
 
-app.use("/patients", patientsRouter);
-app.use("/clinics", clinicsRouter);
-app.use("/lab-results", labResultsRouter);
+app.use("/patients", patientsController);
+app.use("/clinics", clinicsController);
+app.use("/lab-results", labResultsController);
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Not Found' });
   });

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ../layouts/head.ejs %>
+    <body>
+        <%- include ../layouts/header.ejs %>
+        <main>
+            <h1>patients</h1>
+            <ul>
+                <%patients.forEach(patient => {%>
+                <ol><a href="patients/<%= patient._id%>/update"><%=patient.name.lastName%>, <%=patient.name.firstName%></a></ol>
+                <%});%>
+        
+            </ul>
+        </main>
+        <%- include ../layouts/footer.ejs %>
+    </body>
+</html>
