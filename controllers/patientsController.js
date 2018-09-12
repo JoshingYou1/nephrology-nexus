@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
         .then(patients => {
             console.log(patients);
             res.render("patients/index", {patients: patients})
-    })
+        })
         .catch(
             err => {
                 console.error(err);
@@ -34,8 +34,17 @@ router.get("/:id", (req, res) => {
         });
 });
 
+router.get("/:id/update", (req, res) => {
+    Patient
+        .findById(req.params.id)
+        .then(patient => res.render("patients/update", {patient: patient, formMethod: "put"}))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({message: "Internal server error"});
+        });
+});
+
 router.post("/", (req, res) => {
-    console.log(req.body);
     let patientData = new Patient(req.body);
     patientData.save((err, patient) => {
         console.log(err);
@@ -44,16 +53,37 @@ router.post("/", (req, res) => {
         }
         else {
             req.flash("successMessage", "Patient successfully created!");
-            res.redirect(`/patients/${patient.id}`);
+            res.redirect(201, `/patients/${patient.id}`);
         }
     })
 })
 
 router.put("/:id", (req, res) => {
-    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-        req.flash("errorMessage", "Something went wrong, patient data could not be updated...");
-        res.redirect(`/patients/${res.id}`);
-    }
+    if  (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+        res.render("patients/update", {message: "Sorry, the request path id and the request body id values must match..."});
+    };
+
+    Patient.findByIdAndUpdate(req.params.id, req.body, {new: true}, function(err) {
+        if (err) {
+            res.render("patients/update", {message: "Something went wrong, patient data was not updated..."})
+        }
+        else {
+            req.flash("successMessage", "Patient successfully updated!");
+            res.redirect(204, `/patients/${res.id}`);
+        };
+    });
+});
+
+router.delete("/:id", (req, res) => {
+    Patient.findByIdAndRemove(req.params.id, function(err) {
+        if (err) {
+            res.render("patients/index", {message: "Something went wrong, patient was not deleted..."});
+        }
+        else {
+            req.flash("successMessage", "Patient successfully deleted!");
+            res.redirect(204, "/patients/index");
+        }
+    })
 })
 
 module.exports = router;

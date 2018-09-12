@@ -1,0 +1,55 @@
+<section class="patient-page">
+        <div class="container">
+            <% if (typeof message != 'undefined' && message) { %>
+                <h2><%= message %></h2>
+            <% } %>
+            <form class="patient-form" role="form" method="<%= formMethod %>" action="/patients">
+            <fieldset name="patient-data">
+                <legend>Patient Information</legend>
+    
+                <label for="first-name">First Name:</label>
+                <input placeholder="John" type="text" name="name.firstName" id="first-name" required>
+    
+                <label for="last-name">Last Name:</label>
+                <input placeholder="Doe" type="text" name="name.lastName" id="last-name" required>
+    
+                <label for="date-of-birth">DOB:</label>
+                <input placeholder="12/34/5678" type="date" name="dateOfBirth" id="date-of-birth" required>
+    
+                <label for="gender">Gender:</label>
+                <input placeholder="Male" type="text" name="gender" id="gender" required>
+    
+                <label for="ssn">SSN:</label>
+                <input placeholder="111-11-1111" type="text" name="socialSecurityNumber" id="ssn" pattern="\d{3}-?\d{2}-?\d{4}" required>
+    
+                <fieldset name="address">
+                    <legend>Address</legend>
+                        <label for="street">Street:</label>
+                        <input placeholder="1 International Drive" type="text" name="address.street" id="street" required>
+    
+                        <label for="city">City:</label>
+                        <input placeholder="Jacksonville" type="text" name="address.city" id="city" required>
+    
+                        <label for="state">State:</label>
+                        <input placeholder="FL" type="text" name="address.state" id="state" pattern="[A-Z]{2}" required>
+    
+                        <label for="zip-code">Zip Code:</label>
+                        <input placeholder="11111" type="number" name="address.zipCode" id="zip-code" pattern="[0-9]{5}" required>
+                </fieldset>
+    
+                <fieldset name="phone-numbers">
+                    <legend>Phone Number(s)</legend>
+                    <label for="home-phone">Home:</label>
+                    <input placeholder="111-111-1111" type="tel" name="phoneNumbers.home" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+    
+                    <label for="cell-phone">Cell:</label>
+                    <input placeholder="222-222-2222" type="tel" name="phoneNumbers.cell" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+    
+                    <label for="work-phone">Work:</label>
+                    <input placeholder="333-333-3333" type="tel" name="phoneNumbers.work" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                </fieldset>
+            </fieldset>
+            <button type="submit" class="create-patient-form-button">Submit</button>
+            </form>
+        </div>
+    </section>

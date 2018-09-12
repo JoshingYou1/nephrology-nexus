@@ -23,7 +23,7 @@ clinicSchema.virtual("addressString").get(function() {
             Zipcode: ${this.address.zipcode}`;
 });
 
-clinicSchema.methods.serialize() = function() {
+clinicSchema.methods.serialize = function() {
     return {
         id: this._id,
         name: this.name,
