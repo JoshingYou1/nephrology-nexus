@@ -89,7 +89,7 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    Patient.findByIdAndRemove(req.params.id, err => {
+    Clinic.findByIdAndRemove(req.params.id, err => {
         if (err) {
             res.render('clinics/index', {message: 'Sorry, something went wrong. Clinic could not be deleted.'});
         }
