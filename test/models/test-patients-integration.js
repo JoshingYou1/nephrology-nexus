@@ -11,7 +11,7 @@ const expect = chai.expect;
 
 const {Patient} = require("../../models/patients");
 const {TEST_DATABASE_URL} = require("../../config");
-const {app, runServer, closeServer} = require("../../server");
+const {runServer, closeServer} = require("../../server");
 
 chai.use(chaiHttp);
 
@@ -106,7 +106,7 @@ describe("Patient API resource", function() {
                 expect(err).to.exist;
                 expect(result).to.not.exist;
                 done();
-            })
+            });
         });
 
         it("Should not create a patient if the zip code is anything other than a number", function(done) {
@@ -114,7 +114,7 @@ describe("Patient API resource", function() {
             generatedPatient.address.zipCode = "abc";
             const patient = new Patient(generatedPatient);
 
-            patient.save(function(err, result) {
+            patient.save(function(err) {
                 expect(err).to.exist;
                 done();
             });

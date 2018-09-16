@@ -8,45 +8,57 @@
                 <legend>Patient Information</legend>
     
                 <label for="first-name">First Name:</label>
-                <input placeholder="John" type="text" name="name.firstName" id="first-name" required>
+                <input placeholder="John" type="text" name="name.firstName" id="first-name" 
+                    value="<%- formMethod == 'put' ? patient.name.firstName: '' %>" required>
     
                 <label for="last-name">Last Name:</label>
-                <input placeholder="Doe" type="text" name="name.lastName" id="last-name" required>
+                <input placeholder="Doe" type="text" name="name.lastName" id="last-name" 
+                    value="<%- formMethod == 'put' ? patient.name.lastName: '' %>" required>
     
                 <label for="date-of-birth">DOB:</label>
-                <input placeholder="12/34/5678" type="date" name="dateOfBirth" id="date-of-birth" required>
+                <input placeholder="12/34/5678" type="date" name="dateOfBirth" id="date-of-birth"
+                    value="<%- formMethod == 'put' ? patient.dateOfBirth: '' %>" required>
     
                 <label for="gender">Gender:</label>
-                <input placeholder="Male" type="text" name="gender" id="gender" required>
+                <input placeholder="Male" type="text" name="gender" id="gender"
+                    value="<%- formMethod == 'put' ? patient.gender: '' %>" required>
     
                 <label for="ssn">SSN:</label>
-                <input placeholder="111-11-1111" type="text" name="socialSecurityNumber" id="ssn" pattern="\d{3}-?\d{2}-?\d{4}" required>
+                <input placeholder="111-11-1111" type="text" name="socialSecurityNumber" id="ssn" pattern="\d{3}-?\d{2}-?\d{4}"
+                    value="<%- formMethod == 'put' ? patient.socialSecurityNumber: '' %>" required>
     
                 <fieldset name="address">
                     <legend>Address</legend>
                         <label for="street">Street:</label>
-                        <input placeholder="1 International Drive" type="text" name="address.street" id="street" required>
+                        <input placeholder="1 International Drive" type="text" name="address.street" id="street"
+                            value="<%- formMethod == 'put' ? patient.address.street: '' %>" required>
     
                         <label for="city">City:</label>
-                        <input placeholder="Jacksonville" type="text" name="address.city" id="city" required>
+                        <input placeholder="Jacksonville" type="text" name="address.city" id="city"
+                            value="<%- formMethod == 'put' ? patient.address.city: '' %>" required>
     
                         <label for="state">State:</label>
-                        <input placeholder="FL" type="text" name="address.state" id="state" pattern="[A-Z]{2}" required>
+                        <input placeholder="FL" type="text" name="address.state" id="state" pattern="[A-Z]{2}"
+                            value="<%- formMethod == 'put' ? patient.address.state: '' %>" required>
     
                         <label for="zip-code">Zip Code:</label>
-                        <input placeholder="11111" type="number" name="address.zipCode" id="zip-code" pattern="[0-9]{5}" required>
+                        <input placeholder="11111" type="number" name="address.zipCode" id="zip-code" pattern="[0-9]{5}"
+                            value="<%- formMethod == 'put' ? patient.address.zipCode: '' %>" required>
                 </fieldset>
     
                 <fieldset name="phone-numbers">
                     <legend>Phone Number(s)</legend>
                     <label for="home-phone">Home:</label>
-                    <input placeholder="111-111-1111" type="tel" name="phoneNumbers.home" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+                    <input placeholder="111-111-1111" type="tel" name="phoneNumbers.home" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                        value="<%- formMethod == 'put' ? patient.phoneNumbers.home: '' %>" required>
     
                     <label for="cell-phone">Cell:</label>
-                    <input placeholder="222-222-2222" type="tel" name="phoneNumbers.cell" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    <input placeholder="222-222-2222" type="tel" name="phoneNumbers.cell" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                        value="<%- formMethod == 'put' ? patient.phoneNumbers.cell: '' %>">
     
                     <label for="work-phone">Work:</label>
-                    <input placeholder="333-333-3333" type="tel" name="phoneNumbers.work" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+                    <input placeholder="333-333-3333" type="tel" name="phoneNumbers.work" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                        value="<%- formMethod == 'put' ? patient.phoneNumbers.work: '' %>">
                 </fieldset>
             </fieldset>
             <button type="submit" class="create-patient-form-button">Submit</button>

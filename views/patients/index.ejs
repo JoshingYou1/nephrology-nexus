@@ -7,7 +7,7 @@
             <h1>patients</h1>
             <ul>
                 <%patients.forEach(patient => {%>
-                <ol><a href="patients/<%= patient._id%>/update"><%=patient.name.lastName%>, <%=patient.name.firstName%></a></ol>
+                <ol><a href="patients/update/<%= patient._id%>"><%=patient.name.lastName%>, <%=patient.name.firstName%></a></ol>
                 <%});%>
         
             </ul>

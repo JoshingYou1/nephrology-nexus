@@ -6,14 +6,17 @@ mongoose.Promise = global.Promise;
 const clinicSchema = mongoose.Schema({
     name: {type: String, required: true},
     address: {
-        street: {type: String},
-        city: {type: String},
-        state: {type: String},
-        zipcode: {type: Number}
+        street: {type: String, required: true},
+        city: {type: String, required: true},
+        state: {type: String, required: true},
+        zipCode: {type: Number, required: true}
     },
     phoneNumber: {type: String, required: true},
     faxNumber: {type: String, required: true},
-    clinicManager: {type: String, required: true}
+    clinicManager: {
+        firstName: {type: String, required: true},
+        lastName: {type: String, required: true}
+    }
 });
 
 clinicSchema.virtual("addressString").get(function() {
@@ -23,6 +26,10 @@ clinicSchema.virtual("addressString").get(function() {
             Zipcode: ${this.address.zipcode}`;
 });
 
+clinicSchema.virtual('managerName').get(function() {
+    return `Clinic Manager: ${this.clinicManager.firstName} ${this.clinicManager.lastName}`;
+})
+
 clinicSchema.methods.serialize = function() {
     return {
         id: this._id,
@@ -30,7 +37,7 @@ clinicSchema.methods.serialize = function() {
         address: this.addressString,
         phoneNumber: this.phoneNumber,
         faxNumber: this.faxNumber,
-        clinicManager: this.clinicManager
+        clinicManager: this.managerName
     };
 };
 
