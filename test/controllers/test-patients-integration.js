@@ -47,16 +47,16 @@ describe("Patient controller", function() {
                 .then(function(res) {
                     expect(res).to.have.status(201);
                     expect(res.body).to.be.a("object");
-                    return Patient.findOne({"name.firstName": newPatient.name.firstName, "name.lastName": newPatient.name.lastName,
-                    socialSecurityNumber: newPatient.socialSecurityNumber})
+                    return Patient
+                        .findOne({"name.firstName": newPatient.name.firstName, "name.lastName": newPatient.name.lastName,
+                            'socialSecurityNumber': newPatient.socialSecurityNumber})
                 .then(function(createdPatient) {
                     console.log("createdPatient:", createdPatient);
                     expect(createdPatient.patientName).to.equal(`${newPatient.name.lastName}, ${newPatient.name.firstName}`);
                     expect(createdPatient.gender).to.equal(newPatient.gender);
                     expect(createdPatient.socialSecurityNumber).to.equal(newPatient.socialSecurityNumber);
-                })
-                    
-                });
+                });     
+            });
         });
     });
 
@@ -95,7 +95,7 @@ describe("Patient controller", function() {
     });
 
     describe("DELETE endpoint for patients", function() {
-        it("Should delete a patient based on id", function() {
+        it("Should delete an existing patient based on id", function() {
             let patient;
 
             return Patient
