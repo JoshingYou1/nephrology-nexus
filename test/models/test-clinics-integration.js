@@ -87,7 +87,7 @@ describe('Clinic API resource', function() {
             });
         });
 
-        it('Should create a clinic if required fields are missing', function(done) {
+        it('Should not create a clinic if required fields are missing', function(done) {
             const generatedClinic = {};
             const clinic = new Clinic(generatedClinic);
 
@@ -98,7 +98,7 @@ describe('Clinic API resource', function() {
             });
         });
 
-        it('Should not create a clinic if the zipcode is anything other than a number', function(done) {
+        it('Should not create a clinic if the zip code is anything other than a number', function(done) {
             const generatedClinic = generateClinicData();
             generatedClinic.address.zipCode = 'aeiou';
             const clinic = new Clinic(generatedClinic);

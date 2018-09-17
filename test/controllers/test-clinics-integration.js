@@ -14,11 +14,11 @@ chai.use(chaiHttp);
 describe('Clinic controller', function() {
     before(function() {
         return runServer(TEST_DATABASE_URL);
-    })
+    });
 
     after(function() {
         return closeServer();
-    })
+    });
 
     describe('GET endpoint for clinics', function() {
         it('Should retrieve all existing clinics', function() {
@@ -47,9 +47,10 @@ describe('Clinic controller', function() {
                     expect(res).to.have.status(201);
                     expect(res.body).to.be.a('object');
                     return Clinic
-                        .findOne({'name': newClinic.name, 'phoneNumber': newClinic.phoneNumber,
-                            'socialSecurityNumber': newClinic.socialSecurityNumber, 'clinicManager.firstName': newClinic.clinicManager.firstName,
-                            'clinicManager.firstName': newClinic.clinicManager.firstName})
+                        .findOne({'name': newClinic.name, 'address.street': newClinic.address.street, 'phoneNumber': newClinic.phoneNumber,
+                            'faxNumber': newClinic.faxNumber, 'clinicManager.firstName': newClinic.clinicManager.firstName,
+                            'clinicManager.lastName': newClinic.clinicManager.lastName})
+                })
                 .then(function(createdClinic) {
                     expect(createdClinic.name).to.equal(newClinic.name);
                     expect(createdClinic.address.street).to.equal(newClinic.address.street);
@@ -58,12 +59,11 @@ describe('Clinic controller', function() {
                     expect(createdClinic.clinicManager.firstName).to.equal(newClinic.clinicManager.firstName);
                     expect(createdClinic.clinicManager.lastName).to.equal(newClinic.clinicManager.lastName);
                 });
-            });
         });
     });
 
     describe('PUT endpoint for clinics', function() {
-        it('Should update the data existing clinic', function() {
+        it('Should update the data of an existing clinic', function() {
             const updatedClinicData = {
                 name: 'West Jacksonville Dialysis Center',
                 phoneNumber: '904-432-8483',

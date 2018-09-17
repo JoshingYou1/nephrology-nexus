@@ -3,9 +3,6 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const flash = require("req-flash");
-const session = require("express-session");
-const bodyParser = require("body-parser");
 mongoose.Promise = global.Promise;
 
 const {Patient} = require("../models/patients");
@@ -27,7 +24,9 @@ router.get("/", (req, res) => {
 router.get("/show/:id", (req, res) => {
     Patient
         .findById(req.params.id)
+        .populate('labResults')
         .then(patient => {
+            console.log('patient.labResults:', patient.labResults);
             res.render("patients/show", {patient: patient})
         })
         .catch(err => {
@@ -48,15 +47,8 @@ router.get("/update/:id", (req, res) => {
         });
 });
 
-router.get("/create", (err, req, res) => {
-    if (err) {
-        console.log(err);
-        req.flash("errorMessage", "Internal server error");
-        res.redirect(500, "/");
-    }
-    else {
-        res.render("patients/create", {patient: {}, formMethod: "post"});
-    };
+router.get("/create", (req, res) => {
+    res.render("patients/create", {patient: null, formMethod: "post"});
 });
 
 router.post("/", (req, res) => {
