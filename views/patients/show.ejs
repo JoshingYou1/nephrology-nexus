@@ -10,7 +10,7 @@
             <% } %>
             <% patient.labResults.forEach(results => { %>
                 <a href="/lab-results/show/<%= results.id %>"><%= results.id %></a>
-            <% }) %>
+            <% }); %>
         </main>
         <%- include ../layouts/footer.ejs %>
     </body>

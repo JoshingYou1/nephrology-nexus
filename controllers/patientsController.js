@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
 router.get("/show/:id", (req, res) => {
     Patient
         .findById(req.params.id)
-        .populate('labResults')
+        .populate('LabResults')
         .then(patient => {
             console.log('patient.labResults:', patient.labResults);
             res.render("patients/show", {patient: patient})

@@ -6,10 +6,10 @@
         <main>
             <h1>patients</h1>
             <ul>
-                <%patients.forEach(patient => {%>
-                <ol><a href="/patients/show/<%= patient.id%>"><%=patient.name.lastName%>, <%=patient.name.firstName%></a>
+                <% patients.forEach(patient => { %>
+                <ol><a href="/patients/show/<%= patient.id%>"><%= patient.name.lastName %>, <%= patient.name.firstName %></a>
                     <a href="/patients/update/<%= patient.id%>">update</a></ol>
-                <%});%>
+                <% }); %>
             </ul>
         </main>
         <%- include ../layouts/footer.ejs %>
