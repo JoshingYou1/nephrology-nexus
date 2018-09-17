@@ -1,2 +1,17 @@
-<h1>show patient</h1>
-<%= successMessage %>
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ../layouts/head.ejs %>
+    <body>
+        <%- include ../layouts/header.ejs %>
+        <main>
+            <h1><%= patient.patientName %></h1>
+            <% if (typeof successMessage != 'undefined' && successMessage) { %>
+                <h2><%= successMessage %></h2>
+            <% } %>
+            <% patient.labResults.forEach(results => { %>
+                <a href="/lab-results/show/<%= results.id %>"><%= results.id %></a>
+            <% }) %>
+        </main>
+        <%- include ../layouts/footer.ejs %>
+    </body>
+</html>

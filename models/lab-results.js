@@ -4,25 +4,30 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const labResultsSchema = mongoose.Schema({
+    date: {type: Date},
     hematology: {
-        wbcCount: {type: Number},
-        rbcCount: {type: Number},
-        hemoglobin: {type: Number},
-        hematocrit: {type: Number},
-        plateletCount: {type: Number}
+        wbcCount: {type: Number, required: true},
+        rbcCount: {type: Number, required: true},
+        hemoglobin: {type: Number, required: true},
+        hematocrit: {type: Number, required: true},
+        plateletCount: {type: Number, required: true}
     },
     chemistry: {
-        bun: {type: Number},
-        creatinine: {type: Number},
-        sodium: {type: Number},
-        potassium: {type: Number},
-        calcium: {type: Number},
-        phosphorus: {type: Number},
-        albumin: {type: Number},
-        glucose: {type: Number},
-        iron: {type: Number},
-        cholesterol: {type: Number},
-        triglycerides: {type: Number}
+        bun: {type: Number, required: true},
+        creatinine: {type: Number, required: true},
+        sodium: {type: Number, required: true},
+        potassium: {type: Number, required: true},
+        calcium: {type: Number, required: true},
+        phosphorus: {type: Number, required: true},
+        albumin: {type: Number, required: true},
+        glucose: {type: Number, required: true},
+        iron: {type: Number, required: true},
+        cholesterol: {type: Number, required: true},
+        triglycerides: {type: Number, required: true}
+    },
+    patient: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Patient'
     }
 });
 

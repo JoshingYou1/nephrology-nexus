@@ -49,14 +49,14 @@ describe("Patient controller", function() {
                     expect(res.body).to.be.a("object");
                     return Patient
                         .findOne({"name.firstName": newPatient.name.firstName, "name.lastName": newPatient.name.lastName,
-                            'socialSecurityNumber': newPatient.socialSecurityNumber})
+                            'gender': newPatient.gender, 'socialSecurityNumber': newPatient.socialSecurityNumber})
+                })
                 .then(function(createdPatient) {
                     console.log("createdPatient:", createdPatient);
                     expect(createdPatient.patientName).to.equal(`${newPatient.name.lastName}, ${newPatient.name.firstName}`);
                     expect(createdPatient.gender).to.equal(newPatient.gender);
                     expect(createdPatient.socialSecurityNumber).to.equal(newPatient.socialSecurityNumber);
                 });     
-            });
         });
     });
 

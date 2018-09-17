@@ -21,7 +21,11 @@ const patientSchema = mongoose.Schema({
         home: {type: String},
         cell: {type: String},
         work: {type: String}
-    }
+    },
+    labResults: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'LabResults'
+    }]
 });
 
 patientSchema.virtual("patientName").get(function() {

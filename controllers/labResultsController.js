@@ -49,15 +49,8 @@ router.get('/:id/update', (req, res) => {
         });
 });
 
-router.get('/create', (err, req, res) => {
-    if (err) {
-        console.log(err);
-        req.flash('errorMessage', 'Internal server error');
-        res.redirect(500, '/');
-    }
-    else {
-        res.render('lab-results/create', {result: {}, formMethod: 'post'});
-    }
+router.get('/create', (req, res) => {
+    res.render('lab-results/create', {result: null, formMethod: 'post'});
 });
 
 router.post('/', (req, res) => {

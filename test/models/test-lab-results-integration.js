@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const expect = chai.expect;
 
-const {LabResults} = require('../../models/clinics');
+const {LabResults} = require('../../models/lab-results');
 const {TEST_DATABASE_URL} = require('../../config');
 const {runServer, closeServer} = require('../../server');
 
@@ -16,24 +16,24 @@ chai.use(chaiHttp);
 function generateLabResultsData() {
     return {
         hematology: {
-            wbcCount: faker.finance.amount(0,20,2),
-            rbcCount: faker.finance.amount(0,10,2),
-            hemoglobin: faker.finance.amount(0,20,1),
-            hematocrit: faker.finance.amount(0,75,1),
-            plateletCount: faker.finance.amount(0,600,0)
+            wbcCount: Number(faker.finance.amount(0,20,2)),
+            rbcCount: Number(faker.finance.amount(0,10,2)),
+            hemoglobin: Number(faker.finance.amount(0,20,1)),
+            hematocrit: Number(faker.finance.amount(0,75,1)),
+            plateletCount: Number(faker.finance.amount(0,600,0))
         },
         chemistry: {
-            bun: faker.finance.amount(0,75,0),
-            creatinine: faker.finance.amount(0,20,2),
-            sodium: faker.finance.amount(0,250,0),
-            potassium: faker.finance.amount(0,15,1),
-            calcium: faker.finance.amount(0,20,1),
-            phosphorus: faker.finance.amount(0,15,1),
-            albumin: faker.finance.amount(0,10,1),
-            glucose: faker.finance.amount(0,400,0),
-            iron: faker.finance.amount(0,300,0),
-            cholesterol: faker.finance.amount(0,500,0),
-            triglycerides: faker.finance.amount(0,500,0)
+            bun: Number(faker.finance.amount(0,75,0)),
+            creatinine: Number(faker.finance.amount(0,20,2)),
+            sodium: Number(faker.finance.amount(0,250,0)),
+            potassium: Number(faker.finance.amount(0,15,1)),
+            calcium: Number(faker.finance.amount(0,20,1)),
+            phosphorus: Number(faker.finance.amount(0,15,1)),
+            albumin: Number(faker.finance.amount(0,10,1)),
+            glucose: Number(faker.finance.amount(0,400,0)),
+            iron: Number(faker.finance.amount(0,300,0)),
+            cholesterol: Number(faker.finance.amount(0,500,0)),
+            triglycerides: Number(faker.finance.amount(0,500,0))
         }
     };
 }
@@ -113,3 +113,5 @@ describe('Clinic API resource', function() {
         });
     });
 });
+
+module.exports = {generateLabResultsData};
