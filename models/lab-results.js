@@ -44,7 +44,7 @@ labResultsSchema.virtual("chemistryString").get(function() {
             Albumin: ${this.chemistry.albumin}\n
             Glucose: ${this.chemistry.glucose}\n
             Iron: ${this.chemistry.iron}\n
-            Cholesterol${this.chemistry.cholesterol}\n
+            Cholesterol: ${this.chemistry.cholesterol}\n
             Triglycerides: ${this.chemistry.triglycerides}`
 });
 
