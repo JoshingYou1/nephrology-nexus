@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const labResultsSchema = mongoose.Schema({
-    date: {type: Date},
+    _id: mongoose.Schema.Types.ObjectId,
+    date: {type: Date, required: true},
     hematology: {
         wbcCount: {type: Number, required: true},
         rbcCount: {type: Number, required: true},
@@ -54,5 +55,14 @@ labResultsSchema.virtual("chemistryString").get(function() {
 });
 
 const LabResults = mongoose.model("LabResults", labResultsSchema);
+
+labResultsSchema.methods.serialize = function() {
+    return {
+        id: this._id,
+        date: this.date,
+        hematology: this.hematologyString,
+        chemistry: this.chemistryString
+    };
+};
 
 module.exports = {LabResults};

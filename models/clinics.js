@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const clinicSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     name: {type: String, required: true},
     address: {
         street: {type: String, required: true},
@@ -16,7 +17,11 @@ const clinicSchema = mongoose.Schema({
     clinicManager: {
         firstName: {type: String, required: true},
         lastName: {type: String, required: true}
-    }
+    },
+    patients: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Patient'
+    }]
 });
 
 clinicSchema.virtual("addressString").get(function() {

@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "seed": "node seedData.js",
     "test": "mocha --recursive --exit",
     "start": "node server.js"
   },

@@ -72,7 +72,7 @@ router.put('/:id', (req, res) => {
     };
     Clinic.findByIdAndUpdate(req.params.id, req.body, {new: true}, err => {
         if (err) {
-            res.render('clinics/update', 'Sorry, something went wrong. Clinic data could not be updated.');
+            res.render('clinics/update', {message: 'Sorry, something went wrong. Clinic data could not be updated.'});
         }
         else {
             req.flash('successMessage', 'Clinic successfully updated!');

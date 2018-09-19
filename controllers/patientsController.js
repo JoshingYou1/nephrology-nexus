@@ -4,10 +4,12 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
+const config = require('../config');
 
 const {Patient} = require("../models/patients");
 
 router.get("/", (req, res) => {
+    console.log('config:', config.DATABASE_URL);
     Patient
         .find()
         .then(patients => {
@@ -24,7 +26,7 @@ router.get("/", (req, res) => {
 router.get("/show/:id", (req, res) => {
     Patient
         .findById(req.params.id)
-        .populate('LabResults')
+        .populate('labResults')
         .then(patient => {
             console.log('patient.labResults:', patient.labResults);
             res.render("patients/show", {patient: patient})

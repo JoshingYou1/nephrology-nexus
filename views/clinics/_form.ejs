@@ -1,0 +1,39 @@
+<section class="clinic-page">
+    <div class="clinic-container">
+        <% if (typeof message != 'undefined' && message) { %>
+            <h2><%= message %></h2>
+        <% } %>
+        <form class="clinic-form" role="form" method="<%= formMethod %>" action="/clinics">
+            <fieldset name="clinic-data">
+                <legend>Clinic Information</legend>
+
+                <label for="name">Clinic Name:</label>
+                <input placeholder="Northeast Dialysis Centers" type="text" name="name" id="name"
+                    value="<%- formMethod == 'put' ? clinic.name: '' %>" required>
+
+                <fieldset name="address">
+                    <legend>Address</legend>
+                        <label for="street">Street:</label>
+                        <input placeholder="1 International Drive" type="text" name="address.street" id="street"
+                            value="<%- formMethod == 'put' ? clinic.address.street: '' %>" required>
+        
+                        <label for="city">City:</label>
+                        <input placeholder="Jacksonville" type="text" name="address.city" id="city"
+                            value="<%- formMethod == 'put' ? clinic.address.city: '' %>" required>
+        
+                        <label for="state">State:</label>
+                        <input placeholder="FL" type="text" name="address.state" id="state" pattern="[A-Z]{2}"
+                            value="<%- formMethod == 'put' ? clinic.address.state: '' %>" required>
+        
+                        <label for="zip-code">Zip Code:</label>
+                        <input placeholder="11111" type="number" name="address.zipCode" id="zip-code" pattern="[0-9]{5}"
+                            value="<%- formMethod == 'put' ? clinic.address.zipCode: '' %>" required>
+                </fieldset>
+
+                <label for="phone-number">Phone Number:</label>
+                <input placeholer="123-456-7890" type="tel" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    value="<%- formMethod == 'put' ? clinic.phoneNumber: '' %>" required>
+            </fieldset>
+        </form>
+    </div>
+</section>

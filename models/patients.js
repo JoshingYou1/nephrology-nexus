@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const patientSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     name: {
     firstName: {type: String, required: true},
     lastName: {type: String, required: true}

@@ -72,7 +72,7 @@ router.put('/:id', (req, res) => {
     };
     LabResults.findByIdAndUpdate(req.params.id, req.body, {new: true}, err => {
         if (err) {
-            res.render('lab-results/update', 'Sorry, something went wrong. Lab results data could not be updated.');
+            res.render('lab-results/update', {message: 'Sorry, something went wrong. Lab results data could not be updated.'});
         }
         else {
             req.flash('successMessage', 'Lab results successfully updated!');
