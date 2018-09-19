@@ -88,7 +88,7 @@ const patients = [
             street: "932 Long Leaf Road",
             city: "Jacksonville",
             state: "Florida",
-            zipcode: "30919"
+            zipCode: "30919"
         },
         phoneNumbers: {
             home: "904-021-8774",
@@ -109,7 +109,7 @@ const patients = [
             street: "22 West Monument Road",
             city: "Jacksonville",
             state: "Florida",
-            zipcode: "32932"
+            zipCode: "32932"
         },
         phoneNumbers: {
             home: null,
@@ -379,16 +379,16 @@ async function dropDatabase () {
     try {
         console.log('Seeding patients..')
         await importSeedData();
-        // await Patient.insertMany(patients)
+        await Patient.insertMany(patients)
         console.log('Patients successfully imported!')
 
         console.log('Seeding clinics..')
         await Clinic.insertMany(clinics)
         console.log('Clinics successfully imported!')
 
-        // console.log('Seeding lab results..')
-        // await LabResults.insertMany(labResults)
-        // console.log('Lab results successfully imported!')
+        console.log('Seeding lab results..')
+        await LabResults.insertMany(labResults)
+        console.log('Lab results successfully imported!')
     }
     catch(error) {
       console.log('Error:' + error)
@@ -396,8 +396,8 @@ async function dropDatabase () {
   }
   
   async function setup() {
-    dropDatabase();
-    //seedData();
+    await dropDatabase();
+    await seedData();
     process.exit(0);
   }
 
