@@ -8,8 +8,9 @@
             <% if (typeof successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
             <% } %>
-            <% patient.labResults.forEach(results => { %>
-                <a href="/lab-results/show/<%= results.id %>"><%= results.id %></a>
+            <% patient.labResults.forEach(result => { %>
+                <a href="/clinics/<%= patient.clinic._id %>/patients/<%= patient.id %>/lab-results/show/<%= result.id %>"><%= result.id %></a>
+                <a href="clinics/<%= patient.clinic._id %>/patients/<%= patient.id %>/lab-results/update/<%= result.id %>">update</a>
             <% }); %>
         </main>
         <%- include ../layouts/footer.ejs %>

@@ -23,9 +23,10 @@ router.get('/', (req, res) => {
         });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/show/:id', (req, res) => {
     LabResults
         .findById(req.params.id)
+        .populate('patients')
         .then(result => {
             res.render('lab-results/show', {result: result});
         })
@@ -36,7 +37,7 @@ router.get('/:id', (req, res) => {
         });
 });
 
-router.get('/:id/update', (req, res) => {
+router.get('/update/:id', (req, res) => {
     LabResults
         .findById(req.params.id)
         .then(result => {
@@ -61,7 +62,7 @@ router.post('/', (req, res) => {
         }
         else {
             req.flash('successMessage', 'Lab results successfully created!');
-            res.redirect(201, `/lab-results/show/${result._id}`);
+            res.redirect(201, `/clinics/${result.patient.clinic._id}/patients/${result.patient._id}/lab-results/show/${result._id}`);
         };
     });
 });
@@ -76,7 +77,7 @@ router.put('/:id', (req, res) => {
         }
         else {
             req.flash('successMessage', 'Lab results successfully updated!');
-            res.redirect(204, `/lab-results/update/${res._id}`);
+            res.redirect(204, `/clinics/${result.patient.clinic._id}/patients/${result.patient._id}/lab-results/show/${res._id}`);
         };
     });
 });
@@ -88,7 +89,7 @@ router.delete('/:id', (req, res) => {
         }
         else {
             req.flash('successMessage', 'Lab results successfully deleted!');
-            res.redirect(204, '/lab-results/index');
+            res.redirect(204, `/clinics/${req.params.clinicId}/patients/${req.params.patientId}/lab-results`);
         };
     });
 });

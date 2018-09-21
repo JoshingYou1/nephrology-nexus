@@ -5,14 +5,29 @@ mongoose.Promise = global.Promise;
 const config = require('./config');
 mongoose.connect(config.DATABASE_URL);
 console.log(config.DATABASE_URL);
+const co = require('co');
 
 const {Patient} = require('./models/patients');
 const {Clinic} = require('./models/clinics');
 const {LabResults} = require('./models/lab-results');
 
+mongoose.set('debug', true);
+
+function getIds() {
+    let arr = [];
+    for (let i = 0; i < 5; i++) {
+        arr.push(new mongoose.Types.ObjectId());
+    }
+    return arr;
+}
+
+const patientsIdArray = getIds();
+const clinicsIdArray = getIds();
+const labResultsIdArray = getIds();
+
 const patients = [
     new Patient({
-        _id: new mongoose.Types.ObjectId(),
+        _id: patientsIdArray[0],
         name: {
             firstName: "Robert",
             lastName: "Jones"
@@ -30,11 +45,14 @@ const patients = [
             home: "904-223-1223",
             cell: "904-212-3312",
             work: null
-        }
-    })
-    ,
+        },
+        labResults: [
+            labResultsIdArray[0]
+        ],
+        clinic: clinicsIdArray[0]
+    }),
     new Patient({
-        _id: new mongoose.Types.ObjectId(),
+        _id: patientsIdArray[1],
         name: {
             firstName: "Betty",
             lastName: "Crocker"
@@ -52,10 +70,14 @@ const patients = [
             home: "904-923-0092",
             cell: null,
             work: null
-        }
+        },
+        labResults: [
+            labResultsIdArray[1]
+        ],
+        clinic: clinicsIdArray[0]
     }),
     new Patient({
-        _id: new mongoose.Types.ObjectId(),
+        _id: patientsIdArray[2],
         name: {
             firstName: "Michael",
             lastName: "Williams"
@@ -73,10 +95,14 @@ const patients = [
             home: "904-828-8211",
             cell: "904-912-9233",
             work: "904-903-1283"
-        }
+        },
+        labResults: [
+            labResultsIdArray[2]
+        ],
+        clinic: clinicsIdArray[1]
     }),
     new Patient({
-        _id: new mongoose.Types.ObjectId(),
+        _id: patientsIdArray[3],
         name: {
             firstName: "Meredith",
             lastName: "Edwards"
@@ -94,10 +120,14 @@ const patients = [
             home: "904-021-8774",
             cell: "904-875-9239",
             work: null
-        }
+        },
+        labResults: [
+            labResultsIdArray[3]
+        ],
+        clinic: clinicsIdArray[2]
     }),
     new Patient({
-        _id: new mongoose.Types.ObjectId(),
+        _id: patientsIdArray[4],
         name: {
             firstName: "David",
             lastName: "Baker"
@@ -115,13 +145,17 @@ const patients = [
             home: null,
             cell: null,
             work: null
-        }
+        },
+        labResults: [
+            labResultsIdArray[4]
+        ],
+        clinic: clinicsIdArray[3]
     })
 ]
 
 const clinics = [
     {
-        _id: new mongoose.Types.ObjectId(),
+        _id: clinicsIdArray[0],
         name: "North Florida Dialysis",
         address: {
             street: "21 Maple Street",
@@ -141,7 +175,7 @@ const clinics = [
         ]
     },
     {
-        _id: new mongoose.Types.ObjectId(),
+        _id: clinicsIdArray[1],
         name: "First Coast Dialysis",
         address: {
             street: "847 Jefferson Lane",
@@ -160,7 +194,7 @@ const clinics = [
         ]
     },
     {
-        _id: new mongoose.Types.ObjectId(),
+        _id: clinicsIdArray[2],
         name: "Dialysis, Inc.",
         address: {
             street: "3 Washington Street",
@@ -179,7 +213,7 @@ const clinics = [
         ]
     },
     {
-        _id: new mongoose.Types.ObjectId(),
+        _id: clinicsIdArray[3],
         name: "Duval Dialysis Center",
         address: {
             street: "23 West Sunset Road",
@@ -198,7 +232,7 @@ const clinics = [
         ]
     },
     {
-        _id: new mongoose.Types.ObjectId(),
+        _id: clinicsIdArray[4],
         name: "East Jacksonville Dialysis",
         address: {
             street: "37 Beaches Boulevard",
@@ -217,7 +251,7 @@ const clinics = [
 
 const labResults = [
     new LabResults({
-        _id: new mongoose.Types.ObjectId(),
+        _id: labResultsIdArray[0],
         date: "05/23/2012",
         hematology: {
             wbcCount: 5.97,
@@ -238,10 +272,11 @@ const labResults = [
             iron: 67,
             cholesterol: 194,
             triglycerides: 439
-        }
+        },
+        patient: patientsIdArray[0]
     }),
     new LabResults({
-        _id: new mongoose.Types.ObjectId(),
+        _id: labResultsIdArray[1],
         date: "07/02/2012",
         hematology: {
             wbcCount: 7.32,
@@ -262,10 +297,11 @@ const labResults = [
             iron: 132,
             cholesterol: 152,
             triglycerides: 65
-        }
+        },
+        patient: patientsIdArray[1]
     }),
     new LabResults({
-        _id: new mongoose.Types.ObjectId(),
+        _id: labResultsIdArray[2],
         date: "11/15/2012",
         hematology: {
             wbcCount: 7.87,
@@ -286,10 +322,11 @@ const labResults = [
             iron: 187,
             cholesterol: 43,
             triglycerides: 65
-        }
+        },
+        patient: patientsIdArray[2]
     }),
     new LabResults({
-        _id: new mongoose.Types.ObjectId(),
+        _id: labResultsIdArray[3],
         date: "09/29/2012",
         hematology: {
             wbcCount: 9.65,
@@ -310,10 +347,11 @@ const labResults = [
             iron: 231,
             cholesterol: 253,
             triglycerides: 54
-        }
+        },
+        patient: patientsIdArray[3]
     }),
     new LabResults({
-        _id: new mongoose.Types.ObjectId(),
+        _id: labResultsIdArray[4],
         date: "6/19/2012",
         hematology: {
             wbcCount: 6.42,
@@ -335,84 +373,58 @@ const labResults = [
             cholesterol: 210,
             triglycerides: 186
         },
+        patient: patientsIdArray[4]
     })
 ]
 
-function seedPatientData() {
-    console.info("Seeding patient data");
-    const seedData = [];
-    for (let i = 1; i <= 10; i++) {
-        seedData.push(patients);
-    }
-    return Patient.insertMany(seedData);
-}
-
-function seedClinicData() {
-    console.info("Seeding clinic data");
-    const seedData = [];
-    for (let i = 1; i <= 10; i++) {
-        seedData.push(clinics);
-    }
-    return Clinic.insertMany(seedData);
-}
-
-function seedLabResultsData() {
-    console.info("Seeding lab results data");
-    const seedData = [];
-    for (let i = 1; i <= 10; i++) {
-        seedData.push(labResults);
-    }
-    return LabResults.insertMany(seedData);
-}
-
-async function dropDatabase () {
-    console.log('Removing patient collection')
-    await Patient.remove()
-    console.log('Removing clinic collection')
-    await Clinic.remove()
-    console.log('Removing lab results collection')
-    await LabResults.remove()
-    console.log('Success!')
-  }
-  
-  async function seedData () {
-    try {
-        console.log('Seeding patients..')
-        await importSeedData();
-        await Patient.insertMany(patients)
-        console.log('Patients successfully imported!')
-
-        console.log('Seeding clinics..')
-        await Clinic.insertMany(clinics)
-        console.log('Clinics successfully imported!')
-
-        console.log('Seeding lab results..')
-        await LabResults.insertMany(labResults)
-        console.log('Lab results successfully imported!')
-    }
-    catch(error) {
-      console.log('Error:' + error)
-    }
-  }
-  
-  async function setup() {
-    await dropDatabase();
-    await seedData();
-    process.exit(0);
-  }
-
-  setup();
-
-async function importSeedData() {
-    patients.forEach((patient, index) => {
-        patient.save(err => {
-            if (err) {
-                console.log('Error:' + err);
-            }
-            else {
-                labResults[index].patient = patient._id;
-                labResults[index].save();
-            }
-        })
+exec()
+    .then(() => {
+        console.log('successfully ran program');
+        process.exit(0);
     })
+    .catch(error => {
+        console.error(`Error: ${error}\n${error.stack}`);
+    });
+
+function exec() {
+    return co(function* () {
+        const db = mongoose.createConnection(config.DATABASE_URL);
+    
+        // TODO: figure out if we can/how to use the model from the model files
+        // make patient schema for this db connection
+        const patient = db.model('Patient', Patient.schema);
+        // clear the patients collection
+        console.log('Removing patients collection');
+        yield patient.remove();
+    
+        //make clinic schema for this db connection
+        const clinic = db.model('Clinic', Clinic.schema);
+        // clear the clinics collection
+        console.log('Removing clinics collection');
+        yield clinic.remove();
+    
+        //make lab results schema for this db connection
+        const labResult = db.model('LabResults', LabResults.schema);
+        // clear the lab results collection
+        console.log('Removing lab results collection');
+        yield labResult.remove();
+    
+        // seed the patient data
+        console.log('Seeding patients..');
+        yield patient.insertMany(patients).then(() => ({ ok: 1 }));
+        console.log('Patients successfully imported!');
+    
+        // seed the clinic data
+        console.log('Seeding clinics..');
+        yield clinic.insertMany(clinics).then(() => ({ ok: 1 }));
+        console.log('Clinics successfully imported!');
+    
+         // seed the lab results
+        console.log('Seeding lab results..');
+        yield labResult.insertMany(labResults).then(() => ({ ok: 1 }));
+        console.log('Lab results successfully imported!');
+    
+        console.log('~Data successfully imported~');
+    });
 }
+

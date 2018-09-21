@@ -23,6 +23,19 @@ router.get("/", (req, res) => {
         });
 });
 
+router.get("/show/:id", (req, res) => {
+    Clinic
+        .findById(req.params.id)
+        .populate('patients')
+        .then(clinic => {
+            res.render("clinics/show", {clinic: clinic})
+        })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({message: "Internal server error"});
+        });
+});
+
 router.get("/:id", (req, res) => {
     Clinic
         .findById(req.params.id)
@@ -36,7 +49,7 @@ router.get("/:id", (req, res) => {
         });
 });
 
-router.get("/:id/update", (req, res) => {
+router.get("/update/:id", (req, res) => {
     Clinic
         .findById(req.params.id)
         .then(clinic => {

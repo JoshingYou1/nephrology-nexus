@@ -1,1 +1,17 @@
-<h1>clinics!!</h1>
+<!DOCTYPE html>
+<html lang="en">
+    <%- include ../layouts/head.ejs %>
+    <body>
+        <%- include ../layouts/header.ejs %>
+        <main>
+            <h1>clinics</h1>
+            <ul>
+                <% clinics.forEach(clinic => { %>
+                <ol><a href="/clinics/show/<%= clinic.id%>"><%= clinic.name %></a>
+                    <a href="/clinics/update/<%= clinic.id%>">update</a></ol>
+                <% }); %>
+            </ul>
+        </main>
+        <%- include ../layouts/footer.ejs %>
+    </body>
+</html>

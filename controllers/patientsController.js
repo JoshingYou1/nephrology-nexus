@@ -49,8 +49,9 @@ router.get("/update/:id", (req, res) => {
         });
 });
 
-router.get("/create", (req, res) => {
-    res.render("patients/create", {patient: null, formMethod: "post"});
+router.get("/clinics/:clinicId/patients/create", (req, res) => {
+    console.log(req.params);
+    res.render("patients/create", {patient: null, formMethod: "post", clinicId: req.params.clinicId});
 });
 
 router.post("/", (req, res) => {
@@ -62,7 +63,7 @@ router.post("/", (req, res) => {
         }
         else {
             req.flash("successMessage", "Patient successfully created!");
-            res.redirect(201, `/patients/show/${patient._id}`);
+            res.redirect(201, `/clinics/${patient.clinic._id}/patients/show/${patient._id}`);
         };
     });
 });
@@ -78,7 +79,7 @@ router.put("/:id", (req, res) => {
         }
         else {
             req.flash("successMessage", "Patient successfully updated!");
-            res.redirect(204, `/patients/update/${res._id}`);
+            res.redirect(204, `/clinics/${patient.clinic._id}/patients/show/${res._id}`);
         };
     });
 });
@@ -90,7 +91,7 @@ router.delete("/:id", (req, res) => {
         }
         else {
             req.flash("successMessage", "Patient successfully deleted!");
-            res.redirect(204, "/patients/index");
+            res.redirect(204, `/clinics/${req.params.clinicId}/patients`);
         };
     });
 });

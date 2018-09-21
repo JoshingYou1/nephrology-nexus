@@ -23,6 +23,10 @@ const patientSchema = mongoose.Schema({
         cell: {type: String},
         work: {type: String}
     },
+    clinic: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Clinic'
+    },
     labResults: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'LabResults'
