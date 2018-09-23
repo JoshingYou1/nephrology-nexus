@@ -40,6 +40,7 @@ router.get('/show/:id', (req, res) => {
 router.get('/update/:id', (req, res) => {
     LabResults
         .findById(req.params.id)
+        .populate('patients')
         .then(result => {
             res.render("lab-results/update", {result: result, formMethod: "put"});
         })

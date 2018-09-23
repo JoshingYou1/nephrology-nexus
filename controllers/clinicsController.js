@@ -52,6 +52,7 @@ router.get("/:id", (req, res) => {
 router.get("/update/:id", (req, res) => {
     Clinic
         .findById(req.params.id)
+        .populate('patients')
         .then(clinic => {
             res.render("clinics/update", {clinic: clinic, formMethod: "put"});
         })

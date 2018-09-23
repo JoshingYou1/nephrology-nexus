@@ -27,6 +27,7 @@ router.get("/show/:id", (req, res) => {
     Patient
         .findById(req.params.id)
         .populate('labResults')
+        .populate('clinic')
         .then(patient => {
             console.log('patient.labResults:', patient.labResults);
             res.render("patients/show", {patient: patient})
@@ -41,6 +42,8 @@ router.get("/update/:id", (req, res) => {
     console.log('req.params:', req.params.id);
     Patient
         .findById(req.params.id)
+        .populate('labResults')
+        .populate('clinic')
         .then(patient => {
             res.render("patients/update", {patient: patient, formMethod: "put", clinicId: req.clinicId})
         })
