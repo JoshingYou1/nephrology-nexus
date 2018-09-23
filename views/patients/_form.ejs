@@ -8,6 +8,7 @@
             <fieldset name="patient-data">
                 <legend>Patient Information</legend>
                 <input type="hidden" name="clinic" value="<%= formMethod == 'put' ? patient.clinic._id : clinicId %>">
+
                 <label for="first-name">First Name:</label>
                 <input placeholder="John" type="text" name="name.firstName" id="first-name" 
                     value="<%- formMethod == 'put' ? patient.name.firstName : '' %>" required>

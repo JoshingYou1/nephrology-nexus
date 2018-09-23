@@ -27,14 +27,16 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
 
-//app.use("/clinics/:clinicId/patients", patientsController);
-app.get("/clinics/:clinicId/patients/create", (req, res) => {
-    console.log(req.params);
-    res.render("patients/create", {patient: null, formMethod: "post", clinicId: req.params.clinicId});
-});
-
 app.use("/clinics", clinicsController);
-app.use("/clinics/:clinicId/patients/:patientId/lab-results", labResultsController);
+app.use("/clinics/:clinicId/patients", function(req, res, next) {
+    req.clinicId = req.params.clinicId;
+    next();
+}, patientsController);
+app.use("/clinics/:clinicId/patients/:patientId/lab-results", function(req, res, next) {
+    req.clinicId = req.params.clinicId;
+    req.patientId = req.params.patientId;
+    next();
+}, labResultsController);
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Not Found' });
   });

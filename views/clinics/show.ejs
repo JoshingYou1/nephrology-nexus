@@ -9,7 +9,7 @@
                 <h2><%= successMessage %></h2>
             <% } %>
             <% clinic.patients.forEach(patient => { %>
-                <a href="/clinics/<%= clinic.id %>/patients/show/<%= patient.id %>"><%= patient.id %></a>
+                <a href="/clinics/<%= clinic.id %>/patients/show/<%= patient.id %>"><%= patient.name.lastName %> <%= patient.name.firstName %></a>
             <% }); %>
         </main>
         <%- include ../layouts/footer.ejs %>

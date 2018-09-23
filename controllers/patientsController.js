@@ -11,10 +11,10 @@ const {Patient} = require("../models/patients");
 router.get("/", (req, res) => {
     console.log('config:', config.DATABASE_URL);
     Patient
-        .find()
+        .find({clinic: req.clinicId})
         .then(patients => {
             console.log(patients);
-            res.render("patients/index", {patients: patients})
+            res.render("patients/index", {patients: patients, clinicId: req.clinicId})
         })
         .catch(
             err => {
@@ -38,10 +38,11 @@ router.get("/show/:id", (req, res) => {
 });
 
 router.get("/update/:id", (req, res) => {
+    console.log('req.params:', req.params.id);
     Patient
         .findById(req.params.id)
         .then(patient => {
-            res.render("patients/update", {patient: patient, formMethod: "put"})
+            res.render("patients/update", {patient: patient, formMethod: "put", clinicId: req.clinicId})
         })
         .catch(err => {
             console.error(err);
@@ -49,9 +50,9 @@ router.get("/update/:id", (req, res) => {
         });
 });
 
-router.get("/clinics/:clinicId/patients/create", (req, res) => {
+router.get("/create", (req, res) => {
     console.log(req.params);
-    res.render("patients/create", {patient: null, formMethod: "post", clinicId: req.params.clinicId});
+    res.render("patients/create", {patient: null, formMethod: "post", clinicId: req.clinicId});
 });
 
 router.post("/", (req, res) => {

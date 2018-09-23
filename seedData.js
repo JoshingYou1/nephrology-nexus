@@ -32,7 +32,7 @@ const patients = [
             firstName: "Robert",
             lastName: "Jones"
         },
-        dateOfBirth: "05/12/68",
+        dateOfBirth: "05/12/1968",
         gender: "Male",
         socialSecurityNumber: "127371989",
         address: {
@@ -57,7 +57,7 @@ const patients = [
             firstName: "Betty",
             lastName: "Crocker"
         },
-        dateOfBirth: "08/02/51",
+        dateOfBirth: "08/02/1951",
         gender: "Female",
         socialSecurityNumber: "380748274",
         address: {
@@ -82,7 +82,7 @@ const patients = [
             firstName: "Michael",
             lastName: "Williams"
         },
-        dateOfBirth: "02/17/74",
+        dateOfBirth: "02/17/1974",
         gender: "Male",
         socialSecurityNumber: "002385372",
         address: {
@@ -107,7 +107,7 @@ const patients = [
             firstName: "Meredith",
             lastName: "Edwards"
         },
-        dateOfBirth: "03/09/48",
+        dateOfBirth: "03/09/1948",
         gender: "Female",
         socialSecurityNumber: "378472109",
         address: {
@@ -132,7 +132,7 @@ const patients = [
             firstName: "David",
             lastName: "Baker"
         },
-        dateOfBirth: "11/30/43",
+        dateOfBirth: "11/30/1943",
         gender: "Male",
         socialSecurityNumber: "938848321",
         address: {
