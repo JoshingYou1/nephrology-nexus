@@ -27,7 +27,7 @@ describe("Patient controller", function() {
 
             return chai
                 .request(app)
-                .get("/patients")
+                .get("/clinics/:clinicId/patients")
                 .then(function(_res) {
                     res = _res;
                     expect(res).to.have.status(200);
@@ -42,7 +42,7 @@ describe("Patient controller", function() {
             const newPatient = generatePatientData();
             return chai
                 .request(app)
-                .post("/patients")
+                .post("/clinics/:clinicId/patients")
                 .send(newPatient)
                 .then(function(res) {
                     expect(res).to.have.status(201);
@@ -78,7 +78,7 @@ describe("Patient controller", function() {
 
                     return chai
                         .request(app)
-                        .put(`/patients/${patient.id}`)
+                        .put(`/clinics/${patient.clinic.id}/patients/${patient.id}`)
                         .send(updatedPatientData)
                 })
                 .then(function(res) {
@@ -105,7 +105,7 @@ describe("Patient controller", function() {
 
                     return chai
                         .request(app)
-                        .delete(`/patients/${patient.id}`);
+                        .delete(`/clinics/${patient.clinic.id}/patients/${patient.id}`);
                 })
                 .then(function(res) {
                     expect(res).to.have.status(204);

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     LabResults
         .find()
         .then(labResults => {
-            res.render('lab-results/index', {labResults: labResults});
+            res.render('lab-results/index', {labResults: labResults, patientId: req.patientId, clinicId: req.clinicId});
         })
         .catch(err => {
             console.log(err);
@@ -51,7 +51,7 @@ router.get('/update/:id', (req, res) => {
 });
 
 router.get('/create', (req, res) => {
-    res.render('lab-results/create', {result: null, formMethod: 'post'});
+    res.render('lab-results/create', {result: null, formMethod: 'post', patientId: req.patientId, clinicId: req.clinicId});
 });
 
 router.post('/', (req, res) => {

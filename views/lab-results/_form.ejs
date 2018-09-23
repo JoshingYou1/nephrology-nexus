@@ -3,9 +3,13 @@
         <% if (typeof message != 'undefined' && message) { %>
             <h2><%= message %></h2>
         <% } %>
-        <form class="lab-results-form" role="form" method="<%= formMethod %>" action="/lab-results">
+        <form class="lab-results-form" role="form" method="<%= formMethod %>" 
+                action="/clinics/<%= formMethod == 'put' ? patient.clinic._id : clinicId %>/patients/
+                    <%= formMethod == 'put' ? patient._id : patientId %>/lab-results">
             <fieldset name="lab-results-data">
                 <legend>Lab Results</legend>
+                <input type="hidden" name="lab-results" value="<%= formMethod == 'put' ? patient.clinic._id : clinicId %>
+                    <%= formMethod == 'put' ? patient._id : patientId %>">
 
                 <label for="date">Draw Date:</label>
                 <input placeholder="11/11/2011" type="date" name="date" id="date" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
