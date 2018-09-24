@@ -48,18 +48,6 @@ patientSchema.virtual("phoneNumbersString").get(function() {
             Work: ${this.phoneNumbers.work}`;
 });
 
-patientSchema.methods.serialize = function() {
-    return {
-        id: this._id,
-        name: this.patientName,
-        dateOfBirth: this.dateOfBirth,
-        gender: this.gender,
-        socialSecurityNumber: this.socialSecurityNumber,
-        address: this.addressString,
-        phoneNumbers: this.phoneNumbersString
-    };
-};
-
 const Patient = mongoose.model("Patient", patientSchema);
 
 module.exports = {Patient};

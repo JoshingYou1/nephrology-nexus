@@ -45,7 +45,7 @@ router.get("/update/:id", (req, res) => {
         .populate('labResults')
         .populate('clinic')
         .then(patient => {
-            res.render("patients/update", {patient: patient, formMethod: "put", clinicId: req.clinicId})
+            res.render("patients/update", {patient: patient, formMethod: 'PUT', clinicId: req.clinicId})
         })
         .catch(err => {
             console.error(err);
@@ -55,7 +55,7 @@ router.get("/update/:id", (req, res) => {
 
 router.get("/create", (req, res) => {
     console.log(req.params);
-    res.render("patients/create", {patient: null, formMethod: "post", clinicId: req.clinicId});
+    res.render("patients/create", {patient: null, formMethod: 'POST', clinicId: req.clinicId});
 });
 
 router.post("/", (req, res) => {

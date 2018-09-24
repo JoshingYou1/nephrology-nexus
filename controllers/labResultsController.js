@@ -42,7 +42,8 @@ router.get('/update/:id', (req, res) => {
         .findById(req.params.id)
         .populate('patients')
         .then(result => {
-            res.render("lab-results/update", {result: result, formMethod: "put"});
+            console.log('formatDate:', result.formatDate);
+            res.render("lab-results/update", {result: result, formMethod: 'PUT', clinicId: req.clinicId, patientId: req.patientId});
         })
         .catch(err => {
             console.log(err);
@@ -52,14 +53,18 @@ router.get('/update/:id', (req, res) => {
 });
 
 router.get('/create', (req, res) => {
-    res.render('lab-results/create', {result: null, formMethod: 'post', patientId: req.patientId, clinicId: req.clinicId});
+    res.render('lab-results/create', {result: null, formMethod: 'POST', patientId: req.patientId, clinicId: req.clinicId});
 });
 
 router.post('/', (req, res) => {
     let labResultsData = new LabResults(req.body);
+    labResultsData._id = new mongoose.Types.ObjectId();
+    labResultsData.patient = req.body.patient;
     labResultsData.save((err, result) => {
         if (err) {
-            res.render('lab-results/create', {message: 'Sorry, your request was invalid.'});
+            console.log(err);
+            res.render('lab-results/create', {message: 'Sorry, your request was invalid.', formMethod: 'POST',
+                clinicId: req.clinicId, patientId: req.patientId});
         }
         else {
             req.flash('successMessage', 'Lab results successfully created!');

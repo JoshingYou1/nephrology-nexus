@@ -8,7 +8,26 @@
             <% if (typeof successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
             <% } %>
-            <%= result %>
+            <section class="hematology">
+                <div>WBC Count: <%= result.hematology.wbcCount %></div>
+                    RBC Count: ${this.hematology.rbcCount}
+                    Hemoglobin: ${this.hematology.hemoglobin}
+                    Hematocrit: ${this.hematology.hematocrit}
+                    Platelet Count: ${this.hematology.plateletCount
+            </section>
+            <section class="chemistry">
+            <div>BUN: <%= result.chemistry.bun %></div>
+                Creatinine: ${this.chemistry.creatinine}\n
+                Sodium: ${this.chemistry.sodium}\n
+                Potassium: ${this.chemistry.potassium}\n
+                Calcium: ${this.chemistry.calcium}\n
+                Phosporus: ${this.chemistry.phosphorus}\n
+                Albumin: ${this.chemistry.albumin}\n
+                Glucose: ${this.chemistry.glucose}\n
+                Iron: ${this.chemistry.iron}\n
+                Cholesterol: ${this.chemistry.cholesterol}\n
+                Triglycerides: ${this.chemistry.triglycerides}
+            </section>
         </main>
         <%- include ../layouts/footer.ejs %>
     </body>

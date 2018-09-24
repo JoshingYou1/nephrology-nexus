@@ -10,6 +10,7 @@
             <% } %>
             <% clinic.patients.forEach(patient => { %>
                 <a href="/clinics/<%= clinic.id %>/patients/show/<%= patient.id %>"><%= patient.name.lastName %> <%= patient.name.firstName %></a>
+                <a href="/clinics/<%= clinic.id %>/patients/update/<%= patient.id %>">update</a>
             <% }); %>
         </main>
         <%- include ../layouts/footer.ejs %>

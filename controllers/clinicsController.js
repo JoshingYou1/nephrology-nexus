@@ -54,7 +54,7 @@ router.get("/update/:id", (req, res) => {
         .findById(req.params.id)
         .populate('patients')
         .then(clinic => {
-            res.render("clinics/update", {clinic: clinic, formMethod: "put"});
+            res.render("clinics/update", {clinic: clinic, formMethod: 'PUT'});
         })
         .catch(err => {
             console.log(err);
@@ -64,7 +64,7 @@ router.get("/update/:id", (req, res) => {
 });
 
 router.get('/create', (req, res) => {
-    res.render('clinics/create', {clinic: null, formMethod: 'post'});
+    res.render('clinics/create', {clinic: null, formMethod: 'POST'});
 });
 
 router.post('/', (req, res) => {
