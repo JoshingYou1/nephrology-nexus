@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-const config = require('../config');
 
 const {Patient} = require("../models/patients");
 
@@ -29,8 +28,10 @@ router.get("/show/:id", (req, res) => {
         .populate('labResults')
         .populate('clinic')
         .then(patient => {
+            let successMessage = req.flash('successMessage');
+            console.log(successMessage);
             console.log('patient.labResults:', patient.labResults);
-            res.render("patients/show", {patient: patient})
+            res.render("patients/show", {patient: patient, successMessage: successMessage})
         })
         .catch(err => {
             console.error(err);
@@ -45,7 +46,7 @@ router.get("/update/:id", (req, res) => {
         .populate('labResults')
         .populate('clinic')
         .then(patient => {
-            res.render("patients/update", {patient: patient, formMethod: 'PUT', clinicId: req.clinicId})
+            res.render("patients/update", {patient: patient, formMethod: 'PUT', clinicId: req.clinicId});
         })
         .catch(err => {
             console.error(err);
@@ -62,8 +63,8 @@ router.post("/", (req, res) => {
     console.log('post:')
     let patientData = new Patient(req.body);
     patientData.save((err, patient) => {
-        console.log(err);
         if (err) {
+            console.log(err);
             res.render("patients/create", {message: "Sorry, your request was invalid."});
         }
         else {
@@ -74,33 +75,32 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-    console.log('put:', req.params.id)
+    console.log('put:', req.body.id);
     if  (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-        res.render("patients/update", {message: "Sorry, the request path id and the request body id values must match."});
-    };
+        Patient
+            .findById(req.params.id)
+            .populate('labResults')
+            .populate('clinic')
+            .then(patient => {
+                res.render("patients/update", {patient: patient,
+                    errorMessage: "Sorry, the request path id and the request body id values must match.", clinicId: req.clinicId,
+                    formMethod: 'PUT'});
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(500).json({message: "Internal server error"});
+            });
+    }
 
-    Patient.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-        .then(patient => {
-            req.flash("successMessage", "Patient successfully updated!");
-            res.redirect(`/clinics/${patient.clinic._id}/patients/show/${res._id}`);
-        })
-        .catch(err => {
-            res.render("patients/update", {message: "Sorry, something went wrong. Patient data could not be updated."})
+    Patient.findByIdAndUpdate(req.params.id, {$set: req.body})
+        .then(() => {
+            req.flash('successMessage', 'Patient successfully updated!');
+            res.redirect(`/clinics/${req.clinicId}/patients/show/${req.params.id}`);
+            res.finished = true;
+            res.end();
         });
+
 });
-        
-        
-//         (err, patient) => {
-//         console.log('patient:', patient);
-//         if (err) {
-//             res.render("patients/update", {message: "Sorry, something went wrong. Patient data could not be updated."})
-//         }
-//         else {
-//             req.flash("successMessage", "Patient successfully updated!");
-//             res.redirect(`/clinics/${patient.clinic._id}/patients/show/${res._id}`);
-//         };
-//     });
-// });
 
 router.delete("/:id", (req, res) => {
     Patient.findByIdAndRemove(req.params.id, err => {

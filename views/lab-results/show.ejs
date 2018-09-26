@@ -8,6 +8,10 @@
             <% if (successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
             <% } %>
+            <form  class="lab-results-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%= result._id %>">
+                <button class="lab-results-delete-button">Delete</button>
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
             <section class="hematology">
                 <div>WBC Count: <%= result.hematology.wbcCount %></div>
                     RBC Count: ${this.hematology.rbcCount}
@@ -30,5 +34,6 @@
             </section>
         </main>
         <%- include ../layouts/footer.ejs %>
+        <%- include ../layouts/scripts.ejs %>
     </body>
 </html>

@@ -5,7 +5,7 @@
         <%- include ../layouts/header.ejs %>
         <main>
             <h1><%= patient.patientName %></h1>
-            <% if (typeof successMessage != 'undefined' && successMessage) { %>
+            <% if (successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
             <% } %>
             <% patient.labResults.forEach(result => { %>

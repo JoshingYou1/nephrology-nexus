@@ -3,8 +3,11 @@
         <% if (typeof message != 'undefined' && message) { %>
             <h2><%= message %></h2>
         <% } %>
-        <form class="lab-results-form" role="form" method="<%= formMethod %>" 
+        <form class="lab-results-form" role="form" method="POST" 
                 action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%- formMethod == 'PUT' ? result._id : '' %>">
+                <% if (formMethod == 'PUT') { %>
+                    <input type="hidden" name="_method" value="PUT">
+                <% } %>
             <fieldset name="lab-results-data">
                 <legend>Lab Results</legend>
                 <input type="hidden" name="patient" value="<%= patientId %>">
