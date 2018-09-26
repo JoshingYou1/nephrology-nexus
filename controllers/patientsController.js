@@ -59,6 +59,7 @@ router.get("/create", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+    console.log('post:')
     let patientData = new Patient(req.body);
     patientData.save((err, patient) => {
         console.log(err);
@@ -67,26 +68,39 @@ router.post("/", (req, res) => {
         }
         else {
             req.flash("successMessage", "Patient successfully created!");
-            res.redirect(201, `/clinics/${patient.clinic._id}/patients/show/${patient._id}`);
+            res.redirect(`/clinics/${patient.clinic._id}/patients/show/${patient._id}`);
         };
     });
 });
 
 router.put("/:id", (req, res) => {
+    console.log('put:', req.params.id)
     if  (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.render("patients/update", {message: "Sorry, the request path id and the request body id values must match."});
     };
 
-    Patient.findByIdAndUpdate(req.params.id, req.body, {new: true}, err => {
-        if (err) {
-            res.render("patients/update", {message: "Sorry, something went wrong. Patient data could not be updated."})
-        }
-        else {
+    Patient.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        .then(patient => {
             req.flash("successMessage", "Patient successfully updated!");
-            res.redirect(204, `/clinics/${patient.clinic._id}/patients/show/${res._id}`);
-        };
-    });
+            res.redirect(`/clinics/${patient.clinic._id}/patients/show/${res._id}`);
+        })
+        .catch(err => {
+            res.render("patients/update", {message: "Sorry, something went wrong. Patient data could not be updated."})
+        });
 });
+        
+        
+//         (err, patient) => {
+//         console.log('patient:', patient);
+//         if (err) {
+//             res.render("patients/update", {message: "Sorry, something went wrong. Patient data could not be updated."})
+//         }
+//         else {
+//             req.flash("successMessage", "Patient successfully updated!");
+//             res.redirect(`/clinics/${patient.clinic._id}/patients/show/${res._id}`);
+//         };
+//     });
+// });
 
 router.delete("/:id", (req, res) => {
     Patient.findByIdAndRemove(req.params.id, err => {
@@ -95,7 +109,7 @@ router.delete("/:id", (req, res) => {
         }
         else {
             req.flash("successMessage", "Patient successfully deleted!");
-            res.redirect(204, `/clinics/${req.params.clinicId}/patients`);
+            res.redirect(`/clinics/${req.params.clinicId}/patients`);
         };
     });
 });

@@ -35,7 +35,7 @@ const patientSchema = mongoose.Schema({
 
 patientSchema.virtual("patientName").get(function() {
     return `${this.name.lastName}, ${this.name.firstName}`;
-})
+});
 
 patientSchema.virtual("addressString").get(function() {
     return `${this.address.street}\n

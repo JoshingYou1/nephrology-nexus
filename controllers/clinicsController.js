@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
         .catch(err => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
-            res.redirect(500, "/");
+            res.redirect("/");
         });
 });
 
@@ -45,7 +45,7 @@ router.get("/:id", (req, res) => {
         .catch(err => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
-            res.redirect(500, "/");
+            res.redirect("/");
         });
 });
 
@@ -59,7 +59,7 @@ router.get("/update/:id", (req, res) => {
         .catch(err => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
-            res.redirect(500, "/");
+            res.redirect("/");
         });
 });
 
@@ -75,7 +75,7 @@ router.post('/', (req, res) => {
         }
         else {
             req.flash('successMessage', 'Clinic successfully created!');
-            res.redirect(201, `/clinics/show/${clinic._id}`);
+            res.redirect(`/clinics/show/${clinic._id}`);
         };
     });
 });
@@ -90,7 +90,7 @@ router.put('/:id', (req, res) => {
         }
         else {
             req.flash('successMessage', 'Clinic successfully updated!');
-            res.redirect(204, `/clinics/update/${res._id}`);
+            res.redirect(`/clinics/update/${res._id}`);
         };
     });
 });
@@ -102,7 +102,7 @@ router.delete('/:id', (req, res) => {
         }
         else {
             req.flash('successMessage', 'Clinic successfully deleted!');
-            res.redirect(204, '/clinics/index');
+            res.redirect('/clinics/index');
         };
     });
 });

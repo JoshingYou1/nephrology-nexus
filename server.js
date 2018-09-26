@@ -3,9 +3,11 @@
 const express = require('express');
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const flash = require("req-flash");
+const flash = require("connect-flash");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+const methodOverride = require('method-override');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL, PORT} = require("./config");
@@ -16,10 +18,18 @@ const patientsController = require("./controllers/patientsController");
 const clinicsController = require("./controllers/clinicsController");
 const labResultsController = require("./controllers/labResultsController");
 
+app.use(bodyParser());
+app.use(methodOverride(function(req, res) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+        const method = req.body._method;
+        delete req.body._method;
+        return method;
+    }
+}));
 app.use(express.static('public'));
 app.use(morgan("common"));
-app.use(bodyParser());
-app.use(session({ secret: '123' }));
+app.use(cookieParser('secret'));
+app.use(session({ cookie: {maxAge: 60000 }}));
 app.use(flash());
 app.set("view engine", "ejs");
 
@@ -37,6 +47,7 @@ app.use("/clinics/:clinicId/patients/:patientId/lab-results", function(req, res,
     req.patientId = req.params.patientId;
     next();
 }, labResultsController);
+
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Not Found' });
   });

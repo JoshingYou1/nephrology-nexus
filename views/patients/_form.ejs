@@ -3,7 +3,11 @@
             <% if (typeof message != 'undefined' && message) { %>
                 <h2><%= message %></h2>
             <% } %>
-            <form class="patient-form" role="form" method="<%= formMethod %>" action="/clinics/<%= clinicId %>/patients">
+            <form class="patient-form" role="form" method="POST" 
+                action="/clinics/<%= clinicId %>/patients/<%- formMethod == 'PUT' ? patient._id : '' %>">
+            <% if (formMethod == 'PUT') { %>
+                <input type="hidden" name="_method" value="PUT">
+            <% } %>
             <fieldset name="patient-data">
                 <legend>Patient Information</legend>
                 <input type="hidden" name="clinic" value="<%= clinicId %>">
@@ -51,7 +55,7 @@
                     <legend>Phone Number(s)</legend>
                     <label for="home-phone">Home:</label>
                     <input placeholder="111-111-1111" type="tel" name="phoneNumbers.home" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                        value="<%- formMethod == 'PUT' ? patient.phoneNumbers.home : '' %>" required>
+                        value="<%- formMethod == 'PUT' ? patient.phoneNumbers.home : '' %>">
     
                     <label for="cell-phone">Cell:</label>
                     <input placeholder="222-222-2222" type="tel" name="phoneNumbers.cell" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -59,7 +63,7 @@
     
                     <label for="work-phone">Work:</label>
                     <input placeholder="333-333-3333" type="tel" name="phoneNumbers.work" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                        value="<%- formMethod == 'PUT' ? patient.phoneNumbers.work : '' %>" required>
+                        value="<%- formMethod == 'PUT' ? patient.phoneNumbers.work : '' %>">
                 </fieldset>
             </fieldset>
             <button type="submit" class="patients-form-button">Submit</button>
