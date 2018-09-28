@@ -3,7 +3,11 @@
         <% if (typeof message != 'undefined' && message) { %>
             <h2><%= message %></h2>
         <% } %>
-        <form class="clinic-form" role="form" method="<%= formMethod %>" action="/clinics">
+        <form class="clinic-form" role="form" method="POST" action="/clinics/<%- formMethod == 'PUT' ? clinic._id : '' %>">
+            <% if (formMethod == 'PUT') { %>
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="id" value="<%= clinic._id %>">
+            <% } %>
             <fieldset name="clinic-data">
                 <legend>Clinic Information</legend>
 
@@ -49,6 +53,7 @@
                             value="<%- formMethod == 'PUT' ? clinic.clinicManager.lastName : '' %>" required>
                 </fieldset>
             </fieldset>
+            <button type="submit" class="clinic-form-button">Submit</button>
         </form>
     </div>
 </section>

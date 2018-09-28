@@ -17,6 +17,8 @@ router.get("/", (req, res) => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
             res.redirect("/");
+            res.finished = true;
+            res.end();
         });
 });
 
@@ -25,38 +27,44 @@ router.get("/show/:id", (req, res) => {
         .findById(req.params.id)
         .populate('patients')
         .then(clinic => {
-            res.render("clinics/show", {clinic: clinic})
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({message: "Internal server error"});
-        });
-});
-
-router.get("/:id", (req, res) => {
-    Clinic
-        .findById(req.params.id)
-        .then(clinic => {
-            res.render("clinics/show", {clinic: clinic});
+            let successMessage = req.flash('successMessage');
+            res.render("clinics/show", {clinic: clinic, successMessage: successMessage})
         })
         .catch(err => {
             console.log(err);
-            req.flash("errorMessage", "Internal server error");
-            res.redirect("/");
+            req.flash('errorMessage', 'Internal server error');
+            res.redirect('/');
+            res.finished = true;
+            res.end();
         });
 });
+
+// router.get("/:id", (req, res) => {
+//     Clinic
+//         .findById(req.params.id)
+//         .then(clinic => {
+//             res.render("clinics/show", {clinic: clinic});
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             req.flash("errorMessage", "Internal server error");
+//             res.redirect("/");
+//         });
+// });
 
 router.get("/update/:id", (req, res) => {
     Clinic
         .findById(req.params.id)
         .populate('patients')
         .then(clinic => {
-            res.render("clinics/update", {clinic: clinic, formMethod: 'PUT'});
+            res.render("clinics/update", {clinic: clinic, formMethod: 'PUT', successMessage: req.flash('successMessage')});
         })
         .catch(err => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
             res.redirect("/");
+            res.finished = true;
+            res.end();
         });
 });
 
@@ -66,41 +74,69 @@ router.get('/create', (req, res) => {
 
 router.post('/', (req, res) => {
     let clinicData = new Clinic(req.body);
-    clinicData.save((err, clinic) => {
-        if (err) {
-            res.render('clinics/create', {message: 'Sorry, your request was invalid.'});
-        }
-        else {
-            req.flash('successMessage', 'Clinic successfully created!');
-            res.redirect(`/clinics/show/${clinic._id}`);
-        };
+    clinicData._id = new mongoose.Types.ObjectId();
+    clinicData
+        .save((err, clinic) => {
+            if (err) {
+                console.log(err);
+                res.render('clinics/create', {message: 'Sorry, your request was invalid.', formMethod: 'POST'});
+            }
+            else {
+                req.flash('successMessage', 'Clinic successfully created!');
+                res.redirect(`/clinics/show/${clinic._id}`);
+            }
     });
 });
 
 router.put('/:id', (req, res) => {
     if  (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-        res.render('clinics/update', {message: 'Sorry, the request path id and the request body id values must match.'});
+        Clinic
+            .findById(req.params.id)
+            .populate('patients')
+            .then(clinic => {
+                res.render('clinics/update', {clinic: clinic, formMethod: 'PUT',
+                    errorMessage: 'Sorry, the request path id and the request body id values must match.'});
+            })
+            .catch(err => {
+                console.error(err);
+                res.status(500).json({message: "Internal server error"});
+            });
     };
-    Clinic.findByIdAndUpdate(req.params.id, req.body, {new: true}, err => {
-        if (err) {
-            res.render('clinics/update', {message: 'Sorry, something went wrong. Clinic data could not be updated.'});
-        }
-        else {
+    Clinic
+        .findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        .then(() => {
             req.flash('successMessage', 'Clinic successfully updated!');
-            res.redirect(`/clinics/update/${res._id}`);
-        };
-    });
+            res.redirect(`/clinics/show/${req.params.id}`);
+            res.finished = true;
+            res.end();
+        })
+        .catch(err => {
+            console.log(err);
+            res.render('clinics/update', {errorMessage: 'Sorry, something went wrong. Clinic data could not be updated.'});
+        });
 });
 
 router.delete('/:id', (req, res) => {
     Clinic.findByIdAndRemove(req.params.id, err => {
         if (err) {
-            res.render('clinics/index', {message: 'Sorry, something went wrong. Clinic could not be deleted.'});
+            Clinic
+                .findById(req.params.id)
+                .populate('clinics')
+                .then(clinic => {
+                res.render('clinics/index', {clinic: clinic, message: 'Sorry, something went wrong. Clinic could not be deleted.'});
+                })
+                .catch(err => {
+                    console.log(err);
+                    req.flash('errorMessage', 'Internal server error');
+                    res.redirect('/');
+            });
         }
         else {
             req.flash('successMessage', 'Clinic successfully deleted!');
             res.redirect('/clinics/index');
-        };
+            res.finished = true;
+            res.end()
+        }
     });
 });
 

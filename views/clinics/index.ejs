@@ -4,7 +4,7 @@
     <body>
         <%- include ../layouts/header.ejs %>
         <main>
-            <h1>clinics</h1>
+            <h1>Clinics</h1>
             <ul>
                 <% clinics.forEach(clinic => { %>
                 <ol><a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a>

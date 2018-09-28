@@ -8,11 +8,16 @@
             <% if (typeof successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
             <% } %>
+            <form  class="clinic-delete-form" method="POST" action="/clinics/<%= clinic._id %>">
+                <button class="clinic-delete-button">Delete</button>
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
             <% clinic.patients.forEach(patient => { %>
                 <a href="/clinics/<%= clinic.id %>/patients/show/<%= patient.id %>"><%= patient.name.lastName %> <%= patient.name.firstName %></a>
                 <a href="/clinics/<%= clinic.id %>/patients/update/<%= patient.id %>">update</a>
             <% }); %>
         </main>
         <%- include ../layouts/footer.ejs %>
+        <%- include ../layouts/scripts.ejs %>
     </body>
 </html>
