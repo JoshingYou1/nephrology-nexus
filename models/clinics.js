@@ -35,17 +35,6 @@ clinicSchema.virtual('managerName').get(function() {
     return `Clinic Manager: ${this.clinicManager.firstName} ${this.clinicManager.lastName}`;
 })
 
-clinicSchema.methods.serialize = function() {
-    return {
-        id: this._id,
-        name: this.name,
-        address: this.addressString,
-        phoneNumber: this.phoneNumber,
-        faxNumber: this.faxNumber,
-        clinicManager: this.managerName
-    };
-};
-
 const Clinic = mongoose.model("Clinic", clinicSchema);
 
 module.exports = {Clinic};

@@ -5,13 +5,20 @@
         <%- include ../layouts/header.ejs %>
         <main>
             <h1><%= patient.patientName %></h1>
-            <% if (typeof successMessage != 'undefined' && successMessage) { %>
+            <% if (successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
             <% } %>
-            <% patient.labResults.forEach(results => { %>
-                <a href="/lab-results/show/<%= results.id %>"><%= results.id %></a>
+            <form  class="patient-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patient._id %>">
+                <button class="patient-delete-button">Delete</button>
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
+            <% patient.labResults.forEach(result => { %>
+                <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results/show/<%= result.id %>"><%= result.id %></a>
+                <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results/update/<%= result.id %>">update</a>
             <% }); %>
+            <a href="/clinics/<%= clinicId %>/patients/update/<%= patient.id %>">Update Patient</a>
         </main>
         <%- include ../layouts/footer.ejs %>
+        <%- include ../layouts/scripts.ejs %>
     </body>
 </html>

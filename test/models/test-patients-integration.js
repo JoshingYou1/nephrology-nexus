@@ -22,6 +22,7 @@ function generateGender() {
 
 function generatePatientData() {
     return {
+        _id: new mongoose.Types.ObjectId(),
         name: {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName()

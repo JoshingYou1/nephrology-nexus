@@ -23,6 +23,10 @@ const patientSchema = mongoose.Schema({
         cell: {type: String},
         work: {type: String}
     },
+    clinic: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Clinic'
+    },
     labResults: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'LabResults'
@@ -31,7 +35,7 @@ const patientSchema = mongoose.Schema({
 
 patientSchema.virtual("patientName").get(function() {
     return `${this.name.lastName}, ${this.name.firstName}`;
-})
+});
 
 patientSchema.virtual("addressString").get(function() {
     return `${this.address.street}\n
@@ -43,18 +47,6 @@ patientSchema.virtual("phoneNumbersString").get(function() {
             Cell: ${this.phoneNumbers.cell}\n
             Work: ${this.phoneNumbers.work}`;
 });
-
-patientSchema.methods.serialize = function() {
-    return {
-        id: this._id,
-        name: this.patientName,
-        dateOfBirth: this.dateOfBirth,
-        gender: this.gender,
-        socialSecurityNumber: this.socialSecurityNumber,
-        address: this.addressString,
-        phoneNumbers: this.phoneNumbersString
-    };
-};
 
 const Patient = mongoose.model("Patient", patientSchema);
 

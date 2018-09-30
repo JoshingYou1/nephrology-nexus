@@ -15,6 +15,7 @@ chai.use(chaiHttp);
 
 function generateClinicData() {
     return {
+        _id: new mongoose.Types.ObjectId(),
         name: faker.company.companyName(),
         address: {
             street: faker.address.streetAddress("###"),
@@ -72,6 +73,7 @@ describe('Clinic API resource', function() {
             const clinic = new Clinic(generatedClinic);
 
             clinic.save(function(err, result) {
+                console.log('error:', err);
                 expect(result).to.exist;
                 expect(err).to.not.exist;
                 expect(result.name).to.equal(generatedClinic.name);

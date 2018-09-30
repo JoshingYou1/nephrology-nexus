@@ -32,14 +32,6 @@ const labResultsSchema = mongoose.Schema({
     }
 });
 
-labResultsSchema.virtual("hematologyString").get(function() {
-    return `WBC Count: ${this.hematology.wbcCount}\n
-            RBC Count: ${this.hematology.rbcCount}\n
-            Hemoglobin: ${this.hematology.hemoglobin}\n
-            Hematocrit: ${this.hematology.hematocrit}\n
-            Platelet Count: ${this.hematology.plateletCount}`;
-});
-
 labResultsSchema.virtual("chemistryString").get(function() {
     return `BUN: ${this.chemistry.bun}\n
             Creatinine: ${this.chemistry.creatinine}\n
@@ -54,15 +46,19 @@ labResultsSchema.virtual("chemistryString").get(function() {
             Triglycerides: ${this.chemistry.triglycerides}`
 });
 
-const LabResults = mongoose.model("LabResults", labResultsSchema);
+labResultsSchema.virtual('formatDate').get(function()  {
+    let day = this.date.getDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.date.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.date.getFullYear();
+    return `${year}-${month}-${day}`;
+})
 
-labResultsSchema.methods.serialize = function() {
-    return {
-        id: this._id,
-        date: this.date,
-        hematology: this.hematologyString,
-        chemistry: this.chemistryString
-    };
-};
+const LabResults = mongoose.model("LabResults", labResultsSchema);
 
 module.exports = {LabResults};
