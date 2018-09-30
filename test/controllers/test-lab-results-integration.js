@@ -6,6 +6,7 @@ const {TEST_DATABASE_URL} = require('../../config');
 const {app, runServer, closeServer} = require('../../server');
 const {generateLabResultsData} = require('../models/test-lab-results-integration');
 const {LabResults} = require('../../models/lab-results');
+const {Patient} = require('../../models/patients');
 
 const expect = chai.expect;
 
@@ -23,42 +24,48 @@ describe('Lab results controller', function() {
     describe('GET endpoint for lab results', function() {
         it('Should retrieve all existing lab results', function() {
             let res;
-
-            return chai
-                .request(app)
-                .get('/lab-results')
-                .then(function(_res) {
-                    res = _res;
-                    expect(res).to.have.status(200);
-                    expect(res).to.be.a('object');
-                });
+            LabResults
+                .findOne()
+                .then(function(r) {
+                    return chai
+                        .request(app)
+                        .get(`/clinics/1/patient/1/lab-results/show/${res._id}`)
+                        .then(function(_res) {
+                            res = _res;
+                            expect(res).to.have.status(200);
+                            expect(res).to.be.a('object');
+                    });
+            });
         });
     });
 
     describe('POST endpoint for lab results', function() {
         it('Should create new lab results data', function() {
             const newLabResults = generateLabResultsData();
-
-            return chai
-                .request(app)
-                .post('/lab-results')
-                .send(newLabResults)
-                .then(function(res) {
-                    expect(res).to.have.status(201);
-                    expect(res.body).to.be.a('object');
-                    return LabResults
-                        .findOne({'hematology.wbcCount': newLabResults.hematology.wbcCount, 'hematology.rbcCount': newLabResults.hematology.rbcCount,
-                            'hematology.hemoglobin': newLabResults.hematology.hemoglobin, 'chemistry.bun': newLabResults.chemistry.bun,
-                            'chemistry.sodium': newLabResults.chemistry.sodium, 'chemistry.albumin': newLabResults.chemistry.albumin})
-                })
-                .then(function(createdLabResults) {
-                    expect(createdLabResults.hematology.wbcCount).to.equal(newLabResults.hematology.wbcCount);
-                    expect(createdLabResults.hematology.rbcCount).to.equal(newLabResults.hematology.rbcCount);
-                    expect(createdLabResults.hematology.hemoglobin).to.equal(newLabResults.hematology.hemoglobin);
-                    expect(createdLabResults.chemistry.bun).to.equal(newLabResults.chemistry.bun);
-                    expect(createdLabResults.chemistry.sodium).to.equal(newLabResults.chemistry.sodium);
-                    expect(createdLabResults.chemistry.albumin).to.equal(newLabResults.chemistry.albumin);
-                });
+            Patient
+                .findOne()
+                .then(function(p) {
+                    return chai
+                        .request(app)
+                        .post(`/clinics/1/patient/${p._id}/lab-results/show`)
+                        .send(newLabResults)
+                        .then(function(res) {
+                            expect(res).to.have.status(200);
+                            expect(res.body).to.be.a('object');
+                            return LabResults
+                                .findOne({'hematology.wbcCount': newLabResults.hematology.wbcCount, 'hematology.rbcCount': newLabResults.hematology.rbcCount,
+                                    'hematology.hemoglobin': newLabResults.hematology.hemoglobin, 'chemistry.bun': newLabResults.chemistry.bun,
+                                    'chemistry.sodium': newLabResults.chemistry.sodium, 'chemistry.albumin': newLabResults.chemistry.albumin})
+                        })
+                        .then(function(createdLabResults) {
+                            expect(createdLabResults.hematology.wbcCount).to.equal(newLabResults.hematology.wbcCount);
+                            expect(createdLabResults.hematology.rbcCount).to.equal(newLabResults.hematology.rbcCount);
+                            expect(createdLabResults.hematology.hemoglobin).to.equal(newLabResults.hematology.hemoglobin);
+                            expect(createdLabResults.chemistry.bun).to.equal(newLabResults.chemistry.bun);
+                            expect(createdLabResults.chemistry.sodium).to.equal(newLabResults.chemistry.sodium);
+                            expect(createdLabResults.chemistry.albumin).to.equal(newLabResults.chemistry.albumin);
+                        });
+            });
         });
     });
 
@@ -76,29 +83,32 @@ describe('Lab results controller', function() {
                     albumin: 3.7
                 }
             }
-
-            return LabResults
+            Patient
                 .findOne()
-                .then(function(results) {
-                    updatedLabResults.id = results.id
+                .then(function(p) {
+                    return LabResults
+                        .findOne()
+                        .then(function(results) {
+                            updatedLabResults.id = results.id
 
-                    return chai
-                        .request(app)
-                        .put(`/lab-results/${results.id}`)
-                        .send(updatedLabResults)   
-                })
-                .then(function(res) {
-                    expect(res).to.have.status(204);
-                    return LabResults.findById(updatedLabResults.id);
-                })
-                .then(function(results) {
-                    expect(results.hematology.wbcCount).to.equal(updatedLabResults.hematology.wbcCount);
-                    expect(results.hematology.rbcCount).to.equal(updatedLabResults.hematology.rbcCount);
-                    expect(results.hematology.hemoglobin).to.equal(updatedLabResults.hematology.hemoglobin);
-                    expect(results.chemistry.bun).to.equal(updatedLabResults.chemistry.bun);
-                    expect(results.chemistry.sodium).to.equal(updatedLabResults.chemistry.sodium);
-                    expect(results.chemistry.albumin).to.equal(updatedLabResults.chemistry.albumin);
-                });
+                            return chai
+                                .request(app)
+                                .put(`/clinics/1/patients/${p._id}/lab-results/${results.id}`)
+                                .send(updatedLabResults)   
+                        })
+                        .then(function(res) {
+                            expect(res).to.have.status(200);
+                            return LabResults.findById(updatedLabResults.id);
+                        })
+                        .then(function(results) {
+                            expect(results.hematology.wbcCount).to.equal(updatedLabResults.hematology.wbcCount);
+                            expect(results.hematology.rbcCount).to.equal(updatedLabResults.hematology.rbcCount);
+                            expect(results.hematology.hemoglobin).to.equal(updatedLabResults.hematology.hemoglobin);
+                            expect(results.chemistry.bun).to.equal(updatedLabResults.chemistry.bun);
+                            expect(results.chemistry.sodium).to.equal(updatedLabResults.chemistry.sodium);
+                            expect(results.chemistry.albumin).to.equal(updatedLabResults.chemistry.albumin);
+                    });
+            });
         });
     });
 
@@ -106,22 +116,26 @@ describe('Lab results controller', function() {
         it('Should delete an existing set of lab results based on id', function() {
             let results;
 
-            return LabResults
+            Patient
                 .findOne()
-                .then(function(_results) {
-                    results = _results;
+                .then(function(p) {
+                    return LabResults
+                                .findOne()
+                                .then(function(_results) {
+                                    results = _results;
 
-                    return chai
-                        .request(app)
-                        .delete(`/lab-results/${results.id}`);
-                })
-                .then(function(res) {
-                    expect(res).to.have.status(204);
-                    return LabResults.findById(results.id);
-                })
-                .then(function(_results) {
-                    expect(_results).to.be.null;
-                });
+                                    return chai
+                                        .request(app)
+                                        .delete(`/clinics/1/patients/${p._id}/lab-results/${results.id}`);
+                                })
+                                .then(function(res) {
+                                    expect(res).to.have.status(200);
+                                    return LabResults.findById(results.id);
+                                })
+                                .then(function(_results) {
+                                    expect(_results).to.be.null;
+                            });
+                    });
         });
     });
 });

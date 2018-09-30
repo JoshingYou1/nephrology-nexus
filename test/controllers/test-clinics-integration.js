@@ -44,7 +44,7 @@ describe('Clinic controller', function() {
                 .post('/clinics')
                 .send(newClinic)
                 .then(function(res) {
-                    expect(res).to.have.status(201);
+                    expect(res).to.have.status(200);
                     expect(res.body).to.be.a('object');
                     return Clinic
                         .findOne({'name': newClinic.name, 'address.street': newClinic.address.street, 'phoneNumber': newClinic.phoneNumber,
@@ -85,7 +85,7 @@ describe('Clinic controller', function() {
                         .send(updatedClinicData)
                 })
                 .then(function(res) {
-                    expect(res).to.have.status(204);
+                    expect(res).to.have.status(200);
                     return Clinic.findById(updatedClinicData.id);
                 })
                 .then(function(clinic) {
@@ -103,21 +103,21 @@ describe('Clinic controller', function() {
             let clinic;
 
             return Clinic
-                .findOne()
-                .then(function(_clinic) {
-                    clinic = _clinic;
+                    .findOne()
+                    .then(function(_clinic) {
+                        clinic = _clinic;
 
-                    return chai
-                        .request(app)
-                        .delete(`/clinics/${clinic.id}`);
-                })
-                .then(function(res) {
-                    expect(res).to.have.status(204);
-                    return Clinic.findById(clinic.id);
-                })
-                .then(function(_clinic) {
-                    expect(_clinic).to.be.null;
-                });
+                        return chai
+                            .request(app)
+                            .delete(`/clinics/${clinic.id}`);
+                    })
+                    .then(function(res) {
+                        expect(res).to.have.status(200);
+                        return Clinic.findById(clinic.id);
+                    })
+                    .then(function(_clinic) {
+                        expect(_clinic).to.be.null;
+                    });
         });
     });
 });

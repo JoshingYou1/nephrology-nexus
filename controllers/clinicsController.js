@@ -27,6 +27,7 @@ router.get("/show/:id", (req, res) => {
         .findById(req.params.id)
         .populate('patients')
         .then(clinic => {
+            console.log('clinic:', clinic);
             let successMessage = req.flash('successMessage');
             res.render("clinics/show", {clinic: clinic, successMessage: successMessage})
         })
@@ -38,19 +39,6 @@ router.get("/show/:id", (req, res) => {
             res.end();
         });
 });
-
-// router.get("/:id", (req, res) => {
-//     Clinic
-//         .findById(req.params.id)
-//         .then(clinic => {
-//             res.render("clinics/show", {clinic: clinic});
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             req.flash("errorMessage", "Internal server error");
-//             res.redirect("/");
-//         });
-// });
 
 router.get("/update/:id", (req, res) => {
     Clinic
@@ -117,26 +105,27 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    Clinic.findByIdAndRemove(req.params.id, err => {
-        if (err) {
-            Clinic
-                .findById(req.params.id)
-                .populate('clinics')
-                .then(clinic => {
-                res.render('clinics/index', {clinic: clinic, message: 'Sorry, something went wrong. Clinic could not be deleted.'});
-                })
-                .catch(err => {
-                    console.log(err);
-                    req.flash('errorMessage', 'Internal server error');
-                    res.redirect('/');
-            });
-        }
-        else {
-            req.flash('successMessage', 'Clinic successfully deleted!');
-            res.redirect('/clinics/index');
-            res.finished = true;
-            res.end()
-        }
+    Clinic
+        .findByIdAndRemove(req.params.id, err => {
+            if (err) {
+                Clinic
+                    .findById(req.params.id)
+                    .populate('clinics')
+                    .then(clinic => {
+                    res.render('clinics/index', {clinic: clinic, message: 'Sorry, something went wrong. Clinic could not be deleted.'});
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        req.flash('errorMessage', 'Internal server error');
+                        res.redirect('/');
+                });
+            }
+            else {
+                req.flash('successMessage', 'Clinic successfully deleted!');
+                res.redirect('/clinics');
+                res.finished = true;
+                res.end()
+            }
     });
 });
 

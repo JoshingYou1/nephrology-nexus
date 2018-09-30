@@ -15,6 +15,8 @@ chai.use(chaiHttp);
 
 function generateLabResultsData() {
     return {
+        _id: new mongoose.Types.ObjectId(),
+        date: faker.date.past(2),
         hematology: {
             wbcCount: Number(faker.finance.amount(0,20,2)),
             rbcCount: Number(faker.finance.amount(0,10,2)),
@@ -81,6 +83,7 @@ describe('Clinic API resource', function() {
             results.save(function(err, result) {
                 expect(result).to.exist;
                 expect(err).to.not.exist;
+                expect(result.date).to.equal(generatedLabResults.date);
                 expect(result.hematology.wbcCount).to.equal(generatedLabResults.hematology.wbcCount);
                 expect(result.hematology.rbcCount).to.equal(generatedLabResults.hematology.rbcCount);
                 expect(result.hematology.hemoglobin).to.equal(generatedLabResults.hematology.hemoglobin);

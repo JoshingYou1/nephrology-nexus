@@ -16,6 +16,7 @@
                 <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results/show/<%= result.id %>"><%= result.id %></a>
                 <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results/update/<%= result.id %>">update</a>
             <% }); %>
+            <a href="/clinics/<%= clinicId %>/patients/update/<%= patient.id %>">Update Patient</a>
         </main>
         <%- include ../layouts/footer.ejs %>
         <%- include ../layouts/scripts.ejs %>

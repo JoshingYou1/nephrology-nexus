@@ -13,9 +13,12 @@
                 <input type="hidden" name="_method" value="DELETE">
             </form>
             <% clinic.patients.forEach(patient => { %>
-                <a href="/clinics/<%= clinic.id %>/patients/show/<%= patient.id %>"><%= patient.name.lastName %> <%= patient.name.firstName %></a>
-                <a href="/clinics/<%= clinic.id %>/patients/update/<%= patient.id %>">update</a>
+                <ol>
+                    <a href="/clinics/<%= clinic.id %>/patients/show/<%= patient.id %>">
+                            <%= patient.name.lastName %> <%= patient.name.firstName %></a>
+                </ol>
             <% }); %>
+            <a href="/clinics/update/<%= clinic.id %>">Update Clinic</a>
         </main>
         <%- include ../layouts/footer.ejs %>
         <%- include ../layouts/scripts.ejs %>

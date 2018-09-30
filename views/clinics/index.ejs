@@ -5,12 +5,11 @@
         <%- include ../layouts/header.ejs %>
         <main>
             <h1>Clinics</h1>
-            <ul>
-                <% clinics.forEach(clinic => { %>
-                <ol><a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a>
-                    <a href="/clinics/update/<%= clinic.id %>">update</a></ol>
-                <% }); %>
-            </ul>
+            <% clinics.forEach(clinic => { %>
+                <ol>
+                    <a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a>
+                </ol>
+            <% }); %>
         </main>
         <%- include ../layouts/footer.ejs %>
     </body>
