@@ -8,6 +8,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
+const passport = require('passport');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL, PORT} = require("./config");
@@ -17,6 +18,8 @@ const app = express();
 const patientsController = require("./controllers/patientsController");
 const clinicsController = require("./controllers/clinicsController");
 const labResultsController = require("./controllers/labResultsController");
+const usersController = require('./controllers/usersController');
+const authController = require('./controllers/authController');
 
 app.use(bodyParser());
 app.use(methodOverride(function(req, res) {
@@ -37,6 +40,8 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html");
 });
 
+app.use('/auth', authController);
+app.use('/users', usersController);
 app.use("/clinics", clinicsController);
 app.use("/clinics/:clinicId/patients", function(req, res, next) {
     req.clinicId = req.params.clinicId;
