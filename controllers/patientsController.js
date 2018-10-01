@@ -7,10 +7,10 @@ mongoose.Promise = global.Promise;
 
 const {Patient} = require("../models/patients");
 const {Clinic} = require('../models/clinics');
+const {patientsSvc} = require('../services/patients');
 
 router.get("/", (req, res) => {
-    Patient
-        .find({clinic: req.clinicId})
+    patientsSvc.getAllPatientsByClinicAlphabetically(req.clinicId)
         .then(patients => {
             console.log(patients);
             res.render("patients/index", {patients: patients, clinicId: req.clinicId})
@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
 router.get("/show/:id", (req, res) => {
     Patient
         .findById(req.params.id)
-        .populate('labResults')
+        .populate({path: 'labResults', options: {sort: {date: 1}}})
         .populate('clinic')
         .then(patient => {
             let successMessage = req.flash('successMessage');

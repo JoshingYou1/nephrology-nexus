@@ -7,6 +7,7 @@ mongoose.Promise = global.Promise;
 
 const {LabResults} = require('../models/lab-results');
 const {Patient} = require('../models/patients');
+const {isAuthenticated} = require('../strategies/auth');
 
 router.get('/', (req, res) => {
     LabResults

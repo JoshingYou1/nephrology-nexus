@@ -46,7 +46,7 @@ labResultsSchema.virtual("chemistryString").get(function() {
             Triglycerides: ${this.chemistry.triglycerides}`
 });
 
-labResultsSchema.virtual('formatDate').get(function()  {
+labResultsSchema.virtual('formatHtml5Date').get(function()  {
     let day = this.date.getDate();
     if (day < 10) {
         day = `0${day}`
@@ -57,6 +57,19 @@ labResultsSchema.virtual('formatDate').get(function()  {
     }
     const year = this.date.getFullYear();
     return `${year}-${month}-${day}`;
+})
+
+labResultsSchema.virtual('formatDate').get(function()  {
+    let day = this.date.getDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.date.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.date.getFullYear();
+    return `${month}/${day}/${year}`;
 })
 
 const LabResults = mongoose.model("LabResults", labResultsSchema);

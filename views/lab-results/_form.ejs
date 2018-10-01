@@ -15,7 +15,7 @@
 
                 <label for="date">Draw Date:</label>
                 <input placeholder="11/11/2011" type="date" name="date" id="date" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
-                    value="<%- formMethod == 'PUT' ? result.formatDate : '' %>" required>
+                    value="<%- formMethod == 'PUT' ? result.formatHtml5Date : '' %>" required>
 
                 <fieldset name="hematology">
                     <legend>Hematology</legend>

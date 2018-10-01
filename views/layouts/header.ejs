@@ -1,1 +1,9 @@
-<header><nav><h1>Nephrology Nexus</h1></nav></header>
+<header>
+    <nav>
+        <h1>Nephrology Nexus</h1>
+    </nav>
+    <% if (user) { %>
+        <p><%= user.username %></p>
+        <a href="/users/logout">Logout</a>
+    <% } %>
+</header>
