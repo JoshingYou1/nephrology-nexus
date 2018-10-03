@@ -6,7 +6,7 @@
         <main>
             <h1>Lab Results</h1>
             <ul>
-                <% patient.results.forEach(result => { %>
+                <% results.forEach(result => { %>
                 <ol><a href="/clinics/<%= result.patient.clinic._id %>/patients/<%= result.patient.id %>/lab-results/show/<%= result.id %>"><%= result.date %></a>
                     <a href="/clinics/<%= result.patient.clinic._id %>/patients/<%= result.patient.id %>/lab-results/update/<%= result.id %>">update</a></ol>
                 <% }); %>

@@ -12,6 +12,8 @@ const passport = require('passport');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL, PORT} = require("./config");
+const {localStrategy, registerStrategy} = require('./strategies/auth');
+const {User} = require('./models/users');
 
 const app = express();
 
@@ -19,7 +21,6 @@ const patientsController = require("./controllers/patientsController");
 const clinicsController = require("./controllers/clinicsController");
 const labResultsController = require("./controllers/labResultsController");
 const usersController = require('./controllers/usersController');
-const authController = require('./controllers/authController');
 
 app.use(bodyParser());
 app.use(methodOverride(function(req, res) {
@@ -34,16 +35,34 @@ app.use(morgan("common"));
 app.use(cookieParser('secret'));
 app.use(session({ cookie: {maxAge: 60000 }}));
 app.use(flash());
+
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html");
+    res.redirect('/users/login');
 });
 
-app.use('/auth', authController);
+
+passport.use('local-login', localStrategy);
+passport.use('local-register', registerStrategy);
+passport.serializeUser((user, done) => {
+    done(null, user._id);
+});
+passport.deserializeUser((_id, done) => {
+    User.findById(_id, (err, user) => {
+        done(err, user);
+    });
+});
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(function(req, res, next) {
+    console.log('user:', req.user);
+    res.locals.user = req.user;
+    next();
+});
 app.use('/users', usersController);
 app.use("/clinics", clinicsController);
-app.use("/clinics/:clinicId/patients", function(req, res, next) {
+app.use("/clinics/:clinicId/patients", (req, res, next) =>{
     req.clinicId = req.params.clinicId;
     next();
 }, patientsController);
@@ -52,6 +71,7 @@ app.use("/clinics/:clinicId/patients/:patientId/lab-results", function(req, res,
     req.patientId = req.params.patientId;
     next();
 }, labResultsController);
+
 
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Not Found' });

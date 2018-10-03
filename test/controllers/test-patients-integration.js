@@ -2,18 +2,30 @@
 
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-
-const expect = chai.expect;
-
+const request = require('supertest');
 const {TEST_DATABASE_URL} = require("../../config");
+const faker = require('faker');
 const {app, runServer, closeServer} = require("../../server");
 const {generatePatientData} = require("../models/test-patients-integration");
+const {generateClinicData} = require('../models/test-clinics-integration');
 const {Patient} = require("../../models/patients");
 const {Clinic} = require('../../models/clinics');
 
+const expect = chai.expect;
+
 chai.use(chaiHttp);
 
+const authenticatedUser = request.agent(app);
+const userCredentials = {
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    username: faker.internet.userName(),
+    password: faker.internet.password()
+}
+
 describe("Patient controller", function() {
+    let clinicId = '';
+
     before(function() {
         return runServer(TEST_DATABASE_URL);
     });
@@ -22,54 +34,70 @@ describe("Patient controller", function() {
         return closeServer();
     });
 
-    describe("GET endpoint for patients", function() {
-        it("Should retrieve all existing patients", function() {
-            let res;
-            Clinic
-                .findOne()
-                .then(function(c) {
-                    return chai
-                        .request(app)
-                        .get(`/clinics/1/patients/${res._id}`)
-                        .then(function(_res) {
-                            res = _res;
-                            expect(res).to.have.status(200);
-                            expect(res.body).to.be.a("object");
-                    });
+    before(function (done) {
+        const clinic = new Clinic(generateClinicData());
+        clinic.save(function(err, clinic) {
+            clinicId = clinic._id;
+
+        authenticatedUser
+            .post('/users/register')
+            .send(userCredentials)
+            .end(function (err, response) {
+                expect('Location', '/patients');
+                expect(response.statusCode).to.equal(302);
+                done();
             });
         });
     });
 
-    describe("POST endpoint for patients", function() {
-        it("Should create a new patient", function() {
-
-            const newPatient = generatePatientData();
-            Clinic
-                .findOne()
-                .then(function(c) {
-                    return chai
-                        .request(app)
-                        .post(`/clinics/1/patients/show`)
-                        .send(newPatient)
-                        .then(function(res) {
-                            expect(res).to.have.status(200);
-                            expect(res.body).to.be.a("object");
-                            return Patient
-                                .findOne({"name.firstName": newPatient.name.firstName, "name.lastName": newPatient.name.lastName,
-                                    'gender': newPatient.gender, 'socialSecurityNumber': newPatient.socialSecurityNumber})
-                        })
-                        .then(function(createdPatient) {
-                            console.log("createdPatient:", createdPatient);
-                            expect(createdPatient.patientName).to.equal(`${newPatient.name.lastName}, ${newPatient.name.firstName}`);
-                            expect(createdPatient.gender).to.equal(newPatient.gender);
-                            expect(createdPatient.socialSecurityNumber).to.equal(newPatient.socialSecurityNumber);
-                    });
-            });   
+    describe("GET endpoint for patients", function() {
+        it("Should retrieve all existing patients that belong to a single clinic", function(done) {
+            let res;
+            
+            
+            authenticatedUser
+                .get(`/clinics/${clinicId}/patients`)
+                .then(function(_res) {
+                    res = _res;
+                    expect(res).to.have.status(200);
+                    expect(res.body).to.be.a("object");
+                    done();
+                });
         });
     });
 
+    describe("POST endpoint for patients", function() {
+        it("Should create a new patient", function(done) {
+
+            const newPatient = generatePatientData();
+            newPatient.clinic = clinicId;
+            
+            authenticatedUser
+                .post(`/clinics/${clinicId}/patients`)
+                .send(newPatient)
+                .then(function(res) {
+                    expect(res).to.have.status(302);
+                    expect(res.body).to.be.a("object");
+                    return Patient
+                        .findOne({
+                            "name.firstName": newPatient.name.firstName,
+                            "name.lastName": newPatient.name.lastName,
+                            'gender': newPatient.gender,
+                            'socialSecurityNumber': newPatient.socialSecurityNumber
+                        })
+                })
+                .then(function(createdPatient) {
+                    console.log("createdPatient:", createdPatient);
+                    expect(createdPatient.patientName).to.equal(`${newPatient.name.lastName}, ${newPatient.name.firstName}`);
+                    expect(createdPatient.gender).to.equal(newPatient.gender);
+                    expect(createdPatient.socialSecurityNumber).to.equal(newPatient.socialSecurityNumber);
+                    done();
+                });
+        });   
+    });
+
     describe("PUT endpoint for patients", function() {
-        it("Should update the data of an existing patient", function() {
+        it("Should update the data of an existing patient", function(done) {
             const updatedPatientData = {
                 name: {
                     firstName: "Joseph",
@@ -79,56 +107,40 @@ describe("Patient controller", function() {
                 socialSecurityNumber: "232-13-1422",
             };
 
-            Clinic
-                .findOne()
-                .then(function(c) {
-                    return Patient
-                        .findOne()
-                        .then(function(patient) {
-                            updatedPatientData.id = patient.id;
+            let patient = new Patient(generatePatientData());
 
-                            return chai
-                                .request(app)
-                                .put(`/clinics/${c._id}/patients/${patient.id}`)
-                                .send(updatedPatientData)
-                        })
-                        .then(function(res) {
-                            expect(res).to.have.status(200);
-                            return Patient.findById(updatedPatientData.id);
-                        })
-                        .then(function(patient) {
+            patient.save(function(err, patient) {
+                updatedPatientData._id = patient._id;
+                
+                authenticatedUser
+                    .put(`/clinics/${clinicId}/patients/${patient._id}`)
+                    .send(updatedPatientData)
+                    .end(function(err, res) {
+                        expect(res).to.have.status(302);
+
+                        Patient.findById(updatedPatientData, function(err, patient) {
                             expect(patient.name.firstName).to.equal(updatedPatientData.name.firstName);
                             expect(patient.name.lastName).to.equal(updatedPatientData.name.lastName);
                             expect(patient.gender).to.equal(updatedPatientData.gender);
-                            expect(patient.socialSecurityNumber).to.equal(updatedPatientData.socialSecurityNumber);
+                            expect(patient.socialSecurityNumber).to.equal(updatedPatientData.socialSecurityNumber)
+                            done();
                         });
+                    });
             });
         });
     });
 
     describe("DELETE endpoint for patients", function() {
-        it("Should delete an existing patient based on id", function() {
-            let patient;
+        it("Should delete an existing patient based on id", function(done) {
+            let patient = new Patient(generatePatientData());
 
-            Clinic
-                .findOne()
-                .then(function(c) {
-                        return Patient
-                            .findOne()
-                            .then(function(_patient) {
-                                patient = _patient;
-
-                                return chai
-                                    .request(app)
-                                    .delete(`/clinics/${c._id}/patients/${patient.id}`);
-                            })
-                            .then(function(res) {
-                                expect(res).to.have.status(200);
-                                return Patient.findById(patient.id);
-                            })
-                            .then(function(_patient) {
-                                expect(_patient).to.be.null;
-                        });
+            patient.save(function(err, patient) {
+                authenticatedUser
+                    .delete(`/clinics/${clinicId}/patients/${patient._id}`)
+                    .end(function(err, res) {
+                        expect(res).to.have.status(302);
+                        done();
+                    });
             });
         });
     });

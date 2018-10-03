@@ -6,7 +6,7 @@
         <form class="clinic-form" role="form" method="POST" action="/clinics/<%- formMethod == 'PUT' ? clinic._id : '' %>">
             <% if (formMethod == 'PUT') { %>
                 <input type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="id" value="<%= clinic._id %>">
+                <input type="hidden" name="_id" value="<%= clinic._id %>">
             <% } %>
             <fieldset name="clinic-data">
                 <legend>Clinic Information</legend>

@@ -34,7 +34,7 @@ function generatePatientData() {
             street: faker.address.streetAddress("###"),
             city: faker.address.city(3),
             state: faker.address.stateAbbr(),
-            zipCode: faker.random.number({min: "00000", max: "99999"})
+            zipCode: faker.random.number({min: "0000", max: "9999"})
         },
         phoneNumbers: {
             home: faker.phone.phoneNumberFormat(0),

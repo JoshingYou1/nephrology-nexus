@@ -6,10 +6,11 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 const {Clinic} = require("../models/clinics");
+const {isAuthenticated} = require('../strategies/auth');
+const {clinicsSvc} = require('../services/clinics');
 
-router.get("/", (req, res) => {
-    Clinic
-        .find()
+router.get("/", isAuthenticated, (req, res) => {
+    clinicsSvc.getAllClinicsAlphabetically()
         .then(clinics => {
             res.render("clinics/index", {clinics: clinics});
         })
@@ -17,30 +18,26 @@ router.get("/", (req, res) => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
             res.redirect("/");
-            res.finished = true;
-            res.end();
         });
 });
 
-router.get("/show/:id", (req, res) => {
+router.get("/show/:id", isAuthenticated, (req, res) => {
     Clinic
         .findById(req.params.id)
-        .populate('patients')
+        .populate({path: 'patients', options: {sort: {'name.lastName': 1}}})
         .then(clinic => {
             console.log('clinic:', clinic);
             let successMessage = req.flash('successMessage');
-            res.render("clinics/show", {clinic: clinic, successMessage: successMessage})
+            res.render("clinics/show", {clinic: clinic, successMessage: successMessage});
         })
         .catch(err => {
             console.log(err);
             req.flash('errorMessage', 'Internal server error');
             res.redirect('/');
-            res.finished = true;
-            res.end();
         });
 });
 
-router.get("/update/:id", (req, res) => {
+router.get("/update/:id", isAuthenticated, (req, res) => {
     Clinic
         .findById(req.params.id)
         .populate('patients')
@@ -51,16 +48,14 @@ router.get("/update/:id", (req, res) => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
             res.redirect("/");
-            res.finished = true;
-            res.end();
         });
 });
 
-router.get('/create', (req, res) => {
+router.get('/create', isAuthenticated, (req, res) => {
     res.render('clinics/create', {clinic: null, formMethod: 'POST'});
 });
 
-router.post('/', (req, res) => {
+router.post('/', isAuthenticated, (req, res) => {
     let clinicData = new Clinic(req.body);
     clinicData._id = new mongoose.Types.ObjectId();
     clinicData
@@ -76,35 +71,49 @@ router.post('/', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
-    if  (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+router.put('/:id', isAuthenticated, (req, res) => {
+    if  (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
         Clinic
             .findById(req.params.id)
             .populate('patients')
             .then(clinic => {
                 res.render('clinics/update', {clinic: clinic, formMethod: 'PUT',
                     errorMessage: 'Sorry, the request path id and the request body id values must match.'});
+                res.finished = true;
+                res.end();
             })
             .catch(err => {
                 console.error(err);
                 res.status(500).json({message: "Internal server error"});
             });
-    };
+    }
+
     Clinic
         .findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
         .then(() => {
+            console.log('Clinic put success!');
             req.flash('successMessage', 'Clinic successfully updated!');
             res.redirect(`/clinics/show/${req.params.id}`);
-            res.finished = true;
-            res.end();
         })
         .catch(err => {
+            console.log('Clinic put failed');
             console.log(err);
-            res.render('clinics/update', {errorMessage: 'Sorry, something went wrong. Clinic data could not be updated.'});
+
+            Clinic
+                .findById(req.params.id)
+                .populate('patients')
+                .then(clinic => {
+                    res.render('clinics/update', {clinic: clinic,
+                            formMethod: 'PUT', errorMessage: 'Sorry, something went wrong. Clinic data could not be updated.'});
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).json({message: "Internal server error"});
+                });
         });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAuthenticated, (req, res) => {
     Clinic
         .findByIdAndRemove(req.params.id, err => {
             if (err) {
@@ -123,8 +132,6 @@ router.delete('/:id', (req, res) => {
             else {
                 req.flash('successMessage', 'Clinic successfully deleted!');
                 res.redirect('/clinics');
-                res.finished = true;
-                res.end()
             }
     });
 });
