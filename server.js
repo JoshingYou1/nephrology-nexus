@@ -39,7 +39,7 @@ app.use(flash());
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html");
+    res.redirect('/users/login');
 });
 
 

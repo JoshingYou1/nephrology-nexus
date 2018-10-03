@@ -18,8 +18,6 @@ router.get("/", isAuthenticated, (req, res) => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
             res.redirect("/");
-            res.finished = true;
-            res.end();
         });
 });
 
@@ -30,14 +28,12 @@ router.get("/show/:id", isAuthenticated, (req, res) => {
         .then(clinic => {
             console.log('clinic:', clinic);
             let successMessage = req.flash('successMessage');
-            res.render("clinics/show", {clinic: clinic, successMessage: successMessage})
+            res.render("clinics/show", {clinic: clinic, successMessage: successMessage});
         })
         .catch(err => {
             console.log(err);
             req.flash('errorMessage', 'Internal server error');
             res.redirect('/');
-            res.finished = true;
-            res.end();
         });
 });
 
@@ -52,8 +48,6 @@ router.get("/update/:id", isAuthenticated, (req, res) => {
             console.log(err);
             req.flash("errorMessage", "Internal server error");
             res.redirect("/");
-            res.finished = true;
-            res.end();
         });
 });
 
@@ -78,30 +72,44 @@ router.post('/', isAuthenticated, (req, res) => {
 });
 
 router.put('/:id', isAuthenticated, (req, res) => {
-    if  (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    if  (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
         Clinic
             .findById(req.params.id)
             .populate('patients')
             .then(clinic => {
                 res.render('clinics/update', {clinic: clinic, formMethod: 'PUT',
                     errorMessage: 'Sorry, the request path id and the request body id values must match.'});
+                res.finished = true;
+                res.end();
             })
             .catch(err => {
                 console.error(err);
                 res.status(500).json({message: "Internal server error"});
             });
-    };
+    }
+
     Clinic
         .findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
         .then(() => {
+            console.log('Clinic put success!');
             req.flash('successMessage', 'Clinic successfully updated!');
             res.redirect(`/clinics/show/${req.params.id}`);
-            res.finished = true;
-            res.end();
         })
         .catch(err => {
+            console.log('Clinic put failed');
             console.log(err);
-            res.render('clinics/update', {errorMessage: 'Sorry, something went wrong. Clinic data could not be updated.'});
+
+            Clinic
+                .findById(req.params.id)
+                .populate('patients')
+                .then(clinic => {
+                    res.render('clinics/update', {clinic: clinic,
+                            formMethod: 'PUT', errorMessage: 'Sorry, something went wrong. Clinic data could not be updated.'});
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).json({message: "Internal server error"});
+                });
         });
 });
 
@@ -124,8 +132,6 @@ router.delete('/:id', isAuthenticated, (req, res) => {
             else {
                 req.flash('successMessage', 'Clinic successfully deleted!');
                 res.redirect('/clinics');
-                res.finished = true;
-                res.end()
             }
     });
 });

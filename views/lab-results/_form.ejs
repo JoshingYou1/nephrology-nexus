@@ -7,7 +7,7 @@
                 action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%- formMethod == 'PUT' ? result._id : '' %>">
                 <% if (formMethod == 'PUT') { %>
                     <input type="hidden" name="_method" value="PUT">
-                    <input type="hidden" name="id" value="<%= result._id %>">
+                    <input type="hidden" name="_id" value="<%= result._id %>">
                 <% } %>
             <fieldset name="lab-results-data">
                 <legend>Lab Results</legend>

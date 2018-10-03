@@ -13,25 +13,28 @@
                 <input type="hidden" name="_method" value="DELETE">
             </form>
             <section class="hematology">
+                <h3>Hematology</h3>
                 <div>WBC Count: <%= result.hematology.wbcCount %></div>
-                    RBC Count: ${this.hematology.rbcCount}
-                    Hemoglobin: ${this.hematology.hemoglobin}
-                    Hematocrit: ${this.hematology.hematocrit}
-                    Platelet Count: ${this.hematology.plateletCount
+                <div>RBC Count: <%= result.hematology.rbcCount %></div>
+                <div>Hemoglobin: <%= result.hematology.hemoglobin %></div>
+                <div>Hematocrit: <%= result.hematology.hematocrit %></div>
+                <div>Platelet Count: <%= result.hematology.plateletCount %></div>
             </section>
             <section class="chemistry">
-            <div>BUN: <%= result.chemistry.bun %></div>
-                Creatinine: ${this.chemistry.creatinine}\n
-                Sodium: ${this.chemistry.sodium}\n
-                Potassium: ${this.chemistry.potassium}\n
-                Calcium: ${this.chemistry.calcium}\n
-                Phosporus: ${this.chemistry.phosphorus}\n
-                Albumin: ${this.chemistry.albumin}\n
-                Glucose: ${this.chemistry.glucose}\n
-                Iron: ${this.chemistry.iron}\n
-                Cholesterol: ${this.chemistry.cholesterol}\n
-                Triglycerides: ${this.chemistry.triglycerides}
+                <h3>Chemistry</h3>
+                <div>BUN: <%= result.chemistry.bun %></div>
+                <div>Creatinine: <%= result.chemistry.creatinine %></div>
+                <div>Sodium: <%= result.chemistry.sodium %></div>
+                <div>Potassium: <%= result.chemistry.potassium %></div>
+                <div>Calcium: <%= result.chemistry.calcium %></div>
+                <div>Phosporus: <%= result.chemistry.phosphorus %></div>
+                <div>Albumin: <%= result.chemistry.albumin %></div>
+                <div>Glucose: <%= result.chemistry.glucose %></div>
+                <div>Iron: <%= result.chemistry.iron %></div>
+                <div>Cholesterol: <%= result.chemistry.cholesterol %></div>
+                <div>Triglycerides: <%= result.chemistry.triglycerides %></div>
             </section>
+            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/update/<%= result.id %>">update</a>
         </main>
         <%- include ../layouts/footer.ejs %>
         <%- include ../layouts/scripts.ejs %>

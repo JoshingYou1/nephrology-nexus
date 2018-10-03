@@ -17,82 +17,83 @@ const authenticatedUser = request.agent(app);
 const userCredentials = {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    username: faker.lorem.text(),
-    password: faker.lorem.text()
+    username: faker.internet.userName(),
+    password: faker.internet.password()
 }
 
 describe('Clinic controller', function() {
-    before(function(done) {
-        runServer(TEST_DATABASE_URL);
-        const authenticatedUser = request.agent(app);
-        const userCredentials = {
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName(),
-            username: faker.lorem.text(),
-            password: faker.lorem.text()
-        }
-        authenticatedUser.post('/users/login')
-            .send(userCredentials)
-            .end(function() {
-                done();
-            });
+
+    before(function() {
+        return runServer(TEST_DATABASE_URL);
     });
 
     after(function() {
         return closeServer();
     });
 
+    before(function (done) {
+
+        authenticatedUser
+            .post('/users/register')
+            .send(userCredentials)
+            .end(function (err, response) {
+                expect('Location', '/clinics');
+                expect(response.statusCode).to.equal(302);
+                done();
+            });
+    });
+
     describe('GET endpoint for clinics', function() {
-        it('Should retrieve all existing clinics', function() {
+        it('Should retrieve all existing clinics', function(done) {
             let res;
 
-            return chai
-                .request(app)
+            authenticatedUser
                 .get('/clinics')
                 .then(function(_res) {
                     res = _res;
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.a('object');
+                    done();
                 });
         });
     });
 
     describe('POST endpoint for clinics', function() {
-        it('Should create a new clinic', function() {
+        it('Should create a new clinic', function(done) {
             const newClinic = generateClinicData();
-
-            authenticatedUser.post('/users/register')
-                .send(userCredentials)
-                .then(function() {
                 
-                    return chai
-                        .request(app)
-                        .post('/clinics')
-                        .send(newClinic)
-                        .then(function(res) {
-                            console.log('newClinic:', newClinic);
-                            expect(res).to.have.status(200);
-                            expect(res.body).to.be.a('object');
-                            return Clinic
-                                .findOne({'name': newClinic.name, 'address.street': newClinic.address.street, 'phoneNumber': newClinic.phoneNumber,
-                                    'faxNumber': newClinic.faxNumber, 'clinicManager.firstName': newClinic.clinicManager.firstName,
-                                    'clinicManager.lastName': newClinic.clinicManager.lastName})
+            authenticatedUser
+                .post('/clinics')
+                .send(newClinic)
+                .then(function(res) {
+                    console.log('newClinic:', newClinic);
+                    expect(res).to.have.status(302);
+                    expect(res.body).to.be.a('object');
+                    return Clinic
+                        .findOne({
+                            'name': newClinic.name, 
+                            'address.street': newClinic.address.street,
+                            'phoneNumber': newClinic.phoneNumber,
+                            'faxNumber': newClinic.faxNumber,
+                            'clinicManager.firstName': newClinic.clinicManager.firstName,
+                            'clinicManager.lastName': newClinic.clinicManager.lastName
                         })
-                        .then(function(createdClinic) {
-                            console.log('createdClinic:', createdClinic);
-                            expect(createdClinic.name).to.equal(newClinic.name);
-                            expect(createdClinic.address.street).to.equal(newClinic.address.street);
-                            expect(createdClinic.phoneNumber).to.equal(newClinic.phoneNumber);
-                            expect(createdClinic.faxNumber).to.equal(newClinic.faxNumber);
-                            expect(createdClinic.clinicManager.firstName).to.equal(newClinic.clinicManager.firstName);
-                            expect(createdClinic.clinicManager.lastName).to.equal(newClinic.clinicManager.lastName);
-                        });
-                    });
+                })
+                .then(function(createdClinic) {
+                    console.log('createdClinic:', createdClinic);
+                    expect(createdClinic.name).to.equal(newClinic.name);
+                    expect(createdClinic.address.street).to.equal(newClinic.address.street);
+                    expect(createdClinic.phoneNumber).to.equal(newClinic.phoneNumber);
+                    expect(createdClinic.faxNumber).to.equal(newClinic.faxNumber);
+                    expect(createdClinic.clinicManager.firstName).to.equal(newClinic.clinicManager.firstName);
+                    expect(createdClinic.clinicManager.lastName).to.equal(newClinic.clinicManager.lastName);
+                    done();
                 });
+        });
     });
 
     describe('PUT endpoint for clinics', function() {
-        it('Should update the data of an existing clinic', function() {
+        it('Should update the data of an existing clinic', function(done) {
             const updatedClinicData = {
                 name: 'West Jacksonville Dialysis Center',
                 phoneNumber: '904-432-8483',
@@ -101,58 +102,43 @@ describe('Clinic controller', function() {
                     firstName: 'Stacey',
                     lastName: 'McCormick'
                 }
-            }
+            };
 
-            return Clinic
-                .findOne()
-                .then(function(clinic) {
-                    console.log('clinic:', clinic);
-                    updatedClinicData._id = clinic._id
+            let clinic = new Clinic(generateClinicData());
 
-                    authenticatedUser.post('/users/register')
-                        .send(userCredentials)
-                        .end(function() {
+            clinic.save(function(err, clinic) {
+                updatedClinicData._id = clinic._id
+                authenticatedUser
+                    .put(`/clinics/${clinic._id}`)
+                    .send(updatedClinicData)
+                    .end(function(err, res) {
+                        expect(res).to.have.status(302);
 
-                            return chai
-                                .request(app)
-                                .put(`/clinics/${clinic.id}`)
-                                .send(updatedClinicData)
-                            })
-                            .then(function(res) {
-                                expect(res).to.have.status(200);
-                                return Clinic.findById(updatedClinicData.id);
-                            })
-                            .then(function(clinic) {
-                                expect(clinic.name).to.equal(updatedClinicData.name);
-                                expect(clinic.phoneNumber).to.equal(updatedClinicData.phoneNumber);
-                                expect(clinic.faxNumber).to.equal(updatedClinicData.faxNumber);
-                                expect(clinic.clinicManager.firstName).to.equal(updatedClinicData.clinicManager.firstName);
-                                expect(clinic.clinicManager.lastName).to.equal(updatedClinicData.clinicManager.lastName);
+                        Clinic.findById(updatedClinicData._id, (err, clinic) => {
+                            expect(clinic.name).to.equal(updatedClinicData.name);
+                            expect(clinic.phoneNumber).to.equal(updatedClinicData.phoneNumber);
+                            expect(clinic.faxNumber).to.equal(updatedClinicData.faxNumber);
+                            expect(clinic.clinicManager.firstName).to.equal(updatedClinicData.clinicManager.firstName);
+                            expect(clinic.clinicManager.lastName).to.equal(updatedClinicData.clinicManager.lastName);
+                            done();
                         });
                     });
-                });
+            });
+        });
     });
 
     describe('DELETE endpoint for clinics', function() {
-        it('Should delete an existing clinic based on id', function() {
-            let clinic;
+        it('Should delete an existing clinic based on id', function(done) {
+            let clinic = new Clinic(generateClinicData());
 
-            return Clinic
-                    .findOne()
-                    .then(function(_clinic) {
-                        clinic = _clinic;
-
-                        return chai
-                            .request(app)
-                            .delete(`/clinics/${clinic.id}`);
-                    })
-                    .then(function(res) {
-                        expect(res).to.have.status(200);
-                        return Clinic.findById(clinic.id);
-                    })
-                    .then(function(_clinic) {
-                        expect(_clinic).to.be.null;
+            clinic.save((err, clinic) => {
+                authenticatedUser
+                    .delete(`/clinics/${clinic._id}`)
+                    .end(function(err, res) {
+                        expect(res).to.have.status(302);
+                        done();
                     });
+            });
         });
     });
 });
