@@ -4,6 +4,7 @@
     <body>
         <%- include ../layouts/header.ejs %>
         <main>
+            <nav><a href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>">&#x293A <%= result.patient.patientName %></a></nav>
             <h1><%= result.formatDate %></h1>
             <% if (successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>

@@ -4,6 +4,7 @@
     <body>
         <%- include ../layouts/header.ejs %>
         <main>
+            <nav><a href="/clinics/show/<%= clinicId %>">&#x293A <%= patient.clinic.name %></a></nav>
             <h1><%= patient.patientName %></h1>
             <% if (successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
@@ -12,10 +13,11 @@
                 <button class="patient-delete-button">Delete</button>
                 <input type="hidden" name="_method" value="DELETE">
             </form>
-            <% patient.labResults.forEach(result => { %>
+            <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results">Go to lab results</a>
+            <!-- <% patient.labResults.forEach(result => { %>
                 <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results/show/<%= result.id %>"><%= result.formatDate %></a>
             <% }); %>
-            <a href="/clinics/<%= clinicId %>/patients/update/<%= patient.id %>">Update Patient</a>
+            <a href="/clinics/<%= clinicId %>/patients/update/<%= patient.id %>">Update Patient</a> -->
         </main>
         <%- include ../layouts/footer.ejs %>
         <%- include ../layouts/scripts.ejs %>

@@ -12,8 +12,8 @@ const {isAuthenticated} = require('../strategies/auth');
 router.get('/', isAuthenticated, (req, res) => {
     LabResults
         .find()
-        .then(labResults => {
-            res.render('lab-results/index', {results: labResults, patientId: req.patientId, clinicId: req.clinicId});
+        .then(results => {
+            res.render('lab-results/index', {results: results, patientId: req.patientId, clinicId: req.clinicId});
         })
         .catch(err => {
             console.log(err);

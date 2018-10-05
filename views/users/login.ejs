@@ -4,21 +4,23 @@
     <body>
         <%- include ../layouts/header.ejs %>
         <main>
-            <h1>Login</h1>
-            <% if (typeof message != 'undefined' && message) { %>
-                <h2><%= message %></h2>
-            <% } %>
-            <form class="user-login-form" method="POST" action="/users/login">
+            <div class="login-container">
+                <h1>Login</h1>
+                <% if (typeof message != 'undefined' && message) { %>
+                    <h2><%= message %></h2>
+                <% } %>
+                <form class="user-login-form" method="POST" action="/users/login">
                 
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username">
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password">
 
-                <button class="login-submit-button" type="submit">Login</button>
-            </form>
-            <p>Need an account? <a href="/users/register">Register here</a></p>
+                    <button class="login-submit-button" type="submit">Login</button>
+                </form>
+                <p>Need an account? <a href="/users/register">Register here</a></p>
+            </div>
         </main>
         <%- include ../layouts/footer.ejs %>
     </body>
