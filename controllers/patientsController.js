@@ -12,6 +12,7 @@ const {isAuthenticated} = require('../strategies/auth');
 
 router.get("/", isAuthenticated, (req, res) => {
     patientsSvc.getAllPatientsByClinicAlphabetically(req.clinicId)
+        .populate('clinic')
         .then(patients => {
             console.log(patients);
             res.render("patients/index", {patients: patients, clinicId: req.clinicId});
@@ -25,7 +26,6 @@ router.get("/", isAuthenticated, (req, res) => {
 router.get("/show/:id", isAuthenticated, (req, res) => {
     Patient
         .findById(req.params.id)
-        .populate({path: 'labResults', options: {sort: {date: 1}}})
         .populate('clinic')
         .then(patient => {
             let successMessage = req.flash('successMessage');
@@ -41,7 +41,6 @@ router.get("/show/:id", isAuthenticated, (req, res) => {
 router.get("/update/:id", isAuthenticated, (req, res) => {
     Patient
         .findById(req.params.id)
-        .populate('labResults')
         .populate('clinic')
         .then(patient => {
             res.render("patients/update", {patient: patient, formMethod: 'PUT', clinicId: req.clinicId});
@@ -85,7 +84,6 @@ router.put("/:id", isAuthenticated, (req, res) => {
     if  (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
         Patient
             .findById(req.params.id)
-            .populate('labResults')
             .populate('clinic')
             .then(patient => {
                 res.render("patients/update", {patient: patient, formMethod: 'PUT',
@@ -116,7 +114,6 @@ router.delete("/:id", isAuthenticated, (req, res) => {
             if (err) {
                 Patient
                     .findById(req.params.id)
-                    .populate('labResults')
                     .populate('clinic')
                     .then(patient => {
                         res.render("patients/index", {patient: patient, clinicId: req.clinicId,

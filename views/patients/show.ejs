@@ -13,6 +13,19 @@
                 <button class="patient-delete-button">Delete</button>
                 <input type="hidden" name="_method" value="DELETE">
             </form>
+            <section class="patient-information">
+                <p><%= patient.formatBirthDate %></p>
+                <p><%= patient.gender %></p>
+                <p><%= patient.socialSecurityNumber %></p>
+                <p><%= patient.address.street %></p>
+                <p><%= patient.address.city %>, <%=patient.address.state %>, <%= patient.address.zipCode %></p>
+                <div class="patient-phone-numbers">
+                    <p><%= patient.phoneNumbers.home %></p>
+                    <p><%= patient.phoneNumbers.cell %></p>
+                    <p><%= patient.phoneNumbers.work %></p>
+                </div>
+            </section>
+
             <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results">Go to lab results</a>
             <!-- <% patient.labResults.forEach(result => { %>
                 <a href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results/show/<%= result.id %>"><%= result.formatDate %></a>

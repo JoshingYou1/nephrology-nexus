@@ -34,7 +34,7 @@ const patients = [
         },
         dateOfBirth: "05/12/1968",
         gender: "Male",
-        socialSecurityNumber: "127371989",
+        socialSecurityNumber: "127-37-1989",
         address: {
             street: "123 International Drive",
             city: "Jacksonville",
@@ -59,7 +59,7 @@ const patients = [
         },
         dateOfBirth: "08/02/1951",
         gender: "Female",
-        socialSecurityNumber: "380748274",
+        socialSecurityNumber: "380-74-8274",
         address: {
             street: "456 Colonial Drive",
             city: "Orange Park",
@@ -84,7 +84,7 @@ const patients = [
         },
         dateOfBirth: "02/17/1974",
         gender: "Male",
-        socialSecurityNumber: "002385372",
+        socialSecurityNumber: "002-38-5372",
         address: {
             street: "798 Wallaby Way",
             city: "Jacksonville",
@@ -109,7 +109,7 @@ const patients = [
         },
         dateOfBirth: "03/09/1948",
         gender: "Female",
-        socialSecurityNumber: "378472109",
+        socialSecurityNumber: "378-47-2109",
         address: {
             street: "932 Long Leaf Road",
             city: "Jacksonville",
@@ -134,7 +134,7 @@ const patients = [
         },
         dateOfBirth: "11/30/1943",
         gender: "Male",
-        socialSecurityNumber: "938848321",
+        socialSecurityNumber: "938-84-8321",
         address: {
             street: "22 West Monument Road",
             city: "Jacksonville",

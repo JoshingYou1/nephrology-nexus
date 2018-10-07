@@ -15,25 +15,25 @@
             </form>
             <section class="hematology">
                 <h3>Hematology</h3>
-                <div>WBC Count: <%= result.hematology.wbcCount %></div>
-                <div>RBC Count: <%= result.hematology.rbcCount %></div>
-                <div>Hemoglobin: <%= result.hematology.hemoglobin %></div>
-                <div>Hematocrit: <%= result.hematology.hematocrit %></div>
-                <div>Platelet Count: <%= result.hematology.plateletCount %></div>
+                <p>WBC Count: <%= result.hematology.wbcCount %></p>
+                <p>RBC Count: <%= result.hematology.rbcCount %></p>
+                <p>Hemoglobin: <%= result.hematology.hemoglobin %></p>
+                <p>Hematocrit: <%= result.hematology.hematocrit %></p>
+                <p>Platelet Count: <%= result.hematology.plateletCount %></p>
             </section>
             <section class="chemistry">
                 <h3>Chemistry</h3>
-                <div>BUN: <%= result.chemistry.bun %></div>
-                <div>Creatinine: <%= result.chemistry.creatinine %></div>
-                <div>Sodium: <%= result.chemistry.sodium %></div>
-                <div>Potassium: <%= result.chemistry.potassium %></div>
-                <div>Calcium: <%= result.chemistry.calcium %></div>
-                <div>Phosporus: <%= result.chemistry.phosphorus %></div>
-                <div>Albumin: <%= result.chemistry.albumin %></div>
-                <div>Glucose: <%= result.chemistry.glucose %></div>
-                <div>Iron: <%= result.chemistry.iron %></div>
-                <div>Cholesterol: <%= result.chemistry.cholesterol %></div>
-                <div>Triglycerides: <%= result.chemistry.triglycerides %></div>
+                <p>BUN: <%= result.chemistry.bun %></p>
+                <p>Creatinine: <%= result.chemistry.creatinine %></p>
+                <p>Sodium: <%= result.chemistry.sodium %></p>
+                <p>Potassium: <%= result.chemistry.potassium %></p>
+                <p>Calcium: <%= result.chemistry.calcium %></p>
+                <p>Phosporus: <%= result.chemistry.phosphorus %></p>
+                <p>Albumin: <%= result.chemistry.albumin %></p>
+                <p>Glucose: <%= result.chemistry.glucose %></p>
+                <p>Iron: <%= result.chemistry.iron %></p>
+                <p>Cholesterol: <%= result.chemistry.cholesterol %></p>
+                <p>Triglycerides: <%= result.chemistry.triglycerides %></p>
             </section>
             <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/update/<%= result.id %>">update</a>
         </main>

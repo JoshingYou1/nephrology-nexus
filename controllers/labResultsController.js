@@ -8,11 +8,12 @@ mongoose.Promise = global.Promise;
 const {LabResults} = require('../models/lab-results');
 const {Patient} = require('../models/patients');
 const {isAuthenticated} = require('../strategies/auth');
+const {labResultsSvc} = require('../services/lab-results');
 
 router.get('/', isAuthenticated, (req, res) => {
-    LabResults
-        .find()
+    labResultsSvc.getAllLabResultsByPatientChronologically(req.patientId)
         .then(results => {
+            console.log('results:', results);
             res.render('lab-results/index', {results: results, patientId: req.patientId, clinicId: req.clinicId});
         })
         .catch(err => {

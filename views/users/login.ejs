@@ -2,26 +2,26 @@
 <html lang="en">
     <%- include ../layouts/head.ejs %>
     <body>
-        <%- include ../layouts/header.ejs %>
-        <main>
-            <div class="login-container">
-                <h1>Login</h1>
-                <% if (typeof message != 'undefined' && message) { %>
-                    <h2><%= message %></h2>
-                <% } %>
+        <div class="login-container">
+            <%- include ../layouts/header.ejs %>
+            <main class="login-main">
+                <h1 class="login-h1">Login</h1>
+                    <% if (typeof message != 'undefined' && message) { %>
+                        <h2><%= message %></h2>
+                    <% } %>
                 <form class="user-login-form" method="POST" action="/users/login">
                 
-                    <label for="username">Username:</label>
+                    <label class="login-username-label" for="username">Username:</label>
                     <input type="text" id="username" name="username">
 
-                    <label for="password">Password:</label>
+                    <label class="login-password-label" for="password">Password:</label>
                     <input type="password" id="password" name="password">
 
                     <button class="login-submit-button" type="submit">Login</button>
                 </form>
-                <p>Need an account? <a href="/users/register">Register here</a></p>
-            </div>
-        </main>
-        <%- include ../layouts/footer.ejs %>
+                <p class="register-p">Don't have an account yet? <a href="/users/register">Register here</a></p>
+            </main>
+            <%- include ../layouts/footer.ejs %>
+        </div>
     </body>
 </html>

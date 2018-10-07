@@ -24,13 +24,6 @@ const clinicSchema = mongoose.Schema({
     }]
 });
 
-clinicSchema.virtual("addressString").get(function() {
-    return `Street: ${this.address.street}\n
-            City: ${this.address.city}\n
-            State: ${this.address.state}\n
-            Zipcode: ${this.address.zipcode}`;
-});
-
 clinicSchema.virtual('managerName').get(function() {
     return `Clinic Manager: ${this.clinicManager.firstName} ${this.clinicManager.lastName}`;
 })

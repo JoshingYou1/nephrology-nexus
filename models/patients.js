@@ -9,7 +9,7 @@ const patientSchema = mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true}
     },
-    dateOfBirth: {type: String, required: true},
+    dateOfBirth: {type: Date, required: true},
     gender: {type: String, required: true},
     socialSecurityNumber: {type: String, required: true},
     address: {
@@ -37,16 +37,31 @@ patientSchema.virtual("patientName").get(function() {
     return `${this.name.lastName}, ${this.name.firstName}`;
 });
 
-patientSchema.virtual("addressString").get(function() {
-    return `${this.address.street}\n
-            ${this.address.city}, ${this.address.state} ${this.address.zipCode}`;
-});
+patientSchema.virtual('formatHtml5BirthDate').get(function()  {
+    let day = this.dateOfBirth.getDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.dateOfBirth.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.dateOfBirth.getFullYear();
+    return `${year}-${month}-${day}`;
+})
 
-patientSchema.virtual("phoneNumbersString").get(function() {
-    return `Home: ${this.phoneNumbers.home}\n
-            Cell: ${this.phoneNumbers.cell}\n
-            Work: ${this.phoneNumbers.work}`;
-});
+patientSchema.virtual('formatBirthDate').get(function()  {
+    let day = this.dateOfBirth.getDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.dateOfBirth.getMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.dateOfBirth.getFullYear();
+    return `${month}/${day}/${year}`;
+})
 
 const Patient = mongoose.model("Patient", patientSchema);
 

@@ -6,9 +6,9 @@
         <main>
             <h1>Clinics</h1>
             <% clinics.forEach(clinic => { %>
-                <ol>
-                    <a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a>
-                </ol>
+                <ul>
+                    <li><a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a></li>
+                </ul>
             <% }); %>
         </main>
         <%- include ../layouts/footer.ejs %>

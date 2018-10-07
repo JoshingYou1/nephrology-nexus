@@ -5,6 +5,12 @@ mongoose.Promise = global.Promise;
 
 const {LabResults} = require('../models/lab-results');
 
-function getAllLabResultsByPatientChronologically() {
-    return LabResults.find({patient: patientId}).sort({'name.lastName': 1});
+function getAllLabResultsByPatientChronologically(patientId) {
+    return LabResults.find({patient: patientId}).sort({'date': 1});
 }
+
+const labResultsSvc = {
+    getAllLabResultsByPatientChronologically: getAllLabResultsByPatientChronologically
+}
+
+module.exports = {labResultsSvc};
