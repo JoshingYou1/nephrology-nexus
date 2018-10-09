@@ -3,8 +3,15 @@
     <%- include ../layouts/head.ejs %>
     <body>
         <%- include ../layouts/header.ejs %>
+        <nav>
+            <a href="/clinics">Clinics</a> &gt
+            <a href="/clinics/<%= clinicId %>">Clinic name</a> &gt
+            <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
+            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>">Patient Name</a> &gt
+            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results">Lab Results</a> &gt
+            <span><%= result.formatDate %></span>
+        </nav>
         <main>
-            <nav><a href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>">&#x293A <%= result.patient.patientName %></a></nav>
             <h1><%= result.formatDate %></h1>
             <% if (successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>

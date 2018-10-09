@@ -2,34 +2,33 @@
 <html lang="en">
     <%- include ../layouts/head.ejs %>
     <body>
-        <%- include ../layouts/header.ejs %>
-        <nav><a href="/clinics">Clinics</a></nav>
-        <main>
-            <h1><%= clinic.name %></h1>
-            <% if (typeof successMessage != 'undefined' && successMessage) { %>
-                <h2><%= successMessage %></h2>
-            <% } %>
-            <form  class="clinic-delete-form" method="POST" action="/clinics/<%= clinic._id %>">
-                <button class="clinic-delete-button">Delete</button>
-                <input type="hidden" name="_method" value="DELETE">
-            </form>
-            <section class="clinic-info">
-                <p><%= clinic.address.street %></p>
-                <p><%= clinic.address.city %>, <%= clinic.address.state %>, <%= clinic.address.zipCode %></p>
-                <p>Phone Number: <%= clinic.phoneNumber %></p>
-                <p>Fax Number: <%= clinic.faxNumber %></p>
-                <p><%= clinic.managerName %></p>
-            </section>
-            <a href="/clinics/<%= clinic._id %>/patients">Go to patients</a>
-            <!-- <% clinic.patients.forEach(patient => { %>
-                <ol>
-                    <a href="/clinics/<%= clinic.id %>/patients/show/<%= patient.id %>">
-                            <%= patient.name.lastName %> <%= patient.name.firstName %></a>
-                </ol>
-            <% }); %> -->
-            <a href="/clinics/update/<%= clinic.id %>">Update Clinic</a>
-        </main>
-        <%- include ../layouts/footer.ejs %>
-        <%- include ../layouts/scripts.ejs %>
+        <div class="clinics-show-container">
+            <%- include ../layouts/header.ejs %>
+            <nav class="breadcrumbs">
+                <a href="/clinics">Clinics</a>
+                <span><%= clinic.name %></span>
+            </nav>
+            <main>
+                <h1><%= clinic.name %></h1>
+                <% if (typeof successMessage != 'undefined' && successMessage) { %>
+                    <h2><%= successMessage %></h2>
+                <% } %>
+                <form  class="clinic-delete-form" method="POST" action="/clinics/<%= clinic._id %>">
+                    <button class="clinic-delete-button">Delete</button>
+                    <input type="hidden" name="_method" value="DELETE">
+                </form>
+                <section class="clinic-info">
+                    <p><%= clinic.address.street %></p>
+                    <p><%= clinic.address.city %>, <%= clinic.address.state %>, <%= clinic.address.zipCode %></p>
+                    <p>Phone Number: <%= clinic.phoneNumber %></p>
+                    <p>Fax Number: <%= clinic.faxNumber %></p>
+                    <p><%= clinic.managerName %></p>
+                </section>
+                <a href="/clinics/<%= clinic._id %>/patients">Go to patients</a>
+                <a href="/clinics/update/<%= clinic.id %>">Update Clinic</a>
+            </main>
+            <%- include ../layouts/footer.ejs %>
+            <%- include ../layouts/scripts.ejs %>
+        </div>
     </body>
 </html>

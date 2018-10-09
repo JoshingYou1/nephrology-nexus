@@ -1,3 +1,10 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 header {
     grid-area: header;
     grid-column-start: first;
@@ -6,7 +13,16 @@ header {
     grid-row-end: row1-end;
 }
 
-.login-main {
+.breadcrumbs {
+    grid-area: breadcrumbs;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    justify-self: start;
+}
+
+.login-main, .registration-main {
     grid-area: main;
     grid-column-start: line2;
     grid-column-end: line3;
@@ -25,7 +41,7 @@ footer {
     align-self: end;
 }
 
-form {
+.user-login-form, .user-registration-form {
     grid-area: main;
     grid-column-start: line2;
     grid-column-end: line3;
@@ -34,9 +50,9 @@ form {
     font-size: 0.9em;
 }
 
-.login-container {
+.login-container, .registration-container {
     display: grid;
-    grid-template-columns: [first] 1fr [line2] 70% [line3] 1fr [last];
+    grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
     grid-template-rows: [row1-start] 2fr [row1-end] 60% [third-line] 1fr [last-line];
     grid-template-areas:
         "header header header"
@@ -49,31 +65,82 @@ h1 {
     text-align: center;
 }
 
-.login-h1 {
-    margin-top: 0;
+fieldset {
+    border: none;
 }
 
-label {
+.login-requirements, .registration-requirements {
+    border: 0;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.login-username-label, .login-password-label, .registration-first-name-label, .registration-last-name-label, .registration-username-label,
+    .registration-password-label {
     display: block;
     margin-bottom: 1%
 }
 
-.login-password-label {
+.login-password-label, .registration-last-name-label, .registration-username-label, .registration-password-label {
     margin-top: 10%;
 }
 
-input {
-    display: block;
-    width: 98%;
-}
-
-.login-submit-button {
-    margin-top: 10%;
+.login-username-input, .login-password-input, .registration-first-name-input, .registration-last-name-input, .registration-username-input,
+    .registration-password-input {
     display: block;
     width: 100%;
 }
 
-.register-p {
+.login-submit-button, .registration-submit-button {
+    margin-top: 10%;
+    display: block;
+    width: 100%;
+    padding: 0;
+}
+
+.register-p, .login-p {
     font-size: 0.8em;
     text-align: center;
+}
+
+.clinics-index-main {
+    grid-area: clinics-index-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: third-line;
+    grid-row-end: fourth-line;
+}
+
+.clinics-index-container {
+    display: grid;
+    grid-template-columns: [first] 20% [line2] 60% [line3] 20% [last];
+    grid-template-rows: [row1-start] 1fr [row1-end] 0.25fr[third-line] 2.5fr [fourth-line] 0.25fr [last-line];
+    grid-template-areas:
+        "header header header"
+        "breadcrumbs breadcrumbs breadcrumbs"
+        ". clinics-index-main ."
+        "footer footer footer"
+}
+
+.clinics-index-footer {
+    grid-area: footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: fourth-line;
+    grid-row-end: last-line;
+    text-align: center;
+    font-size: 0.8em;
+    align-self: end;
+}
+
+@media only screen and (min-width: 375px) {
+
+    .login-main, .registration-main {
+        justify-self: center;
+    }
+    
+    input {
+        display: block;
+        width: 100%;
+    }
 }

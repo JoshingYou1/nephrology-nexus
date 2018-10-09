@@ -3,6 +3,13 @@
     <%- include ../layouts/head.ejs %>
     <body>
         <%- include ../layouts/header.ejs %>
+        <nav>
+            <a href="/clinics">Clinics</a> &gt
+            <a href="/clinics/<%= clinicId %>">Clinic name</a> &gt
+            <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
+            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>">Patient name</a> &gt
+            <span>Lab Results</span>
+        </nav>
         <main>
             <h1>Lab Results</h1>
             <ul>

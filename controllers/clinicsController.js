@@ -115,25 +115,26 @@ router.put('/:id', isAuthenticated, (req, res) => {
 
 router.delete('/:id', isAuthenticated, (req, res) => {
     Clinic
-        .findByIdAndRemove(req.params.id, err => {
-            if (err) {
-                Clinic
-                    .findById(req.params.id)
-                    .populate('clinics')
-                    .then(clinic => {
-                    res.render('clinics/index', {clinic: clinic, message: 'Sorry, something went wrong. Clinic could not be deleted.'});
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        req.flash('errorMessage', 'Internal server error');
-                        res.redirect('/');
-                });
-            }
-            else {
-                req.flash('successMessage', 'Clinic successfully deleted!');
-                res.redirect('/clinics');
-            }
-    });
+        .findById(req.params.id)
+        .populate('patients')
+        .then(clinic => {
+            clinic.remove((err, removedClinic) => {
+                console.log('removedClinic:', removedClinic);
+                if (err) {
+                    console.log('deleteErr:', err);
+                    res.render('clinics/show', {clinic: clinic, message: 'Sorry, something went wrong. Clinic could not be deleted.'});
+                }
+                else {
+                    req.flash('successMessage', 'Clinic successfully deleted!');
+                    res.redirect('/clinics');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                req.flash('errorMessage', 'Internal server error');
+                res.redirect('/');
+            });
+        });
 });
 
 module.exports = router;

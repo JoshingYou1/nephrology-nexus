@@ -3,6 +3,9 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
+const {LabResults} = require('./lab-results');
+
+
 const patientSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: {
@@ -33,8 +36,20 @@ const patientSchema = mongoose.Schema({
     }]
 });
 
+patientSchema.pre('remove', function(next) {
+    console.log('We in here');
+    LabResults.deleteMany({_id: {$in: this.labResults}}).exec();
+    next();
+})
+
 patientSchema.virtual("patientName").get(function() {
     return `${this.name.lastName}, ${this.name.firstName}`;
+});
+
+patientSchema.virtual("formatSsn").get(function() {
+    return `${this.socialSecurityNumber[0]}${this.socialSecurityNumber[1]}${this.socialSecurityNumber[2]}-
+        ${this.socialSecurityNumber[3]}${this.socialSecurityNumber[4]}-
+        ${this.socialSecurityNumber[5]}${this.socialSecurityNumber[6]}${this.socialSecurityNumber[7]}${this.socialSecurityNumber[8]}`
 });
 
 patientSchema.virtual('formatHtml5BirthDate').get(function()  {

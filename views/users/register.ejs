@@ -2,33 +2,35 @@
 <html lang="en">
     <%- include ../layouts/head.ejs %>
     <body>
-        <%- include ../layouts/header.ejs %>
-        <main>
-            <h1>Register</h1>
-            <% if (typeof message != 'undefined' && message) { %>
-                <h2><%= message %></h2>
-            <% } %>
-            <% if (typeof usernameUniqueError != 'undefined' && usernameUniqueError) { %>
-                <h2><%= usernameUniqueError %></h2>
-            <% } %>
-            <form class="user-registration-form" method="POST" action="/users/register">
+        <div class="registration-container">
+            <%- include ../layouts/header.ejs %>
+            <main class="registration-main">
+                <% if (typeof message != 'undefined' && message) { %>
+                    <h2><%= message %></h2>
+                <% } %>
+                <% if (typeof usernameUniqueError != 'undefined' && usernameUniqueError) { %>
+                    <h2><%= usernameUniqueError %></h2>
+                <% } %>
+                <form class="user-registration-form" method="POST" action="/users/register">
+                    <fieldset class="registration-requirements" name="registration requirements"></fieldset>
+                        <label class="registration-first-name-label" for="first-name">First Name</label>
+                        <input class="registration-first-name-input" type="text" id="first-name" name="firstName">
 
-                <label for="first-name">First Name:</label>
-                <input type="text" id="first-name" name="firstName">
-
-                <label for="last-name">Last Name:</label>
-                <input type="text" id="last-name" name="lastName">
+                        <label class="registration-last-name-label" for="last-name">Last Name</label>
+                        <input class="registration-last-name-input" type="text" id="last-name" name="lastName">
                 
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username">
+                        <label class="registration-username-label" for="username">Username</label>
+                        <input class="registration-username-input" type="text" id="username" name="username">
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                        <label class="registration-password-label" for="password">Password</label>
+                        <input class="registration-password-input" type="password" id="password" name="password">
+                    </fieldset>
 
-                <button class="register-submit-button" type="submit">Register</button>
-            </form>
-            <p>Already registered? <a href="/users/login">Login here</a></p>
-        </main>
-        <%- include ../layouts/footer.ejs %>
+                    <button class="registration-submit-button" type="submit">Register</button>
+                </form>
+                <p class="login-p">Already have an account? <a href="/users/login">Login here</a></p>
+            </main>
+            <%- include ../layouts/footer.ejs %>
+        </div>
     </body>
 </html>

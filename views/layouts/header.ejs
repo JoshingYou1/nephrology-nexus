@@ -1,9 +1,11 @@
 <header>
     <nav>
         <h1 class="header-h1">Nephrology Nexus</h1>
+        <% if (user) { %>
+            <ul class="main-menu">
+                <%= user.username %>
+                <a href="/users/logout">Logout</a>
+            </ul>
+        <% } %>
     </nav>
-    <% if (user) { %>
-        <p><%= user.username %></p>
-        <a href="/users/logout">Logout</a>
-    <% } %>
 </header>

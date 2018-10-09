@@ -5,21 +5,21 @@
         <div class="login-container">
             <%- include ../layouts/header.ejs %>
             <main class="login-main">
-                <h1 class="login-h1">Login</h1>
-                    <% if (typeof message != 'undefined' && message) { %>
-                        <h2><%= message %></h2>
-                    <% } %>
+                <% if (typeof message != 'undefined' && message) { %>
+                    <h2><%= message %></h2>
+                <% } %>
                 <form class="user-login-form" method="POST" action="/users/login">
-                
-                    <label class="login-username-label" for="username">Username:</label>
-                    <input type="text" id="username" name="username">
+                    <fieldset class="login-requirements" name="login-requirements">
+                        <label class="login-username-label" for="username">Username</label>
+                        <input class="login-username-input" type="text" id="username" name="username">
 
-                    <label class="login-password-label" for="password">Password:</label>
-                    <input type="password" id="password" name="password">
+                        <label class="login-password-label" for="password">Password</label>
+                        <input class="login-password-input" type="password" id="password" name="password">
+                    </fieldset>
 
                     <button class="login-submit-button" type="submit">Login</button>
                 </form>
-                <p class="register-p">Don't have an account yet? <a href="/users/register">Register here</a></p>
+                <p class="register-p">Don't have an account? <a href="/users/register">Register here</a></p>
             </main>
             <%- include ../layouts/footer.ejs %>
         </div>

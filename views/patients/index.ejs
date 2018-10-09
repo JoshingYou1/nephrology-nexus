@@ -3,9 +3,14 @@
     <%- include ../layouts/head.ejs %>
     <body>
         <%- include ../layouts/header.ejs %>
-        <nav><a href="/clinics">Clinics</a> >> <a href="/clinics/<%= clinicId %>"><%= clinic.name %></a></nav>
+        <nav class="breadcrumbs">
+            <a href="/clinics">Clinics</a> &gt
+            <a href="/clinics/<%= clinicId %>"><%= clinic.name %></a> &gt
+            <span>Patients</span>
+        </nav>
         <main>
             <h1>patient list</h1>
+            <a href="/clinics/<%= clinicId %>/patients/create">create patient</a>
             <ul>
                 <% patients.forEach(patient => { %>
                     <li><a href="/clinics/<%= clinicId %>/patients/show/<%= patient.id %>"><%= patient.name.lastName %>,

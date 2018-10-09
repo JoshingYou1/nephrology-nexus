@@ -11,15 +11,23 @@ const {patientsSvc} = require('../services/patients');
 const {isAuthenticated} = require('../strategies/auth');
 
 router.get("/", isAuthenticated, (req, res) => {
-    patientsSvc.getAllPatientsByClinicAlphabetically(req.clinicId)
-        .populate('clinic')
-        .then(patients => {
-            console.log(patients);
-            res.render("patients/index", {patients: patients, clinicId: req.clinicId});
-        })
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({message: "Internal server error"});
+    let vm = {};
+    Clinic
+        .findById(req.clinicId)
+        .then(clinic => {
+            vm.clinic = clinic;
+            vm.clinicId = req.clinicId;
+            
+            patientsSvc.getAllPatientsByClinicAlphabetically(req.clinicId)
+                .then(patients => {
+                    vm.patients = patients;
+                    console.log(patients);
+                    res.render("patients/index", vm);
+                })
+                .catch(err => {
+                    console.error(err);
+                    res.status(500).json({message: "Internal server error"});
+                });
         });
 });
 
@@ -69,6 +77,7 @@ router.post("/", isAuthenticated, (req, res) => {
                 Clinic
                     .findByIdAndUpdate(patient.clinic, {$push: {patients: patient._id}})
                     .then(c => {
+                        console.log('c:', c);
                         req.flash("successMessage", `Patient successfully created and added to the ${c.name} patient list!`);
                         res.redirect(`/clinics/${patient.clinic._id}/patients/show/${patient._id}`);
                     })
@@ -110,13 +119,13 @@ router.put("/:id", isAuthenticated, (req, res) => {
 
 router.delete("/:id", isAuthenticated, (req, res) => {
     Patient
-        .findByIdAndRemove(req.params.id, err => {
+        .remove({_id: req.params.id}, err => {
             if (err) {
                 Patient
                     .findById(req.params.id)
                     .populate('clinic')
                     .then(patient => {
-                        res.render("patients/index", {patient: patient, clinicId: req.clinicId,
+                        res.render("patients/show", {patient: patient, clinicId: req.clinicId,
                                 message: "Sorry, something went wrong. Patient could not be deleted."});
                     })
                     .catch(err => {

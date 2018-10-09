@@ -3,8 +3,13 @@
     <%- include ../layouts/head.ejs %>
     <body>
         <%- include ../layouts/header.ejs %>
+        <nav>
+            <a href="/clinics">Clinics</a> &gt
+            <a href="/clinics/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
+            <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
+            <span><%= patient.patientName %> <%= patient._id %></span>
+        </nav>
         <main>
-            <nav><a href="/clinics/show/<%= clinicId %>">&#x293A <%= patient.clinic.name %></a></nav>
             <h1><%= patient.patientName %></h1>
             <% if (successMessage != 'undefined' && successMessage) { %>
                 <h2><%= successMessage %></h2>
@@ -16,7 +21,7 @@
             <section class="patient-information">
                 <p><%= patient.formatBirthDate %></p>
                 <p><%= patient.gender %></p>
-                <p><%= patient.socialSecurityNumber %></p>
+                <p><%= patient.formatSsn %></p>
                 <p><%= patient.address.street %></p>
                 <p><%= patient.address.city %>, <%=patient.address.state %>, <%= patient.address.zipCode %></p>
                 <div class="patient-phone-numbers">

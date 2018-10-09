@@ -2,15 +2,20 @@
 <html lang="en">
     <%- include ../layouts/head.ejs %>
     <body>
-        <%- include ../layouts/header.ejs %>
-        <main>
-            <h1>Clinics</h1>
-            <% clinics.forEach(clinic => { %>
-                <ul>
-                    <li><a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a></li>
-                </ul>
-            <% }); %>
-        </main>
-        <%- include ../layouts/footer.ejs %>
+        <div class="clinics-index-container">
+            <%- include ../layouts/header.ejs %>
+            <nav class="breadcrumbs">
+                <span>Clinics</span>
+            </nav>
+            <main class="clinics-index-main">
+                <h1>Clinics</h1>
+                <% clinics.forEach(clinic => { %>
+                    <ul class="clinics-list">
+                        <li class="clinic-list-item"><a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a></li>
+                    </ul>
+                <% }); %>
+            </main>
+            <span class="clinics-index-footer"><%- include ../layouts/footer.ejs %></span>
+        </div>
     </body>
 </html>

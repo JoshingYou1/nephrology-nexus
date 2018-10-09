@@ -33,7 +33,7 @@ app.use(methodOverride(function(req, res) {
 app.use(express.static('public'));
 app.use(morgan("common"));
 app.use(cookieParser('secret'));
-app.use(session({ cookie: {maxAge: 60000 }}));
+app.use(session({ secret: process.env.JWT_SECRET, cookie: {maxAge: 60000 }}));
 app.use(flash());
 
 app.set("view engine", "ejs");
@@ -58,6 +58,7 @@ app.use(passport.session());
 app.use(function(req, res, next) {
     console.log('user:', req.user);
     res.locals.user = req.user;
+    console.log('res.locals.user:', res.locals.user);
     next();
 });
 app.use('/users', usersController);
@@ -78,23 +79,24 @@ app.use('*', function (req, res) {
   });
 
 let server;
+let db;
 
 function runServer(databaseUrl, port = PORT) {
     return new Promise(function(resolve, reject) {
-        mongoose.connect(databaseUrl, err => {
-            if (err) {
-                return reject(err);
-            }
-            server = app.listen(port, () => {
-                console.log(`Your app is listening on port ${port}`);
-                resolve();
-            })
-                .on("error", err => {
-                    mongoose.disconnect();
-                    reject(err);
-                });
+        db = mongoose.connect(databaseUrl, err => {
+                if (err) {
+                    return reject(err);
+                }
+                server = app.listen(port, () => {
+                    console.log(`Your app is listening on port ${port}`);
+                    resolve();
+                })
+                    .on("error", err => {
+                        mongoose.disconnect();
+                        reject(err);
+                    });
+            });
         });
-    });
 }
 
 function closeServer() {
@@ -116,4 +118,4 @@ if (require.main === module) {
     runServer(DATABASE_URL).catch(err => console.log(err));
 }
 
-module.exports = {app, runServer, closeServer};
+module.exports = {db, app, runServer, closeServer};

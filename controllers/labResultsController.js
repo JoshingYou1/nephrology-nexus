@@ -11,15 +11,27 @@ const {isAuthenticated} = require('../strategies/auth');
 const {labResultsSvc} = require('../services/lab-results');
 
 router.get('/', isAuthenticated, (req, res) => {
-    labResultsSvc.getAllLabResultsByPatientChronologically(req.patientId)
-        .then(results => {
-            console.log('results:', results);
-            res.render('lab-results/index', {results: results, patientId: req.patientId, clinicId: req.clinicId});
-        })
-        .catch(err => {
-            console.log(err);
-            req.flash('errorMessage', 'Internal server error');
-            res.redirect('/');
+    let vm = {};
+    Patient
+        .findById(req.patientId)
+        .populate('clinic')
+        .then(patient => {
+            vm.patientId = req.patientId;
+            vm.clinicId = req.clinicId;
+            vm.patient = patient;
+            vm.clinic = patient.clinic;
+
+            labResultsSvc.getAllLabResultsByPatientChronologically(req.patientId)
+                .then(results => {
+                    vm.results = results;
+                    console.log('results:', results);
+                    res.render('lab-results/index', vm);
+                })
+                .catch(err => {
+                    console.log(err);
+                    req.flash('errorMessage', 'Internal server error');
+                    res.redirect('/');
+                });
         });
 });
 
@@ -113,7 +125,7 @@ router.put('/:id', isAuthenticated, (req, res) => {
 
 router.delete('/:id', isAuthenticated, (req, res) => {
     LabResults
-        .findByIdAndRemove(req.params.id, err => {
+        .remove({_id: req.params.id}, err => {
             if (err) {
                 LabResults
                     .findById(req.params.id)

@@ -105,8 +105,10 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
 });
 
 const isAuthenticated = (req, res, next) => {
+    console.log('in isAuthenticated')
     if (req.isAuthenticated()) {
-        return next();
+        console.log('req.user:', req.user);
+        return next();  
     }
     res.redirect('/users/login');
 };
