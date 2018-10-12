@@ -1,8 +1,19 @@
 * {
+    /* background-color: #1e3250; */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -11,15 +22,6 @@ header {
     grid-column-end: last;
     grid-row-start: row1-start;
     grid-row-end: row1-end;
-}
-
-.breadcrumbs {
-    grid-area: breadcrumbs;
-    grid-column-start: first;
-    grid-column-end: last;
-    grid-row-start: row1-end;
-    grid-row-end: third-line;
-    justify-self: start;
 }
 
 .login-main, .registration-main {
@@ -38,7 +40,6 @@ footer {
     grid-row-end: last-line;
     text-align: center;
     font-size: 0.8em;
-    align-self: end;
 }
 
 .user-login-form, .user-registration-form {
@@ -50,19 +51,41 @@ footer {
     font-size: 0.9em;
 }
 
+.title {
+    grid-area: title;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+    text-align: center;
+}
+
 .login-container, .registration-container {
+    min-height: 100%;
     display: grid;
     grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
-    grid-template-rows: [row1-start] 2fr [row1-end] 60% [third-line] 1fr [last-line];
+    grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
     grid-template-areas:
-        "header header header"
+        "title title title"
         ". main ."
         "footer footer footer";
     justify-items: stretch;
 }
 
-h1 {
+h1, h2 {
+    margin-top: 1.5em;
     text-align: center;
+}
+
+.login-logo, .register-logo {
+    display: block;
+    height: 5em;
+    width: 100%;
+}
+
+.header-h2 {
+    text-align: center;
+
 }
 
 fieldset {
@@ -85,8 +108,7 @@ fieldset {
     margin-top: 10%;
 }
 
-.login-username-input, .login-password-input, .registration-first-name-input, .registration-last-name-input, .registration-username-input,
-    .registration-password-input {
+input {
     display: block;
     width: 100%;
 }
@@ -103,26 +125,52 @@ fieldset {
     text-align: center;
 }
 
-.clinics-index-main {
-    grid-area: clinics-index-main;
-    grid-column-start: line2;
-    grid-column-end: line3;
+.breadcrumbs {
+    grid-area: breadcrumbs;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+}
+
+.clinics-index-main,  .clinics-show-main{
+    grid-area: main;
+    grid-column-start: first;
+    grid-column-end: last;
     grid-row-start: third-line;
     grid-row-end: fourth-line;
 }
 
-.clinics-index-container {
+.clinics-index-container, .clinics-show-container {
+    min-height: 100%;
     display: grid;
-    grid-template-columns: [first] 20% [line2] 60% [line3] 20% [last];
-    grid-template-rows: [row1-start] 1fr [row1-end] 0.25fr[third-line] 2.5fr [fourth-line] 0.25fr [last-line];
+    grid-template-columns: [first] 50% [line2] 50% [last];
+    grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
     grid-template-areas:
-        "header header header"
-        "breadcrumbs breadcrumbs breadcrumbs"
-        ". clinics-index-main ."
-        "footer footer footer"
+        "header header"
+        "breadcrumbs breadcrumbs"
+        "main main"
+        "footer footer";
 }
 
-.clinics-index-footer {
+.logo {
+    height: 2.5em;
+    margin-top: 0.5em;
+    margin-left: 1em;
+}
+
+.header-nav {
+    float: right;
+    margin-top: 1em;
+    margin-right: 1em;
+    font-size: 0.8em;
+}
+
+.logout-link {
+    float: right;
+}
+
+.clinics-index-footer, .clinics-show-footer {
     grid-area: footer;
     grid-column-start: first;
     grid-column-end: last;
@@ -130,7 +178,59 @@ fieldset {
     grid-row-end: last-line;
     text-align: center;
     font-size: 0.8em;
-    align-self: end;
+}
+
+.clinics-list {
+    text-align: center;
+    padding: 0;
+    list-style: none;
+}
+
+.clinics-show-patients-link {
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+}
+
+.create-clinic-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+    grid-template-areas:
+        "create-clinic-header create-clinic-header create-clinic-header"
+        "create-clinic-main create-clinic-main create-clinic-main"
+        "create-clinic-footer create-clinic-footer create-clinic-footer";
+}
+
+.create-clinic-header {
+    grid-area: create-clinic-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.create-clinic-main {
+    grid-area: create-clinic-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+}
+
+.clinic-data, .address-data, .manager-data {
+    padding: 0;
+    margin: 0;
+}
+
+.clinic-name-label, .clinic-street-label, .clinic-city-label, .clinic-state-label, .clinic-zip-code-label, 
+
+.create-clinic-footer {
+    grid-area: create-clinic-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: third-line;
+    grid-row-end: last-line;
 }
 
 @media only screen and (min-width: 375px) {

@@ -1,11 +1,9 @@
 <header>
-    <nav>
-        <h1 class="header-h1">Nephrology Nexus</h1>
+    <img src="/kidney.svg" class="logo" alt="Nephrology Nexus Logo">
+    <nav class="header-nav">
         <% if (user) { %>
-            <ul class="main-menu">
-                <%= user.username %>
-                <a href="/users/logout">Logout</a>
-            </ul>
+            <span><%= user.username %></span>
+            <div><a class="logout-link" href="/users/logout">Logout</a></div>
         <% } %>
     </nav>
 </header>

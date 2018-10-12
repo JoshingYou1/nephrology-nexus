@@ -36,18 +36,29 @@ router.get('/', isAuthenticated, (req, res) => {
 });
 
 router.get('/show/:id', isAuthenticated, (req, res) => {
-    LabResults
-        .findById(req.params.id)
-        .populate('patient')
-        .then(result => {
-            let successMessage = req.flash('successMessage');
-            res.render('lab-results/show', {result: result, clinicId: req.clinicId,
-                    patientId: req.patientId, successMessage: successMessage})
-        })
-        .catch(err => {
-            console.log(err);
-            req.flash('errorMessage', 'Internal server error');
-            res.redirect('/');
+    let vm ={};
+    Patient
+        .findById(req.patientId)
+        .populate('clinic')
+        .then(function(patient) {
+            vm.patientId = req.patientId;
+            vm.clinicId = req.clinicId;
+            vm.patient = patient;
+            vm.clinic = patient.clinic;
+    
+            LabResults
+                .findById(req.params.id)
+                .populate('patient')
+                .then(result => {
+                    vm.result = result;
+                    let successMessage = req.flash('successMessage');
+                    res.render('lab-results/show', {successMessage: successMessage, ...vm})
+                })
+                .catch(err => {
+                    console.log(err);
+                    req.flash('errorMessage', 'Internal server error');
+                    res.redirect('/');
+                });
         });
 });
 

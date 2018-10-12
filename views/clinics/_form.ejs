@@ -1,59 +1,57 @@
 <section class="clinic-page">
-    <div class="clinic-container">
-        <% if (typeof message != 'undefined' && message) { %>
-            <h2><%= message %></h2>
-        <% } %>
+    <% if (typeof message != 'undefined' && message) { %>
+        <h2><%= message %></h2>
+    <% } %>
         <form class="clinic-form" role="form" method="POST" action="/clinics/<%- formMethod == 'PUT' ? clinic._id : '' %>">
             <% if (formMethod == 'PUT') { %>
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_id" value="<%= clinic._id %>">
             <% } %>
-            <fieldset name="clinic-data">
-                <legend>Clinic Information</legend>
+            <fieldset class="clinic-data" name="clinic-data">
+                <legend></legend>
 
-                <label for="name">Clinic Name:</label>
+                <label class="clinic-name-label" for="name">Clinic Name:</label>
                 <input placeholder="Northeast Dialysis Centers" type="text" name="name" id="name"
                     value="<%- formMethod == 'PUT' ? clinic.name : '' %>" required>
 
-                <fieldset name="address">
+                <fieldset class="address-data" name="address">
                     <legend>Address</legend>
-                        <label for="street">Street:</label>
+                        <label class="clinic-street" for="street">Street:</label>
                         <input placeholder="1 International Drive" type="text" name="address.street" id="street"
                             value="<%- formMethod == 'PUT' ? clinic.address.street : '' %>" required>
         
-                        <label for="city">City:</label>
+                        <label class="clinic-city-label" for="city">City:</label>
                         <input placeholder="Jacksonville" type="text" name="address.city" id="city"
                             value="<%- formMethod == 'PUT' ? clinic.address.city : '' %>" required>
         
-                        <label for="state">State:</label>
+                        <label class="clinic-state-label" for="state">State:</label>
                         <input placeholder="FL" type="text" name="address.state" id="state" pattern="[A-Z]{2}"
                             value="<%- formMethod == 'PUT' ? clinic.address.state : '' %>" required>
         
-                        <label for="zip-code">Zip Code:</label>
+                        <label class="clinic-zip-code-label" for="zip-code">Zip Code:</label>
                         <input placeholder="11111" type="number" name="address.zipCode" id="zip-code" pattern="[0-9]{5}"
                             value="<%- formMethod == 'PUT' ? clinic.address.zipCode : '' %>" required>
                 </fieldset>
 
-                <label for="phone-number">Phone Number:</label>
+                <label class="clinic-phone-number" for="phone-number">Phone Number:</label>
                 <input placeholder="123-456-7890" type="tel" name="phoneNumber" id="phone-number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     value="<%- formMethod == 'PUT' ? clinic.phoneNumber : '' %>" required>
 
-                <label for="fax-number">Fax Number:</label>
+                <label class="clinic-fax-number" for="fax-number">Fax Number:</label>
                 <input placeholder="123-456-7891" type="tel" name="faxNumber" id="fax-number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     value="<%- formMethod == 'PUT' ? clinic.faxNumber : '' %>" required>
 
-                <fieldset name="clinic-manager">
+                <fieldset class="manager-data" name="clinic-manager">
                     <legend>Clinic Manager</legend>
-                        <label for="manager-first-name">First Name:</label>
+                        <label class="clinic-manager-first-name" for="manager-first-name">First Name:</label>
                         <input placeholder="Jane" type="text" name="clinicManager.firstName" id="manager-first-name" 
                             value="<%- formMethod == 'PUT' ? clinic.clinicManager.firstName : '' %>" required>
         
-                        <label for="manager-last-name">Last Name:</label>
+                        <label class="clinic-manager-last-name" for="manager-last-name">Last Name:</label>
                         <input placeholder="Doe" type="text" name="clinicManager.lastName" id="manager-last-name" 
                             value="<%- formMethod == 'PUT' ? clinic.clinicManager.lastName : '' %>" required>
                 </fieldset>
             </fieldset>
-            <button type="submit" class="clinic-form-button">Submit</button>
+            <button type="submit" class="clinic-form-button">Create Clinic/button>
         </form>
-    </div>
 </section>

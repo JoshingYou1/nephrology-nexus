@@ -3,11 +3,11 @@
     <%- include ../layouts/head.ejs %>
     <body>
         <%- include ../layouts/header.ejs %>
-        <nav>
+        <nav class="breadcrumbs">
             <a href="/clinics">Clinics</a> &gt
             <a href="/clinics/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
             <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
-            <span><%= patient.patientName %> <%= patient._id %></span>
+            <span><%= patient.patientName %></span>
         </nav>
         <main>
             <h1><%= patient.patientName %></h1>
@@ -15,7 +15,7 @@
                 <h2><%= successMessage %></h2>
             <% } %>
             <form  class="patient-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patient._id %>">
-                <button class="patient-delete-button">Delete</button>
+                <button class="patient-delete-button">Delete Patient</button>
                 <input type="hidden" name="_method" value="DELETE">
             </form>
             <section class="patient-information">

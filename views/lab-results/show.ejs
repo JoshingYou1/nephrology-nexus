@@ -5,9 +5,9 @@
         <%- include ../layouts/header.ejs %>
         <nav>
             <a href="/clinics">Clinics</a> &gt
-            <a href="/clinics/<%= clinicId %>">Clinic name</a> &gt
+            <a href="/clinics/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
             <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
-            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>">Patient Name</a> &gt
+            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>"><%= patient.patientName %></a> &gt
             <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results">Lab Results</a> &gt
             <span><%= result.formatDate %></span>
         </nav>
@@ -17,7 +17,7 @@
                 <h2><%= successMessage %></h2>
             <% } %>
             <form  class="lab-results-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%= result._id %>">
-                <button class="lab-results-delete-button">Delete</button>
+                <button class="lab-results-delete-button">Delete Lab Results</button>
                 <input type="hidden" name="_method" value="DELETE">
             </form>
             <section class="hematology">

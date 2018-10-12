@@ -3,8 +3,11 @@
     <%- include ../layouts/head.ejs %>
     <body>
         <div class="registration-container">
-            <%- include ../layouts/header.ejs %>
+            <h1 class="title">Nephrology Nexus</h1>
+            <img src="/kidney.svg" class="register-logo" alt="Nephrology Nexus Logo">
             <main class="registration-main">
+                <h1>Nephrology Nexus</h1>
+
                 <% if (typeof message != 'undefined' && message) { %>
                     <h2><%= message %></h2>
                 <% } %>
