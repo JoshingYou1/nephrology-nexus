@@ -1,5 +1,8 @@
 * {
-    /* background-color: #1e3250; */
+    background-color: #f2f0eb;
+    /* color: #950740; */
+    /* color: #4E66B7; */
+    /* color: #1B7B34; */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -22,6 +25,7 @@ header {
     grid-column-end: last;
     grid-row-start: row1-start;
     grid-row-end: row1-end;
+    margin-bottom: 0.5em;
 }
 
 .login-main, .registration-main {
@@ -57,7 +61,7 @@ footer {
     grid-column-end: last;
     grid-row-start: row1-start;
     grid-row-end: row1-end;
-    text-align: center;
+    color: #545149;
 }
 
 .login-container, .registration-container {
@@ -101,11 +105,11 @@ fieldset {
 .login-username-label, .login-password-label, .registration-first-name-label, .registration-last-name-label, .registration-username-label,
     .registration-password-label {
     display: block;
-    margin-bottom: 1%
+    margin-bottom: 0.2em;
 }
 
 .login-password-label, .registration-last-name-label, .registration-username-label, .registration-password-label {
-    margin-top: 10%;
+    margin-top: 1.5em;
 }
 
 input {
@@ -114,7 +118,7 @@ input {
 }
 
 .login-submit-button, .registration-submit-button {
-    margin-top: 10%;
+    margin-top: 1.5em;
     display: block;
     width: 100%;
     padding: 0;
@@ -131,9 +135,10 @@ input {
     grid-column-end: last;
     grid-row-start: row1-end;
     grid-row-end: third-line;
+    margin-left: 0.5em;
 }
 
-.clinics-index-main,  .clinics-show-main{
+.clinics-index-main,  .clinics-show-main, .patients-index-main {
     grid-area: main;
     grid-column-start: first;
     grid-column-end: last;
@@ -141,7 +146,7 @@ input {
     grid-row-end: fourth-line;
 }
 
-.clinics-index-container, .clinics-show-container {
+.clinics-index-container, .clinics-show-container, .patients-index-container {
     min-height: 100%;
     display: grid;
     grid-template-columns: [first] 50% [line2] 50% [last];
@@ -170,7 +175,7 @@ input {
     float: right;
 }
 
-.clinics-index-footer, .clinics-show-footer {
+.clinics-index-footer, .clinics-show-footer, .patients-index-footer {
     grid-area: footer;
     grid-column-start: first;
     grid-column-end: last;
@@ -180,15 +185,49 @@ input {
     font-size: 0.8em;
 }
 
-.clinics-list {
+.clinic-list, .patient-list {
     text-align: center;
     padding: 0;
     list-style: none;
 }
 
-.clinics-show-patients-link {
-    font-weight: 900;
-    font-family: "Font Awesome 5 Free";
+.fa-edit {
+    float: left;
+    font-size: 1em;
+    margin-left: 1em;
+    text-decoration: none;
+    border: 2px solid blue;
+    padding: 0.2em;
+    border-radius: 0.5em;
+    color: inherit;
+    background-color: red;
+}
+
+.fa-trash-alt {
+    float: left;
+    font-size: 1em;
+    text-decoration: none;
+    border: 2px solid blue;
+    padding: 0.2em;
+    border-radius: 0.5em;
+    color: inherit;
+    background-color: red;
+}
+
+.fa-trash-alt:hover {
+    cursor: pointer;
+}
+
+.fa-arrow-right {
+    float: right;
+    margin-right: 1em;
+    font-size: 1em;
+    text-decoration: none;
+    border: 2px solid blue;
+    padding: 0.2em;
+    border-radius: 0.5em;
+    color: inherit;
+    background-color: red;
 }
 
 .create-clinic-container {
@@ -216,14 +255,48 @@ input {
     grid-column-end: line3;
     grid-row-start: row1-end;
     grid-row-end: third-line;
+    margin-top: 2em;
 }
 
-.clinic-data, .address-data, .manager-data {
+.clinic-data, .clinic-address-data, .manager-data, .patient-data, .patient-address-data, .patient-phone-number-data {
     padding: 0;
     margin: 0;
 }
 
-.clinic-name-label, .clinic-street-label, .clinic-city-label, .clinic-state-label, .clinic-zip-code-label, 
+.clinic-address-data, .patient-address-data {
+    margin-bottom: 4em;
+}
+
+.manager-data {
+    margin-top: 4em;
+}
+
+.clinic-name-label, .clinic-street-label, .clinic-city-label, .clinic-state-label, .clinic-zip-code-label, .clinic-phone-number-label,
+    .clinic-fax-number-label, .clinic-manager-first-name-label, .clinic-manager-last-name-label {
+        display: block;
+        margin-bottom: 0.2em;
+    }
+
+.clinic-street-label, .clinic-city-label, .clinic-state-label, .clinic-zip-code-label, .clinic-phone-number-label, .clinic-fax-number-label,
+    .clinic-manager-first-name-label, .clinic-manager-last-name-label {
+        margin-top: 1em;
+    }
+
+.clinic-name-input {
+    margin-bottom: 4em;
+}
+
+.clinic-address-legend {
+    text-align: center;
+}
+
+.clinic-form-button {
+    margin-top: 4em;
+    margin-bottom: 1.5em;
+    display: block;
+    width: 100%;
+    padding: 0;
+}
 
 .create-clinic-footer {
     grid-area: create-clinic-footer;
@@ -232,6 +305,172 @@ input {
     grid-row-start: third-line;
     grid-row-end: last-line;
 }
+
+.clinic-info {
+    text-align: center;
+}
+
+.update-clinic-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+    grid-template-areas:
+        "update-clinic-header update-clinic-header update-clinic-header"
+        "update-clinic-main update-clinic-main update-clinic-main"
+        "update-clinic-footer update-clinic-footer update-clinic-footer";
+}
+
+.update-clinic-header {
+    grid-area: update-clinic-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.update-clinic-main {
+    grid-area: update-clinic-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    margin-top: 2em;
+}
+
+
+
+.update-clinic-footer {
+    grid-area: update-clinic-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: third-line;
+    grid-row-end: last-line;
+}
+
+.patient-icon {
+    display: block;
+    margin: 0 auto;
+}
+
+.patient-link {
+    text-decoration: none;
+}
+
+.create-patient-link {
+    text-align: center;
+}
+
+.fa-plus-square {
+    font-size: 1em;
+    text-decoration: none;
+    border: 2px solid blue;
+    padding: 0.2em;
+    border-radius: 0.5em;
+    color: inherit;
+    background-color: red;
+}
+
+.create-patient-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+    grid-template-areas:
+        "create-patient-header create-patient-header create-patient-header"
+        "create-patient-main create-patient-main create-patient-main"
+        "create-patient-footer create-patient-footer create-patient-footer";
+}
+
+.create-patient-header {
+    grid-area: create-patient-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.create-patient-main {
+    grid-area: create-patient-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    margin-top: 2em;
+}
+
+.patient-address-data {
+    margin-top: 4em;
+}
+
+.patient-first-name-label, .patient-last-name-label, .patient-dob-label, .patient-gender-label, .patient-ssn-label, .patient-street-label,
+    .patient-city-label, .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
+        display: block;
+        margin-bottom: 0.2em;
+    }
+
+.patient-last-name-label, .patient-dob-label, .patient-gender-label, .patient-ssn-label, .patient-street-label, .patient-city-label,
+    .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
+        margin-top: 1em;
+    }
+
+.patient-address-legend, .patient-phone-numbers-legend {
+    text-align: center;
+}    
+
+.patient-form-button {
+    margin-top: 4em;
+    margin-bottom: 1.5em;
+    display: block;
+    width: 100%;
+    padding: 0;
+}
+
+.create-patient-footer {
+    grid-area: create-patient-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: third-line;
+    grid-row-end: last-line;
+}
+
+.update-patient-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+    grid-template-areas:
+        "update-patient-header update-patient-header update-patient-header"
+        "update-patient-main update-patient-main update-patient-main"
+        "update-patient-footer update-patient-footer update-patient-footer";
+}
+
+.update-patient-header {
+    grid-area: update-patient-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.update-patient-main {
+    grid-area: update-patient-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    margin-top: 2em;
+}
+
+.update-patient-footer {
+    grid-area: update-patient-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: third-line;
+    grid-row-end: last-line;
+}
+
+
 
 @media only screen and (min-width: 375px) {
 

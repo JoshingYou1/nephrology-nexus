@@ -34,11 +34,11 @@ const patients = [
         },
         dateOfBirth: "05/12/1968",
         gender: "Male",
-        socialSecurityNumber: "127-37-1989",
+        socialSecurityNumber: "127371989",
         address: {
             street: "123 International Drive",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "39190"
         },
         phoneNumbers: {
@@ -59,11 +59,11 @@ const patients = [
         },
         dateOfBirth: "08/02/1951",
         gender: "Female",
-        socialSecurityNumber: "380-74-8274",
+        socialSecurityNumber: "380748274",
         address: {
             street: "456 Colonial Drive",
             city: "Orange Park",
-            state: "Florida",
+            state: "FL",
             zipCode: "38271"
         },
         phoneNumbers: {
@@ -84,11 +84,11 @@ const patients = [
         },
         dateOfBirth: "02/17/1974",
         gender: "Male",
-        socialSecurityNumber: "002-38-5372",
+        socialSecurityNumber: "002385372",
         address: {
             street: "798 Wallaby Way",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "39123"
         },
         phoneNumbers: {
@@ -109,11 +109,11 @@ const patients = [
         },
         dateOfBirth: "03/09/1948",
         gender: "Female",
-        socialSecurityNumber: "378-47-2109",
+        socialSecurityNumber: "378472109",
         address: {
             street: "932 Long Leaf Road",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "30919"
         },
         phoneNumbers: {
@@ -134,11 +134,11 @@ const patients = [
         },
         dateOfBirth: "11/30/1943",
         gender: "Male",
-        socialSecurityNumber: "938-84-8321",
+        socialSecurityNumber: "938848321",
         address: {
             street: "22 West Monument Road",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "32932"
         },
         phoneNumbers: {
@@ -160,7 +160,7 @@ const clinics = [
         address: {
             street: "21 Maple Street",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "32034"
         },
         phoneNumber: "904-293-7502",
@@ -180,7 +180,7 @@ const clinics = [
         address: {
             street: "847 Jefferson Lane",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "37462"
         },
         phoneNumber: "904-838-3848",
@@ -199,7 +199,7 @@ const clinics = [
         address: {
             street: "3 Washington Street",
             city: "Orange Park",
-            state: "Florida",
+            state: "FL",
             zipCode: "38721"
         },
         phoneNumber: "904-129-7734",
@@ -218,7 +218,7 @@ const clinics = [
         address: {
             street: "23 West Sunset Road",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "34531"
         },
         phoneNumber: "904-933-2344",
@@ -237,7 +237,7 @@ const clinics = [
         address: {
             street: "37 Beaches Boulevard",
             city: "Jacksonville",
-            state: "Florida",
+            state: "FL",
             zipCode: "30923"
         },
         phoneNumber: "904-453-2553",

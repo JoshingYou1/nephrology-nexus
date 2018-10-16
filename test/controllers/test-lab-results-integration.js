@@ -43,6 +43,7 @@ describe('Lab results controller', function() {
             clinicId = clinic._id;
 
         const patient = new Patient(generatePatientData());
+        patient.clinic = clinicId;
         patient.save(function(err, patient) {
             patientId = patient._id;
 

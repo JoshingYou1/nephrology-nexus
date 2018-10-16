@@ -5,7 +5,7 @@
         <%- include ../layouts/header.ejs %>
         <nav class="breadcrumbs">
             <a href="/clinics">Clinics</a> &gt
-            <a href="/clinics/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
+            <a href="/clinics/show/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
             <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
             <span><%= patient.patientName %></span>
         </nav>
@@ -18,6 +18,8 @@
                 <button class="patient-delete-button">Delete Patient</button>
                 <input type="hidden" name="_method" value="DELETE">
             </form>
+            <a class="fas fa-edit" href="/clinics/<%= clinicId %>/patients/update/<%= patient._id %>"> Update Patient</a>
+            <a class="fas fa-arrow-right" href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results"> Go to Lab Results</a>
             <section class="patient-information">
                 <p><%= patient.formatBirthDate %></p>
                 <p><%= patient.gender %></p>

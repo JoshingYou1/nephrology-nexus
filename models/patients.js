@@ -47,9 +47,7 @@ patientSchema.virtual("patientName").get(function() {
 });
 
 patientSchema.virtual("formatSsn").get(function() {
-    return `${this.socialSecurityNumber[0]}${this.socialSecurityNumber[1]}${this.socialSecurityNumber[2]}-
-        ${this.socialSecurityNumber[3]}${this.socialSecurityNumber[4]}-
-        ${this.socialSecurityNumber[5]}${this.socialSecurityNumber[6]}${this.socialSecurityNumber[7]}${this.socialSecurityNumber[8]}`
+    return `${this.socialSecurityNumber[0]}${this.socialSecurityNumber[1]}${this.socialSecurityNumber[2]}-${this.socialSecurityNumber[3]}${this.socialSecurityNumber[4]}-${this.socialSecurityNumber[5]}${this.socialSecurityNumber[6]}${this.socialSecurityNumber[7]}${this.socialSecurityNumber[8]}`;
 });
 
 patientSchema.virtual('formatHtml5BirthDate').get(function()  {
@@ -63,7 +61,7 @@ patientSchema.virtual('formatHtml5BirthDate').get(function()  {
     }
     const year = this.dateOfBirth.getFullYear();
     return `${year}-${month}-${day}`;
-})
+});
 
 patientSchema.virtual('formatBirthDate').get(function()  {
     let day = this.dateOfBirth.getDate();
@@ -76,7 +74,7 @@ patientSchema.virtual('formatBirthDate').get(function()  {
     }
     const year = this.dateOfBirth.getFullYear();
     return `${month}/${day}/${year}`;
-})
+});
 
 const Patient = mongoose.model("Patient", patientSchema);
 

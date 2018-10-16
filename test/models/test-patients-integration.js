@@ -98,6 +98,19 @@ describe("Patient API resource", function() {
                 done();
             });
         });
+
+        it("Should format social security number correctly", function(done) {
+            const generatedPatient = new Patient(generatePatientData());
+
+            generatedPatient.socialSecurityNumber = '123456789';
+
+            generatedPatient.save(generatedPatient, function(err, patient) {
+                expect(patient.socialSecurityNumber).to.equal(generatedPatient.socialSecurityNumber);
+                console.log('patient.formatSsn:', patient.formatSsn);
+                expect(patient.formatSsn).to.equal('123-45-6789');
+                done();
+            });
+        });
         
         it("Should not create a patient if required fields are missing", function(done) {
             const generatedPatient = {};

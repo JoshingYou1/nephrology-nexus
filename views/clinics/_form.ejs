@@ -11,12 +11,12 @@
                 <legend></legend>
 
                 <label class="clinic-name-label" for="name">Clinic Name:</label>
-                <input placeholder="Northeast Dialysis Centers" type="text" name="name" id="name"
+                <input class="clinic-name-input" placeholder="Northeast Dialysis Centers" type="text" name="name" id="name"
                     value="<%- formMethod == 'PUT' ? clinic.name : '' %>" required>
 
-                <fieldset class="address-data" name="address">
-                    <legend>Address</legend>
-                        <label class="clinic-street" for="street">Street:</label>
+                <fieldset class="clinic-address-data" name="address">
+                    <legend class="clinic-address-legend">Address</legend>
+                        <label class="clinic-street-label" for="street">Street:</label>
                         <input placeholder="1 International Drive" type="text" name="address.street" id="street"
                             value="<%- formMethod == 'PUT' ? clinic.address.street : '' %>" required>
         
@@ -33,25 +33,25 @@
                             value="<%- formMethod == 'PUT' ? clinic.address.zipCode : '' %>" required>
                 </fieldset>
 
-                <label class="clinic-phone-number" for="phone-number">Phone Number:</label>
+                <label class="clinic-phone-number-label" for="phone-number">Phone Number:</label>
                 <input placeholder="123-456-7890" type="tel" name="phoneNumber" id="phone-number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     value="<%- formMethod == 'PUT' ? clinic.phoneNumber : '' %>" required>
 
-                <label class="clinic-fax-number" for="fax-number">Fax Number:</label>
+                <label class="clinic-fax-number-label" for="fax-number">Fax Number:</label>
                 <input placeholder="123-456-7891" type="tel" name="faxNumber" id="fax-number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     value="<%- formMethod == 'PUT' ? clinic.faxNumber : '' %>" required>
 
                 <fieldset class="manager-data" name="clinic-manager">
                     <legend>Clinic Manager</legend>
-                        <label class="clinic-manager-first-name" for="manager-first-name">First Name:</label>
+                        <label class="clinic-manager-first-name-label" for="manager-first-name">First Name:</label>
                         <input placeholder="Jane" type="text" name="clinicManager.firstName" id="manager-first-name" 
                             value="<%- formMethod == 'PUT' ? clinic.clinicManager.firstName : '' %>" required>
         
-                        <label class="clinic-manager-last-name" for="manager-last-name">Last Name:</label>
+                        <label class="clinic-manager-last-name-label" for="manager-last-name">Last Name:</label>
                         <input placeholder="Doe" type="text" name="clinicManager.lastName" id="manager-last-name" 
                             value="<%- formMethod == 'PUT' ? clinic.clinicManager.lastName : '' %>" required>
                 </fieldset>
             </fieldset>
-            <button type="submit" class="clinic-form-button">Create Clinic/button>
+            <button type="submit" class="clinic-form-button">Submit</button>
         </form>
 </section>

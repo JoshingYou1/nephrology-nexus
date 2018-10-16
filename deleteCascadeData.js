@@ -36,7 +36,7 @@ const patients = [
         },
         dateOfBirth: "05/12/1968",
         gender: "Male",
-        socialSecurityNumber: "127-37-1989",
+        socialSecurityNumber: "127371989",
         address: {
             street: "123 International Drive",
             city: "Jacksonville",

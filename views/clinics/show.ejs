@@ -5,7 +5,7 @@
         <div class="clinics-show-container">
             <%- include ../layouts/header.ejs %>
             <nav class="breadcrumbs">
-                <a href="/clinics">Clinics</a>
+                <a href="/clinics">Clinics</a> &gt
                 <span><%= clinic.name %></span>
             </nav>
             <main class="clinics-show-main">
@@ -21,11 +21,11 @@
                     <p><%= clinic.managerName %></p>
                 </section>
                 <form  class="clinic-delete-form" method="POST" action="/clinics/<%= clinic._id %>">
-                    <button class="clinic-delete-button">Delete Clinic</button>
+                    <button class="fas fa-trash-alt"> Delete Clinic</button>
                     <input type="hidden" name="_method" value="DELETE">
                 </form>
-                <a href="/clinics/update/<%= clinic.id %>" class="fas fa-edit"> Update Clinic</a>
-                <a href="/clinics/<%= clinic._id %>/patients" class="clinics-show-patients-link">Go to patients <span class="fas fa-arrow-right"></span></a>
+                <a class="fas fa-edit" href="/clinics/update/<%= clinic.id %>"> Update Clinic</a>
+                <a class="fas fa-arrow-right" href="/clinics/<%= clinic._id %>/patients"> Go to patients</a>
             </main>
             <span class="clinics-show-footer"><%- include ../layouts/footer.ejs %></span>
             <%- include ../layouts/scripts.ejs %>
