@@ -2,49 +2,51 @@
 <html lang="en">
     <%- include ../layouts/head.ejs %>
     <body>
-        <%- include ../layouts/header.ejs %>
-        <nav>
-            <a href="/clinics">Clinics</a> &gt
-            <a href="/clinics/show/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
-            <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
-            <a href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>"><%= patient.patientName %></a> &gt
-            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results">Lab Results</a> &gt
-            <span><%= result.formatDate %></span>
-        </nav>
-        <main>
-            <h1><%= result.formatDate %></h1>
-            <% if (successMessage != 'undefined' && successMessage) { %>
-                <h2><%= successMessage %></h2>
-            <% } %>
-            <form  class="lab-results-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%= result._id %>">
-                <button class="lab-results-delete-button">Delete Lab Results</button>
-                <input type="hidden" name="_method" value="DELETE">
-            </form>
-            <section class="hematology">
-                <h3>Hematology</h3>
-                <p>WBC Count: <%= result.hematology.wbcCount %></p>
-                <p>RBC Count: <%= result.hematology.rbcCount %></p>
-                <p>Hemoglobin: <%= result.hematology.hemoglobin %></p>
-                <p>Hematocrit: <%= result.hematology.hematocrit %></p>
-                <p>Platelet Count: <%= result.hematology.plateletCount %></p>
-            </section>
-            <section class="chemistry">
-                <h3>Chemistry</h3>
-                <p>BUN: <%= result.chemistry.bun %></p>
-                <p>Creatinine: <%= result.chemistry.creatinine %></p>
-                <p>Sodium: <%= result.chemistry.sodium %></p>
-                <p>Potassium: <%= result.chemistry.potassium %></p>
-                <p>Calcium: <%= result.chemistry.calcium %></p>
-                <p>Phosporus: <%= result.chemistry.phosphorus %></p>
-                <p>Albumin: <%= result.chemistry.albumin %></p>
-                <p>Glucose: <%= result.chemistry.glucose %></p>
-                <p>Iron: <%= result.chemistry.iron %></p>
-                <p>Cholesterol: <%= result.chemistry.cholesterol %></p>
-                <p>Triglycerides: <%= result.chemistry.triglycerides %></p>
-            </section>
-            <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/update/<%= result.id %>">update</a>
-        </main>
-        <%- include ../layouts/footer.ejs %>
-        <%- include ../layouts/scripts.ejs %>
+        <div class="lab-results-show-container">
+            <span class="lab-results-show-header"><%- include ../layouts/header.ejs %></span>
+            <nav class="breadcrumbs">
+                <a href="/clinics">Clinics</a> &gt
+                <a href="/clinics/show/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
+                <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
+                <a href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>"><%= patient.patientName %></a> &gt
+                <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results">Lab Results</a> &gt
+                <span><%= result.formatDate %></span>
+            </nav>
+            <main class="lab-results-show-main">
+                <h1><%= result.formatDate %></h1>
+                <% if (successMessage != 'undefined' && successMessage) { %>
+                    <h2><%= successMessage %></h2>
+                <% } %>
+                <form  class="lab-results-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%= result._id %>">
+                    <button class="lab-results-delete-button">Delete Lab Results</button>
+                    <input type="hidden" name="_method" value="DELETE">
+                </form>
+                    <section class="hematology">
+                    <h3>Hematology</h3>
+                    <p>WBC Count: <%= result.hematology.wbcCount %></p>
+                    <p>RBC Count: <%= result.hematology.rbcCount %></p>
+                    <p>Hemoglobin: <%= result.hematology.hemoglobin %></p>
+                    <p>Hematocrit: <%= result.hematology.hematocrit %></p>
+                    <p>Platelet Count: <%= result.hematology.plateletCount %></p>
+                </section>
+                <section class="chemistry">
+                    <h3>Chemistry</h3>
+                    <p>BUN: <%= result.chemistry.bun %></p>
+                    <p>Creatinine: <%= result.chemistry.creatinine %></p>
+                    <p>Sodium: <%= result.chemistry.sodium %></p>
+                    <p>Potassium: <%= result.chemistry.potassium %></p>
+                    <p>Calcium: <%= result.chemistry.calcium %></p>
+                    <p>Phosporus: <%= result.chemistry.phosphorus %></p>
+                    <p>Albumin: <%= result.chemistry.albumin %></p>
+                    <p>Glucose: <%= result.chemistry.glucose %></p>
+                    <p>Iron: <%= result.chemistry.iron %></p>
+                    <p>Cholesterol: <%= result.chemistry.cholesterol %></p>
+                    <p>Triglycerides: <%= result.chemistry.triglycerides %></p>
+                </section>
+                <a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/update/<%= result.id %>">update</a>
+            </main>
+            <span class="lab-results-show-footer"><%- include ../layouts/footer.ejs %></span>
+            <%- include ../layouts/scripts.ejs %>
+        </div>
     </body>
 </html>

@@ -13,7 +13,7 @@ const patientSchema = mongoose.Schema({
     lastName: {type: String, required: true}
     },
     dateOfBirth: {type: Date, required: true},
-    gender: {type: String, required: true},
+    sex: {type: String, required: true},
     socialSecurityNumber: {type: String, required: true},
     address: {
         street: {type: String, required: true},
@@ -74,6 +74,18 @@ patientSchema.virtual('formatBirthDate').get(function()  {
     }
     const year = this.dateOfBirth.getFullYear();
     return `${month}/${day}/${year}`;
+});
+
+patientSchema.virtual('emptyHomePhoneValue').get(function() {
+    return this.phoneNumbers.home ? this.phoneNumbers.home : 'N/A';
+});
+
+patientSchema.virtual('emptyCellPhoneValue').get(function() {
+    return this.phoneNumbers.cell ? this.phoneNumbers.cell : 'N/A';
+});
+
+patientSchema.virtual('emptyWorkPhoneValue').get(function() {
+    return this.phoneNumbers.work ? this.phoneNumbers.work : 'N/A';
 });
 
 const Patient = mongoose.model("Patient", patientSchema);

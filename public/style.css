@@ -138,7 +138,7 @@ input {
     margin-left: 0.5em;
 }
 
-.clinics-index-main,  .clinics-show-main, .patients-index-main {
+.clinics-index-main,  .clinics-show-main, .patients-index-main, .lab-results-index-main {
     grid-area: main;
     grid-column-start: first;
     grid-column-end: last;
@@ -146,7 +146,7 @@ input {
     grid-row-end: fourth-line;
 }
 
-.clinics-index-container, .clinics-show-container, .patients-index-container {
+.clinics-index-container, .clinics-show-container, .patients-index-container, .lab-results-index-container {
     min-height: 100%;
     display: grid;
     grid-template-columns: [first] 50% [line2] 50% [last];
@@ -175,7 +175,7 @@ input {
     float: right;
 }
 
-.clinics-index-footer, .clinics-show-footer, .patients-index-footer {
+.clinics-index-footer, .clinics-show-footer, .patients-index-footer, .lab-results-index-footer {
     grid-area: footer;
     grid-column-start: first;
     grid-column-end: last;
@@ -185,7 +185,7 @@ input {
     font-size: 0.8em;
 }
 
-.clinic-list, .patient-list {
+.clinic-list, .patient-list, .lab-results-list {
     text-align: center;
     padding: 0;
     list-style: none;
@@ -353,7 +353,7 @@ input {
     margin: 0 auto;
 }
 
-.patient-link {
+.patient-link, .lab-results-link {
     text-decoration: none;
 }
 
@@ -403,13 +403,13 @@ input {
     margin-top: 4em;
 }
 
-.patient-first-name-label, .patient-last-name-label, .patient-dob-label, .patient-gender-label, .patient-ssn-label, .patient-street-label,
+.patient-first-name-label, .patient-last-name-label, .patient-dob-label, .patient-sex-label, .patient-ssn-label, .patient-street-label,
     .patient-city-label, .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
         display: block;
         margin-bottom: 0.2em;
     }
 
-.patient-last-name-label, .patient-dob-label, .patient-gender-label, .patient-ssn-label, .patient-street-label, .patient-city-label,
+.patient-last-name-label, .patient-dob-label, .patient-sex-label, .patient-ssn-label, .patient-street-label, .patient-city-label,
     .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
         margin-top: 1em;
     }
@@ -470,7 +470,89 @@ input {
     grid-row-end: last-line;
 }
 
+.patient-information {
+    text-align: center;
+}
 
+.patients-show-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] auto [line2] auto [last];
+    grid-template-rows: [row1-start] auto [row1-end] auto [third-line] auto [fourth-line] 1fr [fifth-line] auto [last-line];
+    grid-template-areas:
+        "patients-show-header patients-show-header"
+        "patient-name patient-name"
+        "patients-show-main patients-show-main"
+        "patients-show-footer patients-show-footer";
+}
+
+.patients-show-header {
+    grid-area: patients-show-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.patient-name {
+    grid-area: patient-name;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: third-line;
+    grid-row-end: fourth-line;
+}
+
+.patients-show-main {
+    grid-area: patients-show-main;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: fourth-line;
+    grid-row-end: fifth-line;
+}
+
+.patients-show-footer {
+    grid-area: patients-show-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: fifth-line;
+    grid-row-end: last-line;
+}
+
+.lab-results-show-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 2fr [line3] 1fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
+    grid-template-areas:
+        "lab-results-show-header lab-results-show-header lab-results-show-header"
+        ". lab-results-show-main ."
+        "patients-show-footer patients-show-footer patients-show-footer";
+}
+
+.lab-results-show-header {
+    grid-area: lab-results-show-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.lab-results-show-main {
+    grid-area: lab-results-show-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: third-line;
+    grid-row-end: fourth-line;
+    margin-top: 2em;
+}
+
+.lab-results-show-footer {
+    grid-area: lab-results-show-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: fourth-line;
+    grid-row-end: last-line;
+}
 
 @media only screen and (min-width: 375px) {
 

@@ -2,22 +2,25 @@
 <html lang="en">
     <%- include ../layouts/head.ejs %>
     <body>
-        <%- include ../layouts/header.ejs %>
-        <nav>
-            <a href="/clinics">Clinics</a> &gt
-            <a href="/clinics/<%= clinicId %>"><%= clinic.name %></a> &gt
-            <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
-            <a href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>"><%= patient.patientName %></a> &gt
-            <span>Lab Results</span>
-        </nav>
-        <main>
-            <h1>Lab Results</h1>
-            <ul>
-                <% results.forEach(result => { %>
-                <li><a href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/show/<%= result.id %>"><%= result.formatDate %></a></li>
-                <% }); %>
-            </ul>
-        </main>
-        <%- include ../layouts/footer.ejs %>
+        <div class="lab-results-index-container">
+            <%- include ../layouts/header.ejs %>
+            <nav class="breadcrumbs">
+                <a href="/clinics">Clinics</a> &gt
+                <a href="/clinics/<%= clinicId %>"><%= clinic.name %></a> &gt
+                <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
+                <a href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>"><%= patient.patientName %></a> &gt
+                <span>Lab Results</span>
+            </nav>
+            <main class="lab-results-index-main">
+                <h1>Lab Results</h1>
+                <ul class="lab-results-list">
+                    <% results.forEach(result => { %>
+                    <li class="lab-results-list-item"><a class="lab-results-link" 
+                            href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/show/<%= result.id %>"><%= result.formatDate %></a></li>
+                    <% }); %>
+                </ul>
+            </main>
+            <span class="lab-results-index-footer"><%- include ../layouts/footer.ejs %></span>
+        </div>
     </body>
 </html>

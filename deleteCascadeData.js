@@ -35,7 +35,7 @@ const patients = [
             lastName: "Jones"
         },
         dateOfBirth: "05/12/1968",
-        gender: "Male",
+        sex: "Male",
         socialSecurityNumber: "127371989",
         address: {
             street: "123 International Drive",

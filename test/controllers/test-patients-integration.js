@@ -82,14 +82,14 @@ describe("Patient controller", function() {
                         .findOne({
                             "name.firstName": newPatient.name.firstName,
                             "name.lastName": newPatient.name.lastName,
-                            'gender': newPatient.gender,
+                            'sex': newPatient.sex,
                             'socialSecurityNumber': newPatient.socialSecurityNumber
                         })
                 })
                 .then(function(createdPatient) {
                     console.log("createdPatient:", createdPatient);
                     expect(createdPatient.patientName).to.equal(`${newPatient.name.lastName}, ${newPatient.name.firstName}`);
-                    expect(createdPatient.gender).to.equal(newPatient.gender);
+                    expect(createdPatient.sex).to.equal(newPatient.sex);
                     expect(createdPatient.socialSecurityNumber).to.equal(newPatient.socialSecurityNumber);
                     done();
                 });
@@ -103,7 +103,7 @@ describe("Patient controller", function() {
                     firstName: "Joseph",
                     lastName: "Richardson"
                 },
-                gender: "Male",
+                sex: "Male",
                 socialSecurityNumber: "232-13-1422",
             };
 
@@ -121,7 +121,7 @@ describe("Patient controller", function() {
                         Patient.findById(updatedPatientData, function(err, patient) {
                             expect(patient.name.firstName).to.equal(updatedPatientData.name.firstName);
                             expect(patient.name.lastName).to.equal(updatedPatientData.name.lastName);
-                            expect(patient.gender).to.equal(updatedPatientData.gender);
+                            expect(patient.sex).to.equal(updatedPatientData.sex);
                             expect(patient.socialSecurityNumber).to.equal(updatedPatientData.socialSecurityNumber)
                             done();
                         });

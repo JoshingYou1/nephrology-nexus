@@ -33,7 +33,7 @@ const patients = [
             lastName: "Jones"
         },
         dateOfBirth: "05/12/1968",
-        gender: "Male",
+        sex: "Male",
         socialSecurityNumber: "127371989",
         address: {
             street: "123 International Drive",
@@ -58,7 +58,7 @@ const patients = [
             lastName: "Crocker"
         },
         dateOfBirth: "08/02/1951",
-        gender: "Female",
+        sex: "Female",
         socialSecurityNumber: "380748274",
         address: {
             street: "456 Colonial Drive",
@@ -83,7 +83,7 @@ const patients = [
             lastName: "Williams"
         },
         dateOfBirth: "02/17/1974",
-        gender: "Male",
+        sex: "Male",
         socialSecurityNumber: "002385372",
         address: {
             street: "798 Wallaby Way",
@@ -108,7 +108,7 @@ const patients = [
             lastName: "Edwards"
         },
         dateOfBirth: "03/09/1948",
-        gender: "Female",
+        sex: "Female",
         socialSecurityNumber: "378472109",
         address: {
             street: "932 Long Leaf Road",
@@ -133,7 +133,7 @@ const patients = [
             lastName: "Baker"
         },
         dateOfBirth: "11/30/1943",
-        gender: "Male",
+        sex: "Male",
         socialSecurityNumber: "938848321",
         address: {
             street: "22 West Monument Road",

@@ -15,9 +15,9 @@ const {runServer, closeServer} = require("../../server");
 
 chai.use(chaiHttp);
 
-function generateGender() {
-    const genders = ["male", "female"];
-    return genders[Math.floor(Math.random() * genders.length)];
+function generateSex() {
+    const sexes = ["male", "female"];
+    return sexes[Math.floor(Math.random() * sexes.length)];
 }
 
 function generatePatientData() {
@@ -28,7 +28,7 @@ function generatePatientData() {
         lastName: faker.name.lastName()
         },
         dateOfBirth: faker.date.past(),
-        gender: generateGender(),
+        sex: generateSex(),
         socialSecurityNumber: faker.helpers.replaceSymbolWithNumber("###-##-####"),
         address: {
             street: faker.address.streetAddress("###"),
@@ -89,7 +89,7 @@ describe("Patient API resource", function() {
                 expect(err).to.not.exist;
                 expect(result.name.firstName).to.equal(generatedPatient.name.firstName);
                 expect(result.name.lastName).to.equal(generatedPatient.name.lastName);
-                expect(result.gender).to.equal(generatedPatient.gender);
+                expect(result.sex).to.equal(generatedPatient.sex);
                 expect(result.socialSecurityNumber).to.equal(generatedPatient.socialSecurityNumber);
                 expect(result.address.street).to.equal(generatedPatient.address.street);
                 expect(result.address.city).to.equal(generatedPatient.address.city);
