@@ -33,7 +33,7 @@ app.use(methodOverride(function(req, res) {
 app.use(express.static('public'));
 app.use(morgan("common"));
 app.use(cookieParser('secret'));
-app.use(session({ secret: process.env.JWT_SECRET, cookie: {maxAge: 60000 }}));
+app.use(session({secret: process.env.JWT_SECRET}));
 app.use(flash());
 
 app.set("view engine", "ejs");

@@ -15,17 +15,20 @@
                 <% } %>
                 <section class="clinic-info">
                     <p><%= clinic.address.street %></p>
-                    <p><%= clinic.address.city %>, <%= clinic.address.state %>, <%= clinic.address.zipCode %></p>
-                    <p>Phone Number: <%= clinic.phoneNumber %></p>
-                    <p>Fax Number: <%= clinic.faxNumber %></p>
-                    <p><%= clinic.managerName %></p>
+                    <p><%= clinic.address.city %>,&nbsp;<%= clinic.address.state %>,&nbsp;<%= clinic.address.zipCode %></p>
+                    <p><span class="clinic-phone-number-span">Phone Number</span>:&nbsp;<%= clinic.phoneNumber %></p>
+                    <p><span class="clinic-fax-number-span">Fax Number</span>:&nbsp;<%= clinic.faxNumber %></p>
+                    <p><span class="clinic-manager-span">Clinic Manager</span>:&nbsp;<%= clinic.managerName %></p>
                 </section>
                 <form  class="clinic-delete-form" method="POST" action="/clinics/<%= clinic._id %>">
-                    <button class="fas fa-trash-alt"> Delete Clinic</button>
+                    <button class="fas fa-trash-alt">&nbsp;<span class="delete-clinic-span">Delete</span></button>
                     <input type="hidden" name="_method" value="DELETE">
                 </form>
-                <a class="fas fa-edit" href="/clinics/update/<%= clinic.id %>"> Update Clinic</a>
-                <a class="fas fa-arrow-right" href="/clinics/<%= clinic._id %>/patients"> Go to patients</a>
+                <a class="fas fa-edit" href="/clinics/update/<%= clinic.id %>">&nbsp;<span class="update-clinic-span">Update</span></a>
+                <div class="go-to-patients-div">
+                    <a class="go-to-patients-link"
+                        href="/clinics/<%= clinic._id %>/patients">Go To Patients&nbsp;&nbsp;<span class="fas fa-arrow-right"></span></a>
+                </div>
             </main>
             <span class="clinics-show-footer"><%- include ../layouts/footer.ejs %></span>
             <%- include ../layouts/scripts.ejs %>

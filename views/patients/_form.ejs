@@ -13,56 +13,56 @@
                 <legend></legend>
                 <input type="hidden" name="clinic" value="<%= clinicId %>">
 
-                <label class="patient-first-name-label" for="first-name">First Name:</label>
+                <label class="patient-first-name-label" for="first-name">First Name</label>
                 <input class="patient-first-name-input" placeholder="John" type="text" name="name.firstName" id="first-name" 
                     value="<%- formMethod == 'PUT' ? patient.name.firstName : '' %>" required>
     
-                <label class="patient-last-name-label" for="last-name">Last Name:</label>
+                <label class="patient-last-name-label" for="last-name">Last Name</label>
                 <input class="patient-last-name-input" placeholder="Doe" type="text" name="name.lastName" id="last-name" 
                     value="<%- formMethod == 'PUT' ? patient.name.lastName : '' %>" required>
     
-                <label class="patient-dob-label" for="date-of-birth">Date of Birth:</label>
+                <label class="patient-dob-label" for="date-of-birth">Date of Birth</label>
                 <input class="patient-dob-input" placeholder="12/34/5678" type="date" name="dateOfBirth" id="date-of-birth" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
                     value="<%- formMethod == 'PUT' ? patient.dateOfBirth : '' %>" required>
     
-                <label class="patient-sex-label" for="gender">Sex:</label>
+                <label class="patient-sex-label" for="gender">Sex</label>
                 <input class="patient-sex-input" placeholder="Male" type="text" name="sex" id="sex"
                     value="<%- formMethod == 'PUT' ? patient.sex : '' %>" required>
     
-                <label class="patient-ssn-label" for="ssn">SSN:</label>
+                <label class="patient-ssn-label" for="ssn">SSN</label>
                 <input class="patient-ssn-input" placeholder="123456789" type="text" name="socialSecurityNumber" id="ssn" pattern="[0-9]{9}"
                     value="<%- formMethod == 'PUT' ? patient.socialSecurityNumber : '' %>" required>
     
                 <fieldset class="patient-address-data" name="address">
                     <legend class="patient-address-legend">Address</legend>
-                        <label class="patient-street-label" for="street">Street:</label>
+                        <label class="patient-street-label" for="street">Street</label>
                         <input class="patient-street-input" placeholder="1 International Drive" type="text" name="address.street" id="street"
                             value="<%- formMethod == 'PUT' ? patient.address.street : '' %>" required>
     
-                        <label class="patient-city-label" for="city">City:</label>
+                        <label class="patient-city-label" for="city">City</label>
                         <input class="patient-city-input" placeholder="Jacksonville" type="text" name="address.city" id="city"
                             value="<%- formMethod == 'PUT' ? patient.address.city : '' %>" required>
     
-                        <label class="patient-state-label" for="state">State:</label>
+                        <label class="patient-state-label" for="state">State</label>
                         <input class="patient-state-input" placeholder="FL" type="text" name="address.state" id="state" pattern="[A-Z]{2}"
                             value="<%- formMethod == 'PUT' ? patient.address.state : '' %>" required>
     
-                        <label class="patient-zip-code-label" for="zip-code">Zip Code:</label>
+                        <label class="patient-zip-code-label" for="zip-code">Zip Code</label>
                         <input class="patient-zip-code-input" placeholder="11111" type="number" name="address.zipCode" id="zip-code" pattern="[0-9]{5}"
                             value="<%- formMethod == 'PUT' ? patient.address.zipCode : '' %>" required>
                 </fieldset>
     
                 <fieldset class="patient-phone-number-data" name="phone-numbers">
                     <legend class="patient-phone-numbers-legend">Phone Number(s)</legend>
-                    <label class="patient-home-phone-label" for="home-phone">Home:</label>
+                    <label class="patient-home-phone-label" for="home-phone">Home</label>
                     <input class="patient-home-phone-input" placeholder="111-111-1111" type="tel" name="phoneNumbers.home" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                         value="<%- formMethod == 'PUT' ? patient.phoneNumbers.home : '' %>">
     
-                    <label class="patient-cell-phone-label" for="cell-phone">Cell:</label>
+                    <label class="patient-cell-phone-label" for="cell-phone">Cell</label>
                     <input class="patient-cell-phone-input" placeholder="222-222-2222" type="tel" name="phoneNumbers.cell" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                         value="<%- formMethod == 'PUT' ? patient.phoneNumbers.cell : '' %>">
     
-                    <label class="patient-work-phone-label" for="work-phone">Work:</label>
+                    <label class="patient-work-phone-label" for="work-phone">Work</label>
                     <input class="patient-work-phone-input" placeholder="333-333-3333" type="tel" name="phoneNumbers.work" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                         value="<%- formMethod == 'PUT' ? patient.phoneNumbers.work : '' %>">
                 </fieldset>

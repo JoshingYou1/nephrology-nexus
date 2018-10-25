@@ -20,11 +20,11 @@ const UserSchema = mongoose.Schema({
 });
 
 UserSchema.methods.validatePassword = function(password) {
-    return bcrypt.compare(password, this.password);
+    return bcrypt.compareSync(password, this.password);
 };
 
-UserSchema.statics.hashPassword = function(password) {
-    return bcrypt.hash(password, 11)
+UserSchema.methods.hashPassword = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(11), null);
 };
 
 const User = mongoose.model('User', UserSchema);

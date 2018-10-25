@@ -5,12 +5,16 @@
         <div class="clinics-index-container">
             <%- include ../layouts/header.ejs %>
             <main class="clinics-index-main">
-                    <h1>Clinics</h1>
-                <% clinics.forEach(clinic => { %>
-                    <ul class="clinic-list">
-                        <li class="clinic-list-item"><a href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a></li>
-                    </ul>
-                <% }); %>
+                <img class="clinic-icon" src="/clinic.svg" alt="Clinic Icon">
+                <h1 class="clinics-h1">Clinics</h1>
+                <ul class="clinic-list">
+                    <% clinics.forEach(clinic => { %>
+                        <li class="clinic-list-item"><a class="clinic-link" href="/clinics/show/<%= clinic.id %>"><%= clinic.name %></a></li>
+                    <% }); %>
+                </ul>
+                <div class="create-clinic-link">
+                    <a class="fas fa-plus-square" href="/clinics/create">&nbsp;<span class="create-clinic-span">Create Clinic</span></a>
+                </div>
             </main>
             <span class="clinics-index-footer"><%- include ../layouts/footer.ejs %></span>
         </div>

@@ -17,28 +17,32 @@
                 <% } %>
                 <section class="patient-information">
                     <div class="patient-id-info">
-                        <p><span class="patient-sex-span">Sex:</span> <%= patient.sex %></p>
-                        <p><span class="patient-dob-span">DOB:</span> <%= patient.formatBirthDate %></p>
-                        <p><span class="patient-ssn-span">SSN:</span> <%= patient.formatSsn %></p>
+                        <p><span class="sex-span">Sex:</span>&nbsp;<%= patient.sex %></p>
+                        <p><span class="dob-span">DOB:</span>&nbsp;<%= patient.formatBirthDate %></p>
+                        <p><span class="ssn-span">SSN:</span>&nbsp;<%= patient.formatSsn %></p>
                     </div>
                     <div class="patient-address">
-                        <h4 class="patient-address-header">Address</h4>
+                        <h2 class="patient-address-header">Address</h2>
                         <p><%= patient.address.street %></p>
-                        <p><%= patient.address.city %>, <%=patient.address.state %>, <%= patient.address.zipCode %></p>
+                        <p><%= patient.address.city %>,&nbsp;<%=patient.address.state %>,&nbsp;<%= patient.address.zipCode %></p>
                     </div>
                     <div class="patient-phone-numbers">
-                        <h4>Phone Number(s)</h4>
-                        <p>Home: <%= patient.emptyHomePhoneValue %></p>
-                        <p>Cell: <%= patient.emptyCellPhoneValue %></p>
-                        <p>Work: <%= patient.emptyWorkPhoneValue %></p>
+                        <h2 class="patient-phone-numbers-header">Phone Number(s)</h2>
+                        <p><span class="home-phone-span">Home:</span>&nbsp;<%= patient.emptyHomePhoneValue %></p>
+                        <p><span class="cell-phone-span">Cell:</span>&nbsp;<%= patient.emptyCellPhoneValue %></p>
+                        <p><span class="work-phone-span">Work:</span>&nbsp;<%= patient.emptyWorkPhoneValue %></p>
                     </div>
                 </section>
                 <form  class="patient-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patient._id %>">
-                    <button class="fas fa-trash-alt"> Delete Patient</button>
+                    <button class="fas fa-trash-alt">&nbsp;<span class="delete-patient-span">Delete</span></button>
                     <input type="hidden" name="_method" value="DELETE">
                 </form>
-                <a class="fas fa-edit" href="/clinics/<%= clinicId %>/patients/update/<%= patient._id %>"> Update Patient</a>
-                <a class="fas fa-arrow-right" href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results"> Go to Lab Results</a>
+                <a class="fas fa-edit" href="/clinics/<%= clinicId %>/patients/update/<%= patient._id %>">&nbsp;
+                    <span class="update-patient-span">Update</span></a>
+                <div class="go-to-lab-results-div">
+                    <a class="go-to-lab-results-link"
+                        href="/clinics/<%= clinicId %>/patients/<%= patient._id %>/lab-results">Go To Lab Results&nbsp;&nbsp;<span class="fas fa-arrow-right"></span></a>
+                </div>
             </main>
             <span class="patients-show-footer"><%- include ../layouts/footer.ejs %></span>
             <%- include ../layouts/scripts.ejs %>

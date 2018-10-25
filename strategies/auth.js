@@ -93,6 +93,7 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
 
             let newUser = new User(req.body);
             newUser._id = new mongoose.Types.ObjectId();
+            newUser.password = newUser.hashPassword(req.body.password);
 
             newUser.save(err => {
                 console.log('registerStrategyErrorUserSave:', err);

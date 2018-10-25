@@ -9,15 +9,15 @@ const {Clinic} = require("../models/clinics");
 const {isAuthenticated} = require('../strategies/auth');
 const {clinicsSvc} = require('../services/clinics');
 
-router.get("/", isAuthenticated, (req, res) => {
+router.get('/', isAuthenticated, (req, res) => {
     clinicsSvc.getAllClinicsAlphabetically()
         .then(clinics => {
-            res.render("clinics/index", {clinics: clinics});
+            let errorMessage = req.flash('errorMessage');
+            res.render('clinics/index', {clinics: clinics, errorMessage: errorMessage});
         })
         .catch(err => {
             console.log(err);
-            req.flash("errorMessage", "Internal server error");
-            res.redirect("/");
+            res.redirect('/');
         });
 });
 
@@ -28,11 +28,11 @@ router.get("/show/:id", isAuthenticated, (req, res) => {
         .then(clinic => {
             console.log('clinic:', clinic);
             let successMessage = req.flash('successMessage');
-            res.render("clinics/show", {clinic: clinic, successMessage: successMessage});
+            let errorMessage = req.flash('errorMessage');
+            res.render('clinics/show', {clinic: clinic, successMessage: successMessage, errorMessage: errorMessage});
         })
         .catch(err => {
             console.log(err);
-            req.flash('errorMessage', 'Internal server error');
             res.redirect('/');
         });
 });
@@ -42,11 +42,11 @@ router.get("/update/:id", isAuthenticated, (req, res) => {
         .findById(req.params.id)
         .populate('patients')
         .then(clinic => {
-            res.render("clinics/update", {clinic: clinic, formMethod: 'PUT', successMessage: req.flash('successMessage')});
+            res.render("clinics/update", {clinic: clinic, formMethod: 'PUT', successMessage: req.flash('successMessage'),
+                errorMessage: req.flash('errorMessage')});
         })
         .catch(err => {
             console.log(err);
-            req.flash("errorMessage", "Internal server error");
             res.redirect("/");
         });
 });
@@ -79,8 +79,6 @@ router.put('/:id', isAuthenticated, (req, res) => {
             .then(clinic => {
                 res.render('clinics/update', {clinic: clinic, formMethod: 'PUT',
                     errorMessage: 'Sorry, the request path id and the request body id values must match.'});
-                res.finished = true;
-                res.end();
             })
             .catch(err => {
                 console.error(err);

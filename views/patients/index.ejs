@@ -10,14 +10,18 @@
                 <span>Patients</span>
             </nav>
             <main class="patients-index-main">
-                <h1><img class="patient-icon" src="/patient.svg" alt="Patient Icon">patient list</h1>
+                <img class="patient-icon" src="/patient.svg" alt="Patient Icon">
+                <h1 class="patients-h1">Patients</h1>
                 <ul class="patient-list">
                     <% patients.forEach(patient => { %>
-                    <li><a class="patient-link" href="/clinics/<%= clinicId %>/patients/show/<%= patient.id %>"><%= patient.name.lastName %>,
-                            <%= patient.name.firstName %></a></li>
+                    <li class="patient-list-item"><a class="patient-link"
+                        href="/clinics/<%= clinicId %>/patients/show/<%= patient.id %>"><%= patient.name.lastName %>,&nbsp;<%= patient.name.firstName %></a></li>
                     <% }); %>
                 </ul>
-                <div class="create-patient-link"><a class="fas fa-plus-square" href="/clinics/<%= clinicId %>/patients/create"> Create Patient</a></div>
+                <div class="create-patient-link">
+                    <a class="fas fa-plus-square" href="/clinics/<%= clinicId %>/patients/create">&nbsp;
+                        <span class="create-patient-span">Create Patient</span></a>
+                </div>
             </main>
             <span class="patients-index-footer"><%- include ../layouts/footer.ejs %></span>
         </div>

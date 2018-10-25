@@ -43,7 +43,7 @@ clinicSchema.pre('remove', async function(next) {
 });
 
 clinicSchema.virtual('managerName').get(function() {
-    return `Clinic Manager: ${this.clinicManager.firstName} ${this.clinicManager.lastName}`;
+    return `${this.clinicManager.firstName} ${this.clinicManager.lastName}`;
 });
 
 const Clinic = mongoose.model("Clinic", clinicSchema);

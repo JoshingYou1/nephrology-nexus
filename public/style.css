@@ -1,7 +1,8 @@
 * {
-    background-color: #f2f0eb;
-    /* color: #950740; */
-    /* color: #4E66B7; */
+    font-family: 'Philosopher', sans-serif;
+    background-color: #F2F0EB;
+    color: #545149;
+    /* color: #83190A; */
     /* color: #1B7B34; */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -19,6 +20,31 @@ body {
     padding: 0;
 }
 
+label {
+    color: #545149;
+    font-size: 0.9em;
+}
+
+input {
+    display: block;
+    width: 100%;
+    border: 1.5px solid #68665A;
+    padding: 0.25em;
+    border-radius: 4px 4px;
+    font-size: 0.9em;
+}
+
+legend {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+input:focus {
+    outline: none;
+    background-color: #FFFFB3;
+    color: #545149;
+}
+
 header {
     grid-area: header;
     grid-column-start: first;
@@ -26,6 +52,11 @@ header {
     grid-row-start: row1-start;
     grid-row-end: row1-end;
     margin-bottom: 0.5em;
+}
+
+a {
+    text-decoration: none;
+    color: #4056A1;
 }
 
 .login-main, .registration-main {
@@ -44,6 +75,7 @@ footer {
     grid-row-end: last-line;
     text-align: center;
     font-size: 0.8em;
+    padding: 1em;
 }
 
 .user-login-form, .user-registration-form {
@@ -52,7 +84,6 @@ footer {
     grid-column-end: line3;
     grid-row-start: row1-end;
     grid-row-end: third-line;
-    font-size: 0.9em;
 }
 
 .title {
@@ -61,7 +92,22 @@ footer {
     grid-column-end: last;
     grid-row-start: row1-start;
     grid-row-end: row1-end;
-    color: #545149;
+}
+
+.create-clinic-span, .create-patient-span, .create-lab-results-span, .update-clinic-span, .update-patient-span, .update-lab-results-span,
+    .delete-clinic-span, .delete-patient-span, .delete-lab-results-span {
+        background-color: #1B7B34;
+        color: #F2F0EB;
+}
+
+.clinic-phone-number-span, .clinic-fax-number-span, .clinic-manager-span, .sex-span, .dob-span, .ssn-span, .home-phone-span, .wbc-span-1,
+    .rbc-span-1, .hemoglobin-span-1, .hematocrit-span-1, .platelet-count-span-1, .bun-span-1, .creatinine-span-1, .sodium-span-1,.potassium-span-1,
+    .calcium-span-1, .phosphorus-span-1, .albumin-span-1, .glucose-span-1, .iron-span-1, .cholesterol-span-1, .triglycerides-span-1 {
+        font-weight: bold;
+}
+
+.cell-phone-span, .work-phone-span {
+    font-weight: bold;
 }
 
 .login-container, .registration-container {
@@ -78,6 +124,14 @@ footer {
 
 h1, h2 {
     margin-top: 1.5em;
+    text-align: center;
+}
+
+h1 {
+    font-style: italic;
+}
+
+h3 {
     text-align: center;
 }
 
@@ -112,16 +166,17 @@ fieldset {
     margin-top: 1.5em;
 }
 
-input {
-    display: block;
-    width: 100%;
-}
-
 .login-submit-button, .registration-submit-button {
     margin-top: 1.5em;
     display: block;
     width: 100%;
-    padding: 0;
+    padding: 0.25em;
+    background-color: #1B7B34;
+    color: #f2f0eb;
+    border: 1.5px solid #1B7B34;
+    box-shadow: 2px 2px grey;
+    font-size: 1em;
+    border-radius: 4px 4px;
 }
 
 .register-p, .login-p {
@@ -136,12 +191,13 @@ input {
     grid-row-start: row1-end;
     grid-row-end: third-line;
     margin-left: 0.5em;
+    font-size: 0.8em;
 }
 
 .clinics-index-main,  .clinics-show-main, .patients-index-main, .lab-results-index-main {
     grid-area: main;
-    grid-column-start: first;
-    grid-column-end: last;
+    grid-column-start: line2;
+    grid-column-end: line3;
     grid-row-start: third-line;
     grid-row-end: fourth-line;
 }
@@ -149,7 +205,7 @@ input {
 .clinics-index-container, .clinics-show-container, .patients-index-container, .lab-results-index-container {
     min-height: 100%;
     display: grid;
-    grid-template-columns: [first] 50% [line2] 50% [last];
+    grid-template-columns: [first] 0.1fr [line2] 4fr [line3] 0.1fr [last];
     grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
     grid-template-areas:
         "header header"
@@ -182,7 +238,8 @@ input {
     grid-row-start: fourth-line;
     grid-row-end: last-line;
     text-align: center;
-    font-size: 0.8em;
+    font-size: 1em;
+    padding: 1em;
 }
 
 .clinic-list, .patient-list, .lab-results-list {
@@ -191,43 +248,66 @@ input {
     list-style: none;
 }
 
+.clinic-list-item, .patient-list-item, .lab-results-list-item {
+    margin-top: 1em;
+}
+
+.clinic-link {
+    text-decoration: none;
+}
+
 .fa-edit {
-    float: left;
+    float: right;
+    margin-right: 1em;
+    margin-top: 1em;
     font-size: 1em;
     margin-left: 1em;
     text-decoration: none;
-    border: 2px solid blue;
-    padding: 0.2em;
+    box-shadow: 2px 2px gray;
+    padding: 0.5em;
     border-radius: 0.5em;
-    color: inherit;
-    background-color: red;
+    color: #f2f0eb;
+    background-color: #1B7B34;
+}
+
+.fa-edit:before {
+    vertical-align: middle;
 }
 
 .fa-trash-alt {
     float: left;
+    margin-left: 1em;
+    margin-top: 1em;
     font-size: 1em;
     text-decoration: none;
-    border: 2px solid blue;
-    padding: 0.2em;
+    box-shadow: 2px 2px gray;
+    padding: 0.5em;
     border-radius: 0.5em;
-    color: inherit;
-    background-color: red;
+    color: #f2f0eb;
+    background-color: #1B7B34;
+    border: none;
+}
+
+.fa-trash-alt:before {
+    vertical-align: middle;
 }
 
 .fa-trash-alt:hover {
     cursor: pointer;
 }
 
-.fa-arrow-right {
-    float: right;
-    margin-right: 1em;
-    font-size: 1em;
+.go-to-patients-div, .go-to-lab-results-div {
+    margin-top: 6em;
+    text-align: center;
+}
+
+.go-to-patients-link, .go-to-lab-results-link {
     text-decoration: none;
-    border: 2px solid blue;
-    padding: 0.2em;
-    border-radius: 0.5em;
-    color: inherit;
-    background-color: red;
+}
+
+.fa-arrow-right {
+    font-size: 1em;
+    color: #4056A1;
 }
 
 .create-clinic-container {
@@ -247,6 +327,45 @@ input {
     grid-column-end: last;
     grid-row-start: row1-start;
     grid-row-end: row1-end;
+}
+
+.clinics-h1 {
+    margin-top: -1em;
+    text-decoration: underline;
+}
+
+.patients-h1 {
+    margin-top: 0;
+    text-decoration: underline;
+}
+
+.lab-results-h1 {
+    margin-top: 0;
+    text-decoration: underline;
+}
+
+.clinic-icon {
+    display: block;
+    height: 11em;
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.patient-icon {
+    display: block;
+    height: 8em;
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lab-results-icon {
+    display: block;
+    height: 9em;
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .create-clinic-main {
@@ -275,12 +394,12 @@ input {
     .clinic-fax-number-label, .clinic-manager-first-name-label, .clinic-manager-last-name-label {
         display: block;
         margin-bottom: 0.2em;
-    }
+}
 
 .clinic-street-label, .clinic-city-label, .clinic-state-label, .clinic-zip-code-label, .clinic-phone-number-label, .clinic-fax-number-label,
     .clinic-manager-first-name-label, .clinic-manager-last-name-label {
         margin-top: 1em;
-    }
+}
 
 .clinic-name-input {
     margin-bottom: 4em;
@@ -295,7 +414,13 @@ input {
     margin-bottom: 1.5em;
     display: block;
     width: 100%;
-    padding: 0;
+    padding: 0.25em;
+    background-color: #1B7B34;
+    color: #f2f0eb;
+    border: 1.5px solid #1B7B34;
+    box-shadow: 2px 2px grey;
+    font-size: 1em;
+    border-radius: 4px 4px;
 }
 
 .create-clinic-footer {
@@ -304,6 +429,8 @@ input {
     grid-column-end: last;
     grid-row-start: third-line;
     grid-row-end: last-line;
+    font-size: 1em;
+    padding: 1em;
 }
 
 .clinic-info {
@@ -346,29 +473,32 @@ input {
     grid-column-end: last;
     grid-row-start: third-line;
     grid-row-end: last-line;
-}
-
-.patient-icon {
-    display: block;
-    margin: 0 auto;
+    font-size: 1em;
+    padding: 1em;
 }
 
 .patient-link, .lab-results-link {
     text-decoration: none;
 }
 
-.create-patient-link {
+.create-clinic-link, .create-patient-link, .create-lab-results-link {
     text-align: center;
+    margin-bottom: 0.25em;
 }
 
 .fa-plus-square {
+    margin-top: 2em;
     font-size: 1em;
     text-decoration: none;
-    border: 2px solid blue;
-    padding: 0.2em;
+    box-shadow: 2px 2px gray;
+    padding: 0.5em;
     border-radius: 0.5em;
-    color: inherit;
-    background-color: red;
+    color: #f2f0eb;
+    background-color: #1B7B34;
+}
+
+.fa-plus-square:before {
+    vertical-align: middle;
 }
 
 .create-patient-container {
@@ -407,23 +537,34 @@ input {
     .patient-city-label, .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
         display: block;
         margin-bottom: 0.2em;
-    }
+}
 
 .patient-last-name-label, .patient-dob-label, .patient-sex-label, .patient-ssn-label, .patient-street-label, .patient-city-label,
     .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
         margin-top: 1em;
-    }
+}
 
 .patient-address-legend, .patient-phone-numbers-legend {
     text-align: center;
-}    
+}
+
+.patient-address-header, .patient-phone-numbers-header, .hematology-header, .chemistry-header {
+    margin-top: 2em;
+    text-decoration: underline;
+}
 
 .patient-form-button {
     margin-top: 4em;
     margin-bottom: 1.5em;
     display: block;
     width: 100%;
-    padding: 0;
+    padding: 0.25em;
+    background-color: #1B7B34;
+    color: #f2f0eb;
+    border: 1.5px solid #1B7B34;
+    box-shadow: 2px 2px grey;
+    font-size: 1em;
+    border-radius: 4px 4px;
 }
 
 .create-patient-footer {
@@ -432,6 +573,8 @@ input {
     grid-column-end: last;
     grid-row-start: third-line;
     grid-row-end: last-line;
+    font-size: 1em;
+    padding: 1em;
 }
 
 .update-patient-container {
@@ -468,6 +611,8 @@ input {
     grid-column-end: last;
     grid-row-start: third-line;
     grid-row-end: last-line;
+    font-size: 1em;
+    padding: 1em;
 }
 
 .patient-information {
@@ -516,16 +661,19 @@ input {
     grid-column-end: last;
     grid-row-start: fifth-line;
     grid-row-end: last-line;
+    font-size: 1em;
+    padding: 1em;
 }
 
 .lab-results-show-container {
     min-height: 100%;
     display: grid;
-    grid-template-columns: [first] 1fr [line2] 2fr [line3] 1fr [last];
-    grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
+    grid-template-columns: [first] 0.5fr [line2] 3fr [line3] 0.5fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [fifth-line] auto [last-line];
     grid-template-areas:
         "lab-results-show-header lab-results-show-header lab-results-show-header"
         ". lab-results-show-main ."
+        "delete-and-update-div delete-and-update-div delete-and-update-div"
         "patients-show-footer patients-show-footer patients-show-footer";
 }
 
@@ -543,18 +691,207 @@ input {
     grid-column-end: line3;
     grid-row-start: third-line;
     grid-row-end: fourth-line;
-    margin-top: 2em;
+}
+
+.delete-and-update-div {
+    grid-area: delete-and-update-div;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: fourth-line;
+    grid-row-end: fifth-line;
+    margin-bottom: 0.25em;
 }
 
 .lab-results-show-footer {
     grid-area: lab-results-show-footer;
     grid-column-start: first;
     grid-column-end: last;
-    grid-row-start: fourth-line;
+    grid-row-start: fifth-line;
     grid-row-end: last-line;
+    font-size: 1em;
+    padding: 1em;
+}
+
+.hematology, .chemistry {
+    text-align: center;
+}
+
+.wbc-span-1, .rbc-span-1, .hemoglobin-span-1, .hematocrit-span-1, .platelet-count-span-1, .bun-span-1, .creatinine-span-1, .sodium-span-1,
+    .potassium-span-1, .calcium-span-1, .phosphorus-span-1, .albumin-span-1, .glucose-span-1, .iron-span-1, .cholesterol-span-1, .triglycerides-span-1 {
+        float: left;
+}
+
+.wbc-span-2, .rbc-span-2, .hemoglobin-span-2, .hematocrit-span-2, .platelet-count-span-2, .bun-span-2, .creatinine-span-2, .sodium-span-2,
+    .potassium-span-2, .calcium-span-2, .phosphorus-span-2, .albumin-span-2, .glucose-span-2, .iron-span-2, .cholesterol-span-2, .triglycerides-span-2 {
+        float: right;
+        font-weight: bold;
+}
+
+.wbc-span-3, .rbc-span-3, .hemoglobin-span-3, .hematocrit-span-3, .platelet-count-span-3, .bun-span-3, .creatinine-span-3, .sodium-span-3,
+    .potassium-span-3, .calcium-span-3, .phosphorus-span-3, .albumin-span-3, .glucose-span-3, .iron-span-3, .cholesterol-span-3, .triglycerides-span-3 {
+        color: #83190A;
+        font-weight: 100;
+}
+
+.create-lab-results-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+    grid-template-areas:
+        "create-lab-results-header create-lab-results-header create-lab-results-header"
+        "create-lab-results-main create-lab-results-main create-lab-results-main"
+        "create-lab-results-footer create-lab-results-footer create-lab-results-footer";
+}
+
+.create-lab-results-header {
+    grid-area: create-lab-results-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.create-lab-results-main {
+    grid-area: create-lab-results-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    margin-top: 2em;
+}
+
+.draw-date-label, .wbc-count-label, .rbc-count-label, .hemoglobin-label, .hematocrit-label, .platelet-count-label, .bun-label, .creatinine-label,
+    .sodium-label, .potassium-label, .calcium-label, .phosphorus-label, .albumin-label, .glucose-label, .iron-label, .cholesterol-label,
+    .triglycerides-label {
+        display: block;
+        margin-bottom: 0.2em;
+}
+
+.wbc-count-label, .rbc-count-label, .hemoglobin-label, .hematocrit-label, .platelet-count-label, .bun-label, .creatinine-label, .sodium-label,
+    .potassium-label, .calcium-label, .phosphorus-label, .albumin-label, .glucose-label, .iron-label, .cholesterol-label, .triglycerides-label {
+         margin-top: 1em;
+    }
+
+.lab-results-data, .hematology-data, .chemistry-data {
+    padding: 0;
+    margin: 0;
+}
+
+.hematology-legend, .chemistry-legend {
+    text-align: center;
+}
+
+.hematology-data, .chemistry-data {
+    margin-top: 4em;
+}
+
+.lab-results-form-button {
+    margin-top: 4em;
+    margin-bottom: 1.5em;
+    display: block;
+    width: 100%;
+    padding: 0.25em;
+    background-color: #1B7B34;
+    color: #f2f0eb;
+    border: 1.5px solid #1B7B34;
+    box-shadow: 2px 2px grey;
+    font-size: 1em;
+    border-radius: 4px 4px;
+}
+
+.create-lab-results-footer {
+    grid-area: create-lab-results-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: third-line;
+    grid-row-end: last-line;
+    font-size: 1em;
+    padding: 1em;
+}
+
+.update-lab-results-container {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: [first] 1fr [line2] 4fr [line3] 1fr [last];
+    grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+    grid-template-areas:
+        "update-lab-results-header update-lab-results-header update-lab-results-header"
+        "update-lab-results-main update-lab-results-main update-lab-results-main"
+        "update-lab-results-footer update-lab-results-footer update-lab-results-footer";
+}
+
+.update-lab-results-header {
+    grid-area: update-lab-results-header;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+}
+
+.update-lab-results-main {
+    grid-area: update-lab-results-main;
+    grid-column-start: line2;
+    grid-column-end: line3;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    margin-top: 2em;
+}
+
+.update-lab-results-footer {
+    grid-area: update-lab-results-footer;
+    grid-column-start: first;
+    grid-column-end: last;
+    grid-row-start: third-line;
+    grid-row-end: last-line;
+    font-size: 1em;
+    padding: 1em;
 }
 
 @media only screen and (min-width: 375px) {
+    .login-container, .registration-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 3fr [line3] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "title title title"
+            ". main ."
+            "footer footer footer";
+        justify-items: stretch;
+    }
+
+    .clinics-index-container, .clinics-show-container, .patients-index-container, .lab-results-index-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 0.5fr [line2] 4fr [line3] 0.5fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
+        grid-template-areas:
+            "header header"
+            "breadcrumbs breadcrumbs"
+            "main main"
+            "footer footer";
+    }
+
+    .patients-show-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 0.5fr [line2] 4fr [line3] 0.5fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] auto [third-line] auto [fourth-line] 1fr [fifth-line] auto [last-line];
+        grid-template-areas:
+            "patients-show-header patients-show-header patients-show-header"
+            "patient-name patient-name patient-name"
+            ". patients-show-main ."
+            "patients-show-footer patients-show-footer patients-show-footer";
+    }
+
+    .patients-show-main {
+        grid-area: patients-show-main;
+        grid-column-start: line2;
+        grid-column-end: line3;
+        grid-row-start: fourth-line;
+        grid-row-end: fifth-line;
+    }
 
     .login-main, .registration-main {
         justify-self: center;
