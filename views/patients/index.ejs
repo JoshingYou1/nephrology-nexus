@@ -3,7 +3,7 @@
     <%- include ../layouts/head.ejs %>
     <body>
         <div class="patients-index-container">
-            <%- include ../layouts/header.ejs %>
+            <span class="patients-index-header"><%- include ../layouts/header.ejs %></span>
             <nav class="breadcrumbs">
                 <a href="/clinics">Clinics</a> &gt
                 <a href="/clinics/show/<%= clinicId %>"><%= clinic.name %></a> &gt

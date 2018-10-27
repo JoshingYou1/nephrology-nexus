@@ -1,8 +1,8 @@
 <header>
-    <img src="/kidney.svg" class="logo" alt="Nephrology Nexus Logo">
+    <span class="header-title"><img src="/kidney.svg" class="logo" alt="Nephrology Nexus Logo">&nbsp;&nbsp;<span class="title-span">Nephrology Nexus</span></span>
     <nav class="header-nav">
         <% if (user) { %>
-            <span><%= user.username %></span>
+            <span class="username-span"><%= user.username %></span>
             <div><a class="logout-link" href="/users/logout">Logout</a></div>
         <% } %>
     </nav>
