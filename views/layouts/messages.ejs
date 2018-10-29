@@ -1,0 +1,17 @@
+<% if (typeof message != 'undefined' && message) { %>
+    <div class="message-div" role="alert">
+        <p class="message-p"><%= message %></p>
+    </div>
+<% } %>
+
+<% if (typeof successMessage != 'undefined' && successMessage) { %>
+    <div class="success-message-div">
+        <p class="success-message-p"><%= successMessage %></p>
+    </div>
+<% } %>
+
+<% if (typeof errorMessage != 'undefined' && errorMessage) { %>
+    <div class="error-message-div">
+        <p class="error-message-p"><%= errorMessage %></p>
+    </div>
+<% } %>

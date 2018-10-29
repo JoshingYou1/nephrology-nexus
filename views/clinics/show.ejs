@@ -10,15 +10,14 @@
             </nav>
             <main class="clinics-show-main">
                 <h1><%= clinic.name %></h1>
-                <% if (typeof successMessage != 'undefined' && successMessage) { %>
-                    <h2><%= successMessage %></h2>
-                <% } %>
                 <section class="clinic-info">
-                    <p><%= clinic.address.street %></p>
-                    <p><%= clinic.address.city %>,&nbsp;<%= clinic.address.state %>,&nbsp;<%= clinic.address.zipCode %></p>
-                    <p><span class="clinic-phone-number-span">Phone Number</span>:&nbsp;<%= clinic.phoneNumber %></p>
-                    <p><span class="clinic-fax-number-span">Fax Number</span>:&nbsp;<%= clinic.faxNumber %></p>
-                    <p><span class="clinic-manager-span">Clinic Manager</span>:&nbsp;<%= clinic.managerName %></p>
+                    <div class="clinic-address-div">
+                        <p><%= clinic.address.street %></p>
+                        <p><%= clinic.address.city %>,&nbsp;<%= clinic.address.state %>,&nbsp;<%= clinic.address.zipCode %></p>
+                    </div>
+                    <p><span class="clinic-phone-number-span-1">Phone Number:</span>&nbsp;<span class="clinic-phone-number-span-2"><%= clinic.phoneNumber %></span></p>
+                    <p><span class="clinic-fax-number-span-1">Fax Number:</span>&nbsp;<span class="clinic-fax-number-span-2"><%= clinic.faxNumber %></span></p>
+                    <p><span class="clinic-manager-span-1">Clinic Manager:</span>&nbsp;<span class="clinic-manager-span-2"><%= clinic.managerName %></span></p>
                 </section>
                 <form  class="clinic-delete-form" method="POST" action="/clinics/<%= clinic._id %>">
                     <button class="fas fa-trash-alt">&nbsp;<span class="delete-clinic-span">Delete</span></button>

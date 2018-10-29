@@ -17,10 +17,10 @@ router.get('/login', protectLogin, (req, res) => {
 });
 
 router.get('/register', protectLogin, (req, res) => {
-    const usernameUniqueError = req.flash('usernameUniqueError');
+    const errorMessage = req.flash('errorMessage');
     const message = req.flash('message');
     console.log('message:', message);
-    res.render('users/register', {usernameUniqueError: usernameUniqueError, message: message});
+    res.render('users/register', {errorMessage: errorMessage, message: message});
 });
 
 router.get('/logout', isAuthenticated, (req, res) => {

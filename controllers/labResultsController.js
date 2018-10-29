@@ -20,6 +20,8 @@ router.get('/', isAuthenticated, (req, res) => {
             vm.clinicId = req.clinicId;
             vm.patient = patient;
             vm.clinic = patient.clinic;
+            vm.successMessage = req.flash('successMessage');
+            vm.errorMessage = req.flash('errorMessage');
 
             labResultsSvc.getAllLabResultsByPatientChronologically(req.patientId)
                 .then(results => {
@@ -96,7 +98,7 @@ router.post('/', isAuthenticated, (req, res) => {
                     .findByIdAndUpdate(result.patient, { $push: {labResults: result._id}})
                     .then(function(p) {
                         req.flash('successMessage', `Lab results successfully created for ${p.patientName}!`);
-                        res.redirect(`/clinics/${req.clinicId}/patients/show/${result.patient._id}`);
+                        res.redirect(`/clinics/${req.clinicId}/patients/${result.patient._id}/lab-results`);
                     })
                     .catch(err => {
                         console.error(err);

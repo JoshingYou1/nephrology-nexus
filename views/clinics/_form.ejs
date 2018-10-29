@@ -1,7 +1,5 @@
 <section class="clinic-page">
-    <% if (typeof message != 'undefined' && message) { %>
-        <h2><%= message %></h2>
-    <% } %>
+    <%- include ../layouts/messages.ejs %>
         <form class="clinic-form" role="form" method="POST" action="/clinics/<%- formMethod == 'PUT' ? clinic._id : '' %>">
             <% if (formMethod == 'PUT') { %>
                 <input type="hidden" name="_method" value="PUT">
@@ -17,7 +15,7 @@
 
                 <fieldset class="clinic-address-data" name="address">
                     <legend class="clinic-address-legend">Address</legend>
-                    <div class="grid-md-2 grid-lg-3">
+                    <div class="grid-md-2">
                         <div class="box-md-col-1">
                             <label class="clinic-street-label" for="street">Street</label>
                             <input placeholder="1 International Drive" type="text" name="address.street" id="street"
@@ -43,7 +41,7 @@
                         </div>
                     </div>
                 </fieldset>
-                <div class="grid-md-2 grid-lg-3">
+                <div class="grid-md-2">
                     <div class="box-md-col-1">
                         <label class="clinic-phone-number-label" for="phone-number">Phone Number</label>
                         <input placeholder="123-456-7890" type="tel" name="phoneNumber" id="phone-number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -59,7 +57,7 @@
 
                 <fieldset class="manager-data" name="clinic-manager">
                     <legend>Clinic Manager</legend>
-                    <div class="grid-md-2 grid-lg-3">
+                    <div class="grid-md-2">
                         <div class="box-md-col-1">
                             <label class="clinic-manager-first-name-label" for="manager-first-name">First Name</label>
                             <input placeholder="Jane" type="text" name="clinicManager.firstName" id="manager-first-name" 

@@ -2,8 +2,6 @@
     font-family: 'Philosopher', sans-serif;
     background-color: #F2F0EB;
     color: #545149;
-    /* color: #83190A; */
-    /* color: #1B7B34; */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -20,6 +18,10 @@ body {
     padding: 0;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 label {
     color: #545149;
     font-size: 0.9em;
@@ -30,7 +32,7 @@ input {
     display: block;
     width: 100%;
     border: 1.5px solid #68665A;
-    padding: 0.25em;
+    padding: 0.4em;
     border-radius: 4px 4px;
     font-size: 0.9em;
 }
@@ -71,6 +73,10 @@ a {
     grid-row-end: third-line;
 }
 
+main {
+    margin-bottom: 4em;
+}
+
 footer {
     grid-area: footer;
     grid-column-start: first;
@@ -104,13 +110,33 @@ footer {
         color: #F2F0EB;
 }
 
-.clinic-phone-number-span, .clinic-fax-number-span, .clinic-manager-span, .sex-span, .dob-span, .ssn-span, .home-phone-span, .wbc-span-1,
+.clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1, .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .wbc-span-1,
     .rbc-span-1, .hemoglobin-span-1, .hematocrit-span-1, .platelet-count-span-1, .bun-span-1, .creatinine-span-1, .sodium-span-1,.potassium-span-1,
     .calcium-span-1, .phosphorus-span-1, .albumin-span-1, .glucose-span-1, .iron-span-1, .cholesterol-span-1, .triglycerides-span-1 {
         font-weight: bold;
 }
 
-.cell-phone-span, .work-phone-span {
+.clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1{
+    float: left;
+    margin-left: 0.5em;
+}
+
+.clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
+    float: right;
+    margin-right: 0.5em;
+}
+
+.sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+    float: left;
+    margin-left: 4em;
+}
+
+.sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+    float: right;
+    margin-right: 4em;
+}
+
+.cell-phone-span-1, .work-phone-span-1 {
     font-weight: bold;
 }
 
@@ -174,7 +200,7 @@ fieldset {
     margin-top: 1.5em;
     display: block;
     width: 100%;
-    padding: 0.25em;
+    padding: 0.4em;
     background-color: #1B7B34;
     color: #f2f0eb;
     border: 1.5px solid #1B7B34;
@@ -219,7 +245,7 @@ fieldset {
 .clinics-index-container, .clinics-show-container, .patients-index-container, .lab-results-index-container {
     min-height: 100%;
     display: grid;
-    grid-template-columns: [first] 0.1fr [line2] 4fr [line3] 0.1fr [last];
+    grid-template-columns: [first] 0fr [line2] 1fr [line3] 0fr [last];
     grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
     grid-template-areas:
         "header header"
@@ -328,6 +354,11 @@ fieldset {
     cursor: pointer;
 }
 
+.clinic-address-div {
+    margin-top: 4em;
+    margin-bottom: 2em;
+}
+
 .go-to-patients-div, .go-to-lab-results-div {
     margin-top: 6em;
     text-align: center;
@@ -340,6 +371,7 @@ fieldset {
 .fa-arrow-right {
     font-size: 1em;
     color: #4056A1;
+    margin-top: 2em;
 }
 
 .create-clinic-container {
@@ -396,7 +428,7 @@ fieldset {
 .lab-results-icon {
     display: block;
     height: 9em;
-    margin-top: 0.5em;
+    margin-top: 1em;
     margin-left: auto;
     margin-right: auto;
 }
@@ -447,7 +479,7 @@ fieldset {
     margin-bottom: 1.5em;
     display: block;
     width: 100%;
-    padding: 0.25em;
+    padding: 0.4em;
     background-color: #1B7B34;
     color: #f2f0eb;
     border: 1.5px solid #1B7B34;
@@ -593,7 +625,7 @@ fieldset {
     margin-bottom: 1.5em;
     display: block;
     width: 100%;
-    padding: 0.25em;
+    padding: 0.4em;
     background-color: #1B7B34;
     color: #f2f0eb;
     border: 1.5px solid #1B7B34;
@@ -731,15 +763,16 @@ fieldset {
     grid-column-end: line3;
     grid-row-start: third-line;
     grid-row-end: fourth-line;
+    margin-bottom: 0;
 }
 
-.delete-and-update-div {
+.lab-results-delete-and-update-div {
     grid-area: delete-and-update-div;
     grid-column-start: first;
     grid-column-end: last;
     grid-row-start: fourth-line;
     grid-row-end: fifth-line;
-    margin-bottom: 0.25em;
+    margin-bottom: 4em;
     margin-left: 0.25em;
     margin-right: 0.25em;
 }
@@ -834,7 +867,7 @@ fieldset {
     margin-bottom: 1.5em;
     display: block;
     width: 100%;
-    padding: 0.25em;
+    padding: 0.4em;
     background-color: #1B7B34;
     color: #f2f0eb;
     border: 1.5px solid #1B7B34;
@@ -908,13 +941,33 @@ fieldset {
     .clinics-index-container, .clinics-show-container, .patients-index-container, .lab-results-index-container {
         min-height: 100%;
         display: grid;
-        grid-template-columns: [first] 0.5fr [line2] 4fr [line3] 0.5fr [last];
+        grid-template-columns: [first] 0.25fr [line2] 4.5fr [line3] 0.25fr [last];
         grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
         grid-template-areas:
             "header header"
             "breadcrumbs breadcrumbs"
             "main main"
             "footer footer";
+    }
+
+    .clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1 {
+        float: left;
+        margin-left: 0.15em;
+    }
+    
+    .clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
+        float: right;
+        margin-right: 0.15em;
+    }
+
+    .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+        float: left;
+        margin-left: 3.5em;
+    }
+
+    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        float: right;
+        margin-right: 3.5em;
     }
 
     .patients-show-container {
@@ -1013,11 +1066,11 @@ fieldset {
     }
 
     .fa-trash-alt {
-        margin-left: 1em;
+        margin-left: 1.9em;
     }
 
     .fa-edit {
-        margin-right: 1em;
+        margin-right: 1.9em;
     }
 
     .lab-results-show-container {
@@ -1032,9 +1085,9 @@ fieldset {
             "patients-show-footer patients-show-footer patients-show-footer";
     }
 
-    .delete-and-update-div {
-        margin-left: 2em;
-        margin-right: 2em;
+    .lab-results-delete-and-update-div {
+        margin-left: 2.5em;
+        margin-right: 2.5em;
     }
 }
 
@@ -1049,6 +1102,38 @@ fieldset {
             ". main ."
             "footer footer footer";
         justify-items: stretch;
+    }
+
+    .clinics-index-container, .clinics-show-container, .patients-index-container, .lab-results-index-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 0.25fr [line2] 2fr [line3] 0.25fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [last-line];
+        grid-template-areas:
+            "header header"
+            "breadcrumbs breadcrumbs"
+            "main main"
+            "footer footer";
+    }
+
+    .clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1 {
+        float: left;
+        margin-left: 0.25em;
+    }
+    
+    .clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
+        float: right;
+        margin-right: 0.25em;
+    }
+
+    .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+        float: left;
+        margin-left: 4.75em;
+    }
+
+    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        float: right;
+        margin-right: 4.75em;
     }
 
     .fa-trash-alt {
@@ -1115,9 +1200,9 @@ fieldset {
             "patients-show-footer patients-show-footer patients-show-footer";
     }
 
-    .delete-and-update-div {
-        margin-left: 2.2em;
-        margin-right: 2.2em;
+    .lab-results-delete-and-update-div {
+        margin-left: 2.7em;
+        margin-right: 2.7em;
     }
 
     .create-lab-results-container {
@@ -1166,12 +1251,36 @@ fieldset {
         margin-bottom: 0;
     }
 
+    .login-requirements {
+        font-size: 1.2em;
+    }
+
+    .login-submit-button, .patient-form-button, .clinic-form-button, .lab-results-form-button {
+        font-size: 1.2em;
+    }
+
+    .register-p {
+        font-size: 1em;
+    }
+
+    .login-p {
+        font-size: 1em;
+    }
+
     .title-span {
         display: inline-block;
     }
 
+    h1 {
+        font-size: 2.5em;
+    }
+
     .header-nav {
-        margin-top: -3em;
+        margin-top: -3.1em;
+    }
+
+    .header-title {
+        font-size: 1.3em;
     }
 
     .login-container, .registration-container {
@@ -1190,12 +1299,78 @@ fieldset {
         font-size: 3em;
     }
 
+    .register-p {
+        font-size: 0.9em;
+    }
+
+    .login-p {
+        font-size: 0.9em;
+    }
+
     h3 {
         font-size: 1.5em;
     }
 
     .breadcrumbs {
         margin-top: 0.5em;
+        font-size: 0.85em;
+    }
+
+    .clinics-h1 {
+        margin-top: -0.5em;
+        font-size: 2.5em;
+    }
+
+    .clinic-list-item, .patient-list-item, .lab-results-list-item {
+        font-size: 1.2em;
+    }
+
+    .fa-plus-square {
+        font-size: 1.2em;
+    }
+
+    .fa-edit, .fa-trash-alt {
+        font-size: 1.2em;
+    }
+
+    .clinic-info {
+        font-size: 1.2em;
+    }
+
+    .go-to-patients-link, .go-to-lab-results-link {
+        font-size: 1.2em;
+    }
+
+    .clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1 {
+        float: left;
+        margin-left: 5.5em;
+    }
+    
+    .clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
+        float: right;
+        margin-right: 5.5em;
+    }
+
+    .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+        float: left;
+        margin-left: 10em;
+    }
+
+    .patient-address-p-1, .patient-address-p-2 {
+        font-size: 1.2em;
+    }
+
+    .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+        font-size: 1.2em;
+    }
+
+    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        float: right;
+        margin-right: 10em;
+    }
+
+    .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        font-size: 1.2em;
     }
     
     .create-clinic-container {
@@ -1209,12 +1384,32 @@ fieldset {
             "create-clinic-footer create-clinic-footer create-clinic-footer";
     }
 
+    .update-clinic-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "update-clinic-header update-clinic-header update-clinic-header"
+            "update-clinic-main update-clinic-main update-clinic-main"
+            "update-clinic-footer update-clinic-footer update-clinic-footer";
+    }
+
     .grid-md-2 {
         display: grid;
         grid-column-start: first;
         grid-column-end: last;
         column-gap: 4em;
-        padding: 0 8em;
+        padding: 0 5em;
+        font-size: 1.2em
+    }
+
+    legend, .hematology-header, .chemistry-header {
+        font-size: 1.7em;
+    }
+
+    .patient-dob-input {
+        padding: 0.2em;
     }
 
     .box-md-col-1 {
@@ -1232,15 +1427,473 @@ fieldset {
         grid-column-end: last;
     }
 
+    .update-clinic-main {
+        grid-area: update-clinic-main;
+        grid-column-start: first;
+        grid-column-end: last;
+    }
+
     .clinic-name-div {
-        width: 29%;
+        font-size: 1.2em;
+        width: 32.3%;
         margin-left: auto;
         margin-right: auto;
     }
 
     .clinic-form-button {
-        width: 29%;
+        width: 32.3%;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .fa-trash-alt {
+        margin-left: 7.3em;
+    }
+
+    .fa-edit {
+        margin-right: 7.3em;
+    }
+
+    .create-patient-container{
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "create-patient-header create-patient-header create-patient-header"
+            "create-patient-main create-patient-main create-patient-main"
+            "create-clinic-footer create-clinic-footer create-clinic-footer";
+    }
+
+    .update-patient-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "update-patient-header update-patient-header update-patient-header"
+            "update-patient-main update-patient-main update-patient-main"
+            "update-patient-footer update-patient-footer update-patient-footer";
+    }
+
+    .create-patient-main {
+        grid-area: create-patient-main;
+        grid-column-start: first;
+        grid-column-end: last;
+    }
+
+    .update-patient-main {
+        grid-area: update-patient-main;
+        grid-column-start: first;
+        grid-column-end: last;
+    }
+
+    .patient-id-info {
+        font-size: 1.2em;
+    }
+
+    .patient-last-name-label {
+        margin-top: 0;
+    }
+
+    .patient-form-button {
+        width: 32.3%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .lab-results-show-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 0.5fr [line2] 0.75fr [line3] 0.5fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [fifth-line] auto [last-line];
+        grid-template-areas:
+            "lab-results-show-header lab-results-show-header lab-results-show-header"
+            ". lab-results-show-main ."
+            "delete-and-update-div delete-and-update-div delete-and-update-div"
+            "patients-show-footer patients-show-footer patients-show-footer";
+    }
+
+
+
+    .create-lab-results-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 1fr [line3] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "create-lab-results-header create-lab-results-header create-lab-results-header"
+            "create-lab-results-main create-lab-results-main create-lab-results-main"
+            "create-lab-results-footer create-lab-results-footer create-lab-results-footer";
+    }
+
+    .update-lab-results-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 1fr [line3] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "update-lab-results-header update-lab-results-header update-lab-results-header"
+            "update-lab-results-main update-lab-results-main update-lab-results-main"
+            "update-lab-results-footer update-lab-results-footer update-lab-results-footer";
+    }
+
+    .grid-md-3 {
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 1fr [line3] 1fr [last];
+        grid-column-start: first;
+        grid-column-end: last;
+        column-gap: 2em;
+        padding-left: 4em;
+        padding-right: 4em;
+        font-size: 1.2em
+    }
+
+    .draw-date-input {
+        padding: 0.2em;
+    }
+
+    .draw-date-div {
+        font-size: 1.2em;
+        width: 23.2%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .box-md-col-1 {
+        grid-column-end: line2;
+    }
+
+    .box-md-col-2 {
+        grid-column-start: line2;
+        grid-column-end: line3;
+    }
+
+    .box-md-col-3 {
+        grid-column-start: line3;
+        grid-column-end: last;
+    }
+
+    .create-lab-results-main {
+        grid-area: create-lab-results-main;
+        grid-column-start: first;
+        grid-column-end: last;
+    }
+
+    .update-lab-results-main {
+        grid-area: update-lab-results-main;
+        grid-column-start: first;
+        grid-column-end: last;
+    }
+
+    .wbc-span-1, .rbc-span-1, .hemoglobin-span-1, .hematocrit-span-1, .platelet-count-span-1, .bun-span-1, .creatinine-span-1, .sodium-span-1,
+    .potassium-span-1, .calcium-span-1, .phosphorus-span-1, .albumin-span-1, .glucose-span-1, .iron-span-1, .cholesterol-span-1, .triglycerides-span-1 {
+        font-size: 1.2em;
+}
+
+.wbc-span-2, .rbc-span-2, .hemoglobin-span-2, .hematocrit-span-2, .platelet-count-span-2, .bun-span-2, .creatinine-span-2, .sodium-span-2,
+    .potassium-span-2, .calcium-span-2, .phosphorus-span-2, .albumin-span-2, .glucose-span-2, .iron-span-2, .cholesterol-span-2, .triglycerides-span-2 {
+        font-size: 1.2em;
+}
+
+.wbc-span-3, .rbc-span-3, .hemoglobin-span-3, .hematocrit-span-3, .platelet-count-span-3, .bun-span-3, .creatinine-span-3, .sodium-span-3,
+    .potassium-span-3, .calcium-span-3, .phosphorus-span-3, .albumin-span-3, .glucose-span-3, .iron-span-3, .cholesterol-span-3, .triglycerides-span-3 {
+        font-size: 1.2em;
+}
+
+    .lab-results-form-button {
+        width: 23.2%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .lab-results-delete-and-update-div {
+        margin-left: 4.6em;
+        margin-right: 4.6em
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    .login-container, .registration-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 0.67fr [line3] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "title title title"
+            ". main ."
+            "footer footer footer";
+        justify-items: stretch;
+    }
+
+    .breadcrumbs {
+        font-size: 0.9em;
+    }
+
+    .clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1 {
+        float: left;
+        margin-left: 10.9em;
+    }
+    
+    .clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
+        float: right;
+        margin-right: 10.9em;
+    }
+
+    .fa-trash-alt {
+        margin-left: 12.6em;
+    }
+
+    .fa-edit {
+        margin-right: 12.6em;
+    }
+
+    .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+        float: left;
+        margin-left: 15.3em;
+    }
+
+    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        float: right;
+        margin-right: 15.3em;
+    }
+
+    .grid-md-2 {
+        display: grid;
+        grid-column-start: first;
+        grid-column-end: last;
+        column-gap: 4em;
+        padding: 0 11.7em;
+    }
+
+    .clinic-name-div {
+        width: 24.2%;
+    }
+
+    .draw-date-div {
+        width: 17.5%;
+    }
+
+    .grid-md-3 {
+        padding-left: 10.7em;
+        padding-right: 10.7em;
+    }
+
+    .clinic-form-button, .patient-form-button {
+        width: 24.2%;
+    }
+
+    .lab-results-form-button {
+        width: 17.5%;
+    }
+
+    .lab-results-show-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 0.75fr [line2] 0.7fr [line3] 0.75fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [fifth-line] auto [last-line];
+        grid-template-areas:
+            "lab-results-show-header lab-results-show-header lab-results-show-header"
+            ". lab-results-show-main ."
+            "delete-and-update-div delete-and-update-div delete-and-update-div"
+            "patients-show-footer patients-show-footer patients-show-footer";
+    }
+
+    .lab-results-delete-and-update-div {
+        margin-left: 6.2em;
+        margin-right: 6.2em
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .login-container, .registration-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 0.44fr [line3] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "title title title"
+            ". main ."
+            "footer footer footer";
+        justify-items: stretch;
+    }
+
+    .clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1 {
+        float: left;
+        margin-left: 19.5em;
+    }
+    
+    .clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
+        float: right;
+        margin-right: 19.5em;
+    }
+
+    .patient-icon {
+        height: 10em;
+    }
+
+    .clinic-icon {
+        height: 13em;
+    }
+
+    .lab-results-icon {
+        height: 11em;
+    }
+
+    .fa-trash-alt {
+        margin-left: 21.2em;
+    }
+
+    .fa-edit {
+        margin-right: 21.2em;
+    }
+
+    .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+        float: left;
+        margin-left: 24em;
+    }
+
+    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        float: right;
+        margin-right: 24em;
+    }
+
+    .grid-md-2 {
+        display: grid;
+        grid-column-start: first;
+        grid-column-end: last;
+        column-gap: 4em;
+        padding: 0 22.5em;
+    }
+
+    .clinic-name-div {
+        width: 15.45%;
+    }
+
+    .draw-date-div {
+        width: 12.38%;
+    }
+
+    .grid-md-3 {
+        padding-left: 21.5em;
+        padding-right: 21.5em;
+    }
+
+    .clinic-form-button, .patient-form-button {
+        width: 15.45%;
+    }
+
+    .lab-results-form-button {
+        width: 12.38%;
+    }
+
+    .lab-results-show-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1.15fr [line2] 0.68fr [line3] 1.15fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [fifth-line] auto [last-line];
+        grid-template-areas:
+            "lab-results-show-header lab-results-show-header lab-results-show-header"
+            ". lab-results-show-main ."
+            "delete-and-update-div delete-and-update-div delete-and-update-div"
+            "patients-show-footer patients-show-footer patients-show-footer";
+    }
+
+    .lab-results-delete-and-update-div {
+        margin-left: 8.8em;
+        margin-right: 8.8em
+    }
+}
+
+@media only screen and (min-width: 1520px) {
+    .login-container, .registration-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1fr [line2] 0.44fr [line3] 1fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
+        grid-template-areas:
+            "title title title"
+            ". main ."
+            "footer footer footer";
+        justify-items: stretch;
+    }
+
+    .breadcrumbs {
+        font-size: 0.88em;
+    }
+
+    .clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1 {
+        float: left;
+        margin-left: 21.2em;
+    }
+    
+    .clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
+        float: right;
+        margin-right: 21.2em;
+    }
+
+    .fa-trash-alt {
+        margin-left: 22.9em;
+    }
+
+    .fa-edit {
+        margin-right: 22.9em;
+    }
+
+    .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
+        float: left;
+        margin-left: 25.7em;
+    }
+
+    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        float: right;
+        margin-right: 25.7em;
+    }
+
+    .grid-md-2 {
+        display: grid;
+        grid-column-start: first;
+        grid-column-end: last;
+        column-gap: 4em;
+        padding: 0 25em;
+    }
+
+    .clinic-name-div {
+        width: 15.8%;
+    }
+
+    .draw-date-div {
+        width: 11.8%;
+    }
+
+    .grid-md-3 {
+        padding-left: 23.5em;
+        padding-right: 23.5em;
+    }
+
+    .clinic-form-button, .patient-form-button {
+        width: 15.8%;
+    }
+
+    .lab-results-form-button {
+        width: 11.8%;
+    }
+
+
+    .lab-results-show-container {
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: [first] 1.15fr [line2] 0.63fr [line3] 1.15fr [last];
+        grid-template-rows: [row1-start] auto [row1-end] auto [third-line] 1fr [fourth-line] auto [fifth-line] auto [last-line];
+        grid-template-areas:
+            "lab-results-show-header lab-results-show-header lab-results-show-header"
+            ". lab-results-show-main ."
+            "delete-and-update-div delete-and-update-div delete-and-update-div"
+            "patients-show-footer patients-show-footer patients-show-footer";
+    }
+
+    .lab-results-delete-and-update-div {
+        margin-left: 9.3em;
+        margin-right: 9.3em
     }
 }

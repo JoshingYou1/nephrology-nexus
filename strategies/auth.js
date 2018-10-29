@@ -87,7 +87,7 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
                 return done(err);
             }
             if (user) {
-                req.flash('usernameUniqueError', `Username ${username} already exists`);
+                req.flash('errorMessage', `Username ${username} already exists`);
                 return done(null, false);
             }
 

@@ -12,25 +12,23 @@
             </nav>
             <h1 class="patient-name"><%= patient.patientName %></h1>
             <main class="patients-show-main">
-                <% if (successMessage != 'undefined' && successMessage) { %>
-                    <h2><%= successMessage %></h2>
-                <% } %>
+                <%- include ../layouts/messages %>
                 <section class="patient-information">
                     <div class="patient-id-info">
-                        <p><span class="sex-span">Sex:</span>&nbsp;<%= patient.sex %></p>
-                        <p><span class="dob-span">DOB:</span>&nbsp;<%= patient.formatBirthDate %></p>
-                        <p><span class="ssn-span">SSN:</span>&nbsp;<%= patient.formatSsn %></p>
+                        <p><span class="sex-span-1">Sex:</span>&nbsp;<span class="sex-span-2"><%= patient.sex %></span></p>
+                        <p><span class="dob-span-1">DOB:</span>&nbsp;<span class="dob-span-2"><%= patient.formatBirthDate %></span></p>
+                        <p><span class="ssn-span-1">SSN:</span>&nbsp;<span class="ssn-span-2"><%= patient.formatSsn %></span></p>
                     </div>
                     <div class="patient-address">
                         <h2 class="patient-address-header">Address</h2>
-                        <p><%= patient.address.street %></p>
-                        <p><%= patient.address.city %>,&nbsp;<%=patient.address.state %>,&nbsp;<%= patient.address.zipCode %></p>
+                        <p class="patient-address-p-1"><%= patient.address.street %></p>
+                        <p class="patient-address-p-2"><%= patient.address.city %>,&nbsp;<%=patient.address.state %>,&nbsp;<%= patient.address.zipCode %></p>
                     </div>
                     <div class="patient-phone-numbers">
                         <h2 class="patient-phone-numbers-header">Phone Number(s)</h2>
-                        <p><span class="home-phone-span">Home:</span>&nbsp;<%= patient.emptyHomePhoneValue %></p>
-                        <p><span class="cell-phone-span">Cell:</span>&nbsp;<%= patient.emptyCellPhoneValue %></p>
-                        <p><span class="work-phone-span">Work:</span>&nbsp;<%= patient.emptyWorkPhoneValue %></p>
+                        <p><span class="home-phone-span-1">Home:</span>&nbsp;<span class="home-phone-span-2"><%= patient.emptyHomePhoneValue %></span></p>
+                        <p><span class="cell-phone-span-1">Cell:</span>&nbsp;<span class="cell-phone-span-2"><%= patient.emptyCellPhoneValue %></span></p>
+                        <p><span class="work-phone-span-1">Work:</span>&nbsp;<span class="work-phone-span-2"><%= patient.emptyWorkPhoneValue %></span></p>
                     </div>
                 </section>
                 <form  class="patient-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patient._id %>">

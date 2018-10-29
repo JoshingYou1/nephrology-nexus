@@ -13,7 +13,8 @@ router.get('/', isAuthenticated, (req, res) => {
     clinicsSvc.getAllClinicsAlphabetically()
         .then(clinics => {
             let errorMessage = req.flash('errorMessage');
-            res.render('clinics/index', {clinics: clinics, errorMessage: errorMessage});
+            let successMessage = req.flash('successMessage');
+            res.render('clinics/index', {clinics: clinics, errorMessage: errorMessage, successMessage: successMessage});
         })
         .catch(err => {
             console.log(err);

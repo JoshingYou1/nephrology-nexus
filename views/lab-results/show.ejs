@@ -14,9 +14,7 @@
             </nav>
             <main class="lab-results-show-main">
                 <h1><%= result.formatDate %></h1>
-                <% if (successMessage != 'undefined' && successMessage) { %>
-                    <h2><%= successMessage %></h2>
-                <% } %>
+                <%- include ../layouts/messages %>
                 <section class="hematology">
                     <h2 class="hematology-header">Hematology</h2>
                     <p><span class="wbc-span-1">WBC Count:</span>&nbsp;
@@ -56,7 +54,7 @@
                         <span class="triglycerides-span-2"><%= result.chemistry.triglycerides %>&nbsp;&nbsp;<span class="triglycerides-span-3">mg/dL</span></span></p>
                 </section>
             </main>
-            <div class="delete-and-update-div">
+            <div class="lab-results-delete-and-update-div">
                 <form  class="lab-results-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%= result._id %>">
                     <button class="fas fa-trash-alt">&nbsp;<span class="delete-lab-results-span">Delete</span></button>
                     <input type="hidden" name="_method" value="DELETE">
