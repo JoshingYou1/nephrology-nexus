@@ -22,7 +22,7 @@ router.get('/', isAuthenticated, (req, res) => {
         });
 });
 
-router.get("/show/:id", isAuthenticated, (req, res) => {
+router.get('/show/:id', isAuthenticated, (req, res) => {
     Clinic
         .findById(req.params.id)
         .populate({path: 'patients', options: {sort: {'name.lastName': 1}}})
