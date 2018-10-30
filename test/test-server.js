@@ -23,7 +23,7 @@ describe("Landing page", function() {
             .request(app)
             .get("/")
             .then(function(res) {
-                expect(res.text).to.include('Login');
+                expect(res.text).to.include('Log In');
             });
     });
 });

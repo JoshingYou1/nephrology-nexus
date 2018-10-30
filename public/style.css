@@ -86,6 +86,15 @@ footer {
     text-align: center;
     font-size: 0.8em;
     padding: 1em;
+    font-style: italic;
+}
+
+.message-div, .success-message-div, .error-message-div {
+    text-align: center;
+}
+
+.message-p, .success-message-p, .error-message-p {
+    color: #83190A;
 }
 
 .user-login-form, .user-registration-form {
