@@ -163,7 +163,12 @@ Live Link: https://nephrology-nexus-portal.herokuapp.com/users/login
 
 ## Screenshots
 
-![Nephrology Nexus Registration Page]()
+![Nephrology Nexus Registration Page](nephrology-nexus/public/screenshot-patients.png)
+![Nephrology Nexus Clinics Index Page](nephrology-nexus/public/screenshot-clinics.png)
+![Nephrology Nexus Patients Index Page](nephrology-nexus/public/screenshot-patients.png)
+![Nephrology Nexus Lab Results Index Page](nephrology-nexus/public/screenshot-lab-results.png)
+
+
 
 
 
