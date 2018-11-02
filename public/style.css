@@ -1620,6 +1620,19 @@ fieldset {
         margin-left: 4.6em;
         margin-right: 4.6em
     }
+
+    .patient-icon {
+        height: 10em;
+        margin-bottom: 1em;
+    }
+
+    .clinic-icon {
+        height: 13em;
+    }
+
+    .lab-results-icon {
+        height: 11em;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -1735,18 +1748,6 @@ fieldset {
     .clinic-phone-number-span-2, .clinic-fax-number-span-2, .clinic-manager-span-2 {
         float: right;
         margin-right: 19.5em;
-    }
-
-    .patient-icon {
-        height: 10em;
-    }
-
-    .clinic-icon {
-        height: 13em;
-    }
-
-    .lab-results-icon {
-        height: 11em;
     }
 
     .fa-trash-alt {
