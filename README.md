@@ -8,7 +8,9 @@ Live Link: https://nephrology-nexus-portal.herokuapp.com/users/login
 #### Clinics
 ##### Methods
 ###### DELETE /clinics/:id
-    Removes an existing clinic. The database id of the clinic to be deleted must be provided. This method includes<br/> cascade delete functionality which removes all patients who belong to said clinic as well as all of the lab results<br/> that belong to each individual patient.
+    Removes an existing clinic. The database id of the clinic to be deleted must be provided. This method includes  
+    cascade delete functionality which removes all patients who belong to said clinic as well as all of the lab results  
+    that belong to each individual patient.
 
 ###### GET /clinics
     Returns all clinics within the database.
@@ -20,7 +22,8 @@ Live Link: https://nephrology-nexus-portal.herokuapp.com/users/login
     Returns a single clinic. The database id of said clinic must be provided.
 
 ###### GET /clinics/update/:id
-    Returns the update page for a clinic. The database id of the clinic to be updated must be provided. This page<br/> contains the clinic form which has a built-in PUT method.
+    Returns the update page for a clinic. The database id of the clinic to be updated must be provided. This page  
+    contains the clinic form which has a built-in PUT method.
 
 ###### POST /clinics
     Creates a new clinic and adds it to the database.
@@ -31,48 +34,64 @@ Live Link: https://nephrology-nexus-portal.herokuapp.com/users/login
 #### Lab Results
 ##### Methods
 ###### DELETE /clinics/:clinicId/patients/:patientId/lab-results/:id
-    Removes an existing set of lab results from the database. The database id of the lab results to be deleted, the<br/> patient who said lab results belong to, and the clinic which said patient belongs to must be provided.
+    Removes an existing set of lab results from the database. The database id of the lab results to be deleted, the  
+    patient who said lab results belong to, and the clinic which said patient belongs to must be provided.
 
 ###### GET /clinics/:clinicId/patients/:patientId/lab-results
-    Returns all lab results that belong to a specific patient. The database id of both said patient and that patient's<br/> corresponding clinic must be provided.
+    Returns all lab results that belong to a specific patient. The database id of both said patient and that patient's  
+    corresponding clinic must be provided.
 
 ###### GET /clinics/:clinicId/patients/:patientId/lab-results/create
-    Returns the create page for a set of lab results. The database id of both the patient in which the new set of lab<br/> results should belong to and that patient's corresponding clinic must be provided. This page contains the lab results<br/> form which has a built-in POST method.
+    Returns the create page for a set of lab results. The database id of both the patient in which the new set of lab  
+    results should belong to and that patient's corresponding clinic must be provided. This page contains the lab results  
+    form which has a built-in POST method.
 
 ###### GET /clinics/:clinicId/patients/:patientId/lab-results/show/:id
-    Returns a single set of lab results that belong to a specific patient. The database id of said lab results, the<br/> patient who said lab results belong to, and that patient's corresponding clinic to must be provided.
+    Returns a single set of lab results that belong to a specific patient. The database id of said lab results, the  
+    patient who said lab results belong to, and that patient's corresponding clinic to must be provided.
 
 ###### GET /clinics/:clinicId/patients/:patientId/lab-results/update/:id
-    Returns the update page for a set of lab results. The database id of the lab results to be updated, the patient who<br/> said lab results belong to, and that patient's corresponding clinic must be provided. This page contains the lab<br/> results form which has a built-in PUT method.
+    Returns the update page for a set of lab results. The database id of the lab results to be updated, the patient who  
+    said lab results belong to, and that patient's corresponding clinic must be provided. This page contains the lab  
+    results form which has a built-in PUT method.
 
 ###### POST /clinics/:clinicId/patients/:patientId/lab-results
-    Creates a new set of lab results and adds it to the lab results object of a specific patient. The database id of both<br/> said patient and that patient's corresponding clinic must be provided.
+    Creates a new set of lab results and adds it to the lab results object of a specific patient. The database id of both  
+    said patient and that patient's corresponding clinic must be provided.
 
 ###### PUT /clinics/:clinicId/patients/:patientId/lab-results/:id
-    Updates an existing set of lab results. The database id of said lab results, the patient who said lab results belong<br/> to, and that patient's corresponding clinic must be provided.
+    Updates an existing set of lab results. The database id of said lab results, the patient who said lab results belong  
+    to, and that patient's corresponding clinic must be provided.
 
 #### Patients
 ##### Methods
 ###### DELETE /clinics/:clinicId/patients/:id
-    Removes an existing patient from the database. The database id of both the patient to be deleted and that patient's<br/> corresponding clinic must be provided. This method includes cascade delete functionality which removes all lab results<br/> that belong to said patient.
+    Removes an existing patient from the database. The database id of both the patient to be deleted and that patient's  
+    corresponding clinic must be provided. This method includes cascade delete functionality which removes all lab results  
+    that belong to said patient.
 
 ###### GET /clinics/:clinicId/patients
     Returns all patients who belong to a specific clinic. The database id of said clinic must be provided.
 
 ###### GET /clinics/:clinicId/patients/create
-    Returns the create page for a patient. The database id of the clinic in which the new patient should belong to must<br/> be provided. This page contains the patient form which has a built-in POST method.
+    Returns the create page for a patient. The database id of the clinic in which the new patient should belong to must  
+    be provided. This page contains the patient form which has a built-in POST method.
 
 ###### GET /clinics/:clinicId/patients/show/:id
-    Returns a single patient who belongs to a specific clinic. The database id of both said patient and said patient's<br/> corresponding clinic must be provided.
+    Returns a single patient who belongs to a specific clinic. The database id of both said patient and said patient's  
+    corresponding clinic must be provided.
 
 ###### GET /clinics/:clinicId/patients/update/:id
-    Returns the update page for a patient. The database id of both the patient to be updated and that patient's<br/> corresponding clinic must be provided. This page contains the patient form which has a built-in PUT method.
+    Returns the update page for a patient. The database id of both the patient to be updated and that patient's  
+    corresponding clinic must be provided. This page contains the patient form which has a built-in PUT method.
 
 ###### POST /clinics/:clinicId/patients
-    Creates a new patient and adds it to the patient object of a specific clinic. The database id of said clinic must be<br/> provided.
+    Creates a new patient and adds it to the patient object of a specific clinic. The database id of said clinic must be  
+    provided.
 
 ###### PUT /clinics/:clinicId/patients/:id
-    Updates an existing patient. The database id of both said patient and said patient's corresponding clinic must be<br/> provided.
+    Updates an existing patient. The database id of both said patient and said patient's corresponding clinic must be  
+    provided.
 
 #### Users
 ##### Methods
@@ -155,11 +174,13 @@ Each user is assigned a database id on creation. This model includes the followi
 
 #### Lab Results
 ###### getAllLabResultsByPatientChronologically
-    This method gathers all of the lab results that belong to a single patient, based on their database id, and then sorts<br/> them chronologically.
+    This method gathers all of the lab results that belong to a single patient, based on their database id, and then sorts  
+    them chronologically.
 
 #### Patients
 ###### getAllPatientsByClinicAlphabetically
-    This method gathers all of the patients that belong to a single clinic, based on its database id, and then sorts them<br/> alphabetically.
+    This method gathers all of the patients that belong to a single clinic, based on its database id, and then sorts them  
+    alphabetically.
 
 ### Screenshots
 
