@@ -195,7 +195,7 @@ The goal of this application is to provide a more efficient way for nephrologist
 ## Technologies Used
 
 - Chai
-- Circle.ci
+- CircleCi
 - CSS
 - EJS
 - Express.js
