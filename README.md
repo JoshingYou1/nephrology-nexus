@@ -86,12 +86,12 @@ Live Link: https://nephrology-nexus-portal.herokuapp.com/users/login
     corresponding clinic must be provided. This page contains the patient form which has a built-in PUT method.
 
 ###### POST /clinics/:clinicId/patients
-    Creates a new patient and adds it to the patient object of a specific clinic. The database id of said clinic must  
-    be provided.
+    Creates a new patient and adds it to the patient object of a specific clinic. The database id of said clinic  
+    must be provided.
 
 ###### PUT /clinics/:clinicId/patients/:id
-    Updates an existing patient. The database id of both said patient and said patient's corresponding clinic must be  
-    provided.
+    Updates an existing patient. The database id of both said patient and said patient's corresponding clinic must  
+    be provided.
 
 #### Users
 ##### Methods
