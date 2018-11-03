@@ -119,7 +119,7 @@ Each clinic is assigned a database id on creation and has a one-to-many relation
     - phoneNumber: the clinic's phone number
     - faxNumber: the clinic's fax number
     - clinicManager: the clinic manager's name(first name, last name)
-    - patients: the patients that belong the clinic
+    - patients: the patients that belong to the clinic
 
 #### Lab Results
 Each set of lab results is assigned a database id on creation and has a many-to-one relationship with the patients model. Lab results are acquired through a sample of a patient's blood. This model includes the following data:
