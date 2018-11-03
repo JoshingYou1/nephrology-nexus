@@ -201,7 +201,6 @@ The goal of this application is to provide a more efficient way for nephrologist
 - Express.js
 - HTML
 - Javascript
-- mLab
 - Mocha
 - MongoDB
 - Mongoose
