@@ -111,7 +111,7 @@ Live Link: https://nephrology-nexus-portal.herokuapp.com/users/login
     Creates a new user and logs them into the database.
 
 ### Models
-###### Clinics
+#### Clinics
 Each clinic is assigned a database id on creation and has a one-to-many relationship with the patients model. This model includes the following data:
 
     - name: the clinic's name
@@ -121,11 +121,10 @@ Each clinic is assigned a database id on creation and has a one-to-many relation
     - clinicManager: the clinic manager's name(first name, last name)
     - patients: the patients that belong the clinic
 
-###### Lab Results
+#### Lab Results
 Each set of lab results is assigned a database id on creation and has a many-to-one relationship with the patients model. Lab results are acquired through a sample of a patient's blood. This model includes the following data:
 
     hematology:
-
         - wbcCount: white blood cell count(1000/mcL)
         - rbcCount: red blood cell count(mill/mcL)
         - hemoglobin: the amount of hemoglobin in whole blood(g/dL)
@@ -147,7 +146,7 @@ Each set of lab results is assigned a database id on creation and has a many-to-
 
     patient: the patient in which a set of lab results belongs to
 
-###### Patients
+#### Patients
 Each patient is assigned a database id on creation and has a many-to-one relationship with the clinic model as well as a one-to-many relationship with the lab results model. This model includes the following data:
 
     - name: the patient's name(first name, last name)
@@ -159,7 +158,7 @@ Each patient is assigned a database id on creation and has a many-to-one relatio
     - clinic: the clinic in which a patient belongs to
     - labResults: the patient's lab results
 
-###### Users
+#### Users
 Each user is assigned a database id on creation. This model includes the following data:
 
     - username: the user's unique chosen username
@@ -168,7 +167,7 @@ Each user is assigned a database id on creation. This model includes the followi
     - lastName: the user's last name
 
 ### Services
-##### Clinics
+#### Clinics
 ###### getAllClinicsAlphabetically
     This method gathers all of the clinics within the database and sorts them alphabetically.
 
@@ -182,12 +181,33 @@ Each user is assigned a database id on creation. This model includes the followi
     This method gathers all of the patients that belong to a single clinic, based on its database id, and then sorts  
     them alphabetically.
 
-### Screenshots
+## Screenshots
 
 ![Nephrology Nexus Registration Page](https://github.com/JoshingYou1/nephrology-nexus/blob/master/public/screenshot-registration.png)
 ![Nephrology Nexus Clinics Index Page](https://github.com/JoshingYou1/nephrology-nexus/blob/master/public/screenshot-clinics.png)
 ![Nephrology Nexus Patients Index Page](https://github.com/JoshingYou1/nephrology-nexus/blob/master/public/screenshot-patients.png)
 ![Nephrology Nexus Lab Results Index Page](https://github.com/JoshingYou1/nephrology-nexus/blob/master/public/screenshot-lab-results.png)
+
+## Summary
+
+The goal of this application is to provide a more efficient way for nephrologists/nurse practitioners and hemodialysis clinics to communicate by providing crucial information about dialysis clinics, patients with kidney failure, and those patient's lab results. Registered users have the ability to create, read, update, and delete data within the database. The manipulatable data available in this application includes clinical data, patient data, and lab results data. Once a user signs in, they will be directed to the clinics index page. There, they will select an available clinic or choose to create a new clinic to add to the current list. After selecting a clinic, the user will be taken to the clinic show page. This page contains important information about a clinic, including its address, phone number, fax number, etc. While on this page, the user has the option of deleting the clinic as well as updating its information. The link at the bottom of the page leads the user to the patients index page. Similar to the clinics page, it contains a list of the patients associated with that particular clinic. The user may create a new patient on this page as well. Once the user chooses a patient on the list, they will be directed to the patient show page. Once there, they can view all of the information about that patient, including date of birth, social security number, address, etc. As with clinics, the user has the option of updating the patient's information or deleting the patient altogether. The link at the bottom of the page will take the user to the lab results index page. This page is comprised of a list of lab results unique to the patient previously selected. New lab results data can be created on this page in addition to selecting one of the available sets of the lab results. Once a set has been chosen, the user is taken to the lab results show page. This page consists of the tests included in a routine blood sample for a patient with renal failure. This is also the page where the user can delete or update said lab results. With all of this power at the user's finger tips, there's no telling how much progress can be made toward bringing doctors and patients closer together!
+
+## Technologies Used
+
+- Chai
+- Circle.ci
+- CSS
+- EJS
+- Express.js
+- HTML
+- Javascript
+- mLab
+- Mocha
+- MongoDB
+- Mongoose
+- Node.js
+
+
 
 
 
