@@ -66,7 +66,6 @@ describe('Clinic controller', function() {
                 .post('/clinics')
                 .send(newClinic)
                 .then(function(res) {
-                    console.log('newClinic:', newClinic);
                     expect(res).to.have.status(302);
                     expect(res.body).to.be.a('object');
                     return Clinic
@@ -80,7 +79,6 @@ describe('Clinic controller', function() {
                         })
                 })
                 .then(function(createdClinic) {
-                    console.log('createdClinic:', createdClinic);
                     expect(createdClinic.name).to.equal(newClinic.name);
                     expect(createdClinic.address.street).to.equal(newClinic.address.street);
                     expect(createdClinic.phoneNumber).to.equal(newClinic.phoneNumber);

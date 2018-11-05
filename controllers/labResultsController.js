@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const express = require('express');
 const router = express.Router();
@@ -10,12 +10,12 @@ const {Patient} = require('../models/patients');
 const {isAuthenticated} = require('../strategies/auth');
 const {labResultsSvc} = require('../services/lab-results');
 
-router.get('/', isAuthenticated, (req, res) => {
+router.get('/', isAuthenticated, function(req, res) {
     let vm = {};
     Patient
         .findById(req.patientId)
         .populate('clinic')
-        .then(patient => {
+        .then(function(patient) {
             vm.patientId = req.patientId;
             vm.clinicId = req.clinicId;
             vm.patient = patient;
@@ -24,12 +24,11 @@ router.get('/', isAuthenticated, (req, res) => {
             vm.errorMessage = req.flash('errorMessage');
 
             labResultsSvc.getAllLabResultsByPatientChronologically(req.patientId)
-                .then(results => {
+                .then(function(results) {
                     vm.results = results;
-                    console.log('results:', results);
                     res.render('lab-results/index', vm);
                 })
-                .catch(err => {
+                .catch(function(err) {
                     console.log(err);
                     req.flash('errorMessage', 'Internal server error');
                     res.redirect('/');
@@ -37,7 +36,7 @@ router.get('/', isAuthenticated, (req, res) => {
         });
 });
 
-router.get('/show/:id', isAuthenticated, (req, res) => {
+router.get('/show/:id', isAuthenticated, function(req, res) {
     let vm ={};
     Patient
         .findById(req.patientId)
@@ -47,16 +46,16 @@ router.get('/show/:id', isAuthenticated, (req, res) => {
             vm.clinicId = req.clinicId;
             vm.patient = patient;
             vm.clinic = patient.clinic;
+            vm.successMessage = req.flash('successMessage');
     
             LabResults
                 .findById(req.params.id)
                 .populate('patient')
-                .then(result => {
+                .then(function(result) {
                     vm.result = result;
-                    let successMessage = req.flash('successMessage');
-                    res.render('lab-results/show', {successMessage: successMessage, ...vm})
+                    res.render('lab-results/show', vm)
                 })
-                .catch(err => {
+                .catch(function(err) {
                     console.log(err);
                     req.flash('errorMessage', 'Internal server error');
                     res.redirect('/');
@@ -64,34 +63,44 @@ router.get('/show/:id', isAuthenticated, (req, res) => {
         });
 });
 
-router.get('/update/:id', isAuthenticated, (req, res) => {
+router.get('/update/:id', isAuthenticated, function(req, res) {
+    let vm = {};
     LabResults
         .findById(req.params.id)
         .populate('patient')
-        .then(result => {
-            res.render("lab-results/update", {result: result, formMethod: 'PUT', clinicId: req.clinicId, patientId: req.patientId,
-                successMessage: req.flash('successMessage')});
+        .then(function(result) {
+            vm.result = result;
+            vm.clinicId = req.clinicId;
+            vm.patientId = req.patientId;
+            vm.successMessage = req.flash('successMessage');
+            vm.errorMessage = req.flash('errorMessage');
+            res.render('lab-results/update', {formMethod: 'PUT', ...vm});
         })
-        .catch(err => {
+        .catch(function(err) {
             console.log(err);
             req.flash('errorMessage', 'Internal server error');
             res.redirect('/');
         });
 });
 
-router.get('/create', isAuthenticated, (req, res) => {
-    res.render('lab-results/create', {result: null, formMethod: 'POST', patientId: req.patientId, clinicId: req.clinicId});
+router.get('/create', isAuthenticated, function(req, res) {
+    let vm = {};
+    vm.clinicId = req.clinicId;
+    vm.patientId = req.patientId;
+    res.render('lab-results/create', {result: null, formMethod: 'POST', ...vm});
 });
 
-router.post('/', isAuthenticated, (req, res) => {
+router.post('/', isAuthenticated, function(req, res) {
     let labResultsData = new LabResults(req.body);
     labResultsData._id = new mongoose.Types.ObjectId();
+    let vm = {};
     labResultsData
-        .save((err, result) => {
+        .save(function(err, result) {
             if (err) {
+                vm.clinicId = req.clinicId;
+                vm.patientId = req.clinicId;
                 console.log(err);
-                res.render('lab-results/create', {message: 'Sorry, your request was invalid.', formMethod: 'POST',
-                    clinicId: req.clinicId, patientId: req.patientId});
+                res.render('lab-results/create', {message: 'Sorry, your request was invalid.', formMethod: 'POST', ...vm});
             }
             else {
                 Patient
@@ -100,54 +109,58 @@ router.post('/', isAuthenticated, (req, res) => {
                         req.flash('successMessage', `Lab results successfully created for ${p.patientName}!`);
                         res.redirect(`/clinics/${req.clinicId}/patients/${result.patient._id}/lab-results`);
                     })
-                    .catch(err => {
+                    .catch(function(err) {
                         console.error(err);
-                        res.status(500).json({message: "Internal server error"});
+                        res.status(500).json({message: 'Internal server error'});
                     });
             }
     });
 });
 
-router.put('/:id', isAuthenticated, (req, res) => {
+router.put('/:id', isAuthenticated, function(req, res) {
+    let vm = {};
     if  (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
         LabResults
             .findById(req.params.id)
             .populate('patient')
-            .then(result => {
-                console.log('formatDate:', result.formatDate);
-                res.render("lab-results/update", {result: result, formMethod: 'PUT', clinicId: req.clinicId, patientId: req.patientId,
+            .then(function(result) {
+                vm.result = result;
+                vm.clinicId = req.clinicId;
+                vm.patientId = req.patientId;
+                res.render('lab-results/update', {result: result, formMethod: 'PUT', ...vm,
                     errorMessage: 'Sorry, the request path id and the request body id values must match.'});
             })
-            .catch(err => {
+            .catch(function(err) {
                 console.error(err);
-                res.status(500).json({message: "Internal server error"});
+                res.status(500).json({message: 'Internal server error'});
             });
     }
 
     LabResults
         .findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-        .then(() => {
+        .then(function() {
             req.flash('successMessage', 'Lab results successfully updated!');
             res.redirect(`/clinics/${req.clinicId}/patients/${req.patientId}/lab-results/show/${req.params.id}`);
         })
-        .catch(err => {
+        .catch(function(err) {
             console.error(err);
-            res.status(500).json({message: "Internal server error"});
+            res.status(500).json({message: 'Internal server error'});
         });
 });
 
-router.delete('/:id', isAuthenticated, (req, res) => {
+router.delete('/:id', isAuthenticated, function(req, res) {
+    let vm = {};
     LabResults
-        .remove({_id: req.params.id}, err => {
+        .remove({_id: req.params.id}, function(err) {
             if (err) {
                 LabResults
                     .findById(req.params.id)
                     .populate('patient')
-                    .then(result => {
-                        res.render('lab-results/show', {result: result,
-                            errorMessage: 'Sorry, something went wrong. Lab results could not be deleted.'})
+                    .then(function(result) {
+                        vm.result = result;
+                        res.render('lab-results/show', {errorMessage: 'Sorry, something went wrong. Lab results could not be deleted.', ...vm})
                     })
-                    .catch(err => {
+                    .catch(function(err) {
                         console.log(err);
                         req.flash('errorMessage', 'Internal server error');
                         res.redirect('/');

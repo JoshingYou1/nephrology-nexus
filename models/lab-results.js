@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const labResultsSchema = mongoose.Schema({
@@ -32,20 +32,6 @@ const labResultsSchema = mongoose.Schema({
     }
 });
 
-labResultsSchema.virtual("chemistryString").get(function() {
-    return `BUN: ${this.chemistry.bun}\n
-            Creatinine: ${this.chemistry.creatinine}\n
-            Sodium: ${this.chemistry.sodium}\n
-            Potassium: ${this.chemistry.potassium}\n
-            Calcium: ${this.chemistry.calcium}\n
-            Phosporus: ${this.chemistry.phosphorus}\n
-            Albumin: ${this.chemistry.albumin}\n
-            Glucose: ${this.chemistry.glucose}\n
-            Iron: ${this.chemistry.iron}\n
-            Cholesterol: ${this.chemistry.cholesterol}\n
-            Triglycerides: ${this.chemistry.triglycerides}`
-});
-
 labResultsSchema.virtual('formatHtml5Date').get(function()  {
     let day = this.date.getDate();
     if (day < 10) {
@@ -72,6 +58,6 @@ labResultsSchema.virtual('formatDate').get(function()  {
     return `${month}/${day}/${year}`;
 })
 
-const LabResults = mongoose.model("LabResults", labResultsSchema);
+const LabResults = mongoose.model('LabResults', labResultsSchema);
 
 module.exports = {LabResults};

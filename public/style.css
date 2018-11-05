@@ -42,6 +42,8 @@ legend {
     font-weight: bold;
     text-align: center;
     text-decoration: underline;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 input:focus {
@@ -91,10 +93,12 @@ footer {
 
 .message-div, .success-message-div, .error-message-div {
     text-align: center;
+    margin-bottom: 2em;
 }
 
 .message-p, .success-message-p, .error-message-p {
     color: #83190A;
+    font-weight: bold;
 }
 
 .user-login-form, .user-registration-form {
@@ -117,6 +121,7 @@ footer {
     .delete-clinic-span, .delete-patient-span, .delete-lab-results-span {
         background-color: #1B7B34;
         color: #F2F0EB;
+        vertical-align: middle;
 }
 
 .clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1, .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .wbc-span-1,
@@ -223,6 +228,10 @@ fieldset {
     text-align: center;
 }
 
+.login-link:hover, .register-link:hover {
+    text-decoration: underline;
+}
+
 .breadcrumbs {
     grid-area: breadcrumbs;
     grid-column-start: first;
@@ -231,6 +240,11 @@ fieldset {
     grid-row-end: third-line;
     margin-left: 0.5em;
     font-size: 0.8em;
+}
+
+.breadcrumbs-clinics-link:hover, .breadcrumbs-clinic-link:hover, .breadcrumbs-patients-link:hover, .breadcrumbs-patient-link:hover,
+    .breadcrumbs-lab-results-link:hover {
+    text-decoration: underline;
 }
 
 .clinics-show-header, .clinics-index-header, .patients-index-header, .lab-results-index-header  {
@@ -298,6 +312,10 @@ fieldset {
     background-color: #DDD5CA;
 }
 
+.logout-link:hover {
+    text-decoration: underline;
+}
+
 .clinics-index-footer, .clinics-show-footer, .patients-index-footer, .lab-results-index-footer {
     grid-area: footer;
     grid-column-start: first;
@@ -321,6 +339,10 @@ fieldset {
 
 .clinic-link {
     text-decoration: none;
+}
+
+.clinic-link:hover {
+    text-decoration: underline;
 }
 
 .fa-edit {
@@ -375,6 +397,10 @@ fieldset {
 
 .go-to-patients-link, .go-to-lab-results-link {
     text-decoration: none;
+}
+
+.go-to-patients-link:hover, .go-to-lab-results-link:hover {
+    text-decoration: underline;
 }
 
 .fa-arrow-right {
@@ -481,6 +507,8 @@ fieldset {
 
 .clinic-address-legend {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .clinic-form-button {
@@ -556,6 +584,10 @@ fieldset {
     text-decoration: none;
 }
 
+.patient-link:hover, .lab-results-link:hover {
+    text-decoration: underline;
+}
+
 .create-clinic-link, .create-patient-link, .create-lab-results-link {
     text-align: center;
     margin-bottom: 0.25em;
@@ -622,6 +654,8 @@ fieldset {
 
 .patient-address-legend, .patient-phone-numbers-legend {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .patient-address-header, .patient-phone-numbers-header, .hematology-header, .chemistry-header {
@@ -865,6 +899,8 @@ fieldset {
 
 .hematology-legend, .chemistry-legend {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .hematology-data, .chemistry-data {
@@ -1243,6 +1279,10 @@ fieldset {
         margin-bottom: 0.5em;
     }
 
+    .message-p, .success-message-p, .error-message-p {
+        font-size: 1.1em;
+    }
+
     .header-title {
         display: block;
         margin-left: auto;
@@ -1260,11 +1300,11 @@ fieldset {
         margin-bottom: 0;
     }
 
-    .login-requirements {
+    .login-requirements, .registration-requirements {
         font-size: 1.2em;
     }
 
-    .login-submit-button, .patient-form-button, .clinic-form-button, .lab-results-form-button {
+    .login-submit-button, .registration-submit-button, .patient-form-button, .clinic-form-button, .lab-results-form-button {
         font-size: 1.2em;
     }
 

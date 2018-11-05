@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const chai = require("chai");
+const chai = require('chai');
 const chaiHttp = require("chai-http");
 const faker = require('faker');
 const mongoose = require('mongoose');
@@ -41,7 +41,7 @@ function generateLabResultsData() {
 }
 
 function seedLabResultsData() {
-    console.info("Seeding lab results data");
+    console.info('Seeding lab results data');
     const seedData = [];
     for (let i = 1; i <= 10; i++) {
         seedData.push(generateLabResultsData());
@@ -51,7 +51,7 @@ function seedLabResultsData() {
 
 function tearDownDb() {
     return new Promise((resolve, reject) => {
-      console.warn("Deleting database");
+      console.warn('Deleting database');
       mongoose.connection.dropDatabase()
         .then(result => resolve(result))
         .catch(err => reject(err));

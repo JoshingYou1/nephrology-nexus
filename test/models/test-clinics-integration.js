@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const chai = require("chai");
-const chaiHttp = require("chai-http");
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 const faker = require('faker');
 const mongoose = require('mongoose');
 
@@ -18,10 +18,10 @@ function generateClinicData() {
         _id: new mongoose.Types.ObjectId(),
         name: faker.company.companyName(),
         address: {
-            street: faker.address.streetAddress("###"),
+            street: faker.address.streetAddress('###'),
             city: faker.address.city(3),
             state: faker.address.stateAbbr(),
-            zipCode: faker.random.number({min: "0000", max: "9999"})
+            zipCode: faker.random.number({min: '0000', max: '9999'})
         },
         phoneNumber: faker.phone.phoneNumberFormat(0),
         faxNumber: faker.phone.phoneNumberFormat(0),
@@ -33,7 +33,7 @@ function generateClinicData() {
 }
 
 function seedClinicData() {
-    console.info("Seeding clinic data");
+    console.info('Seeding clinic data');
     const seedData = [];
     for (let i = 1; i <= 10; i++) {
         seedData.push(generateClinicData());
@@ -43,7 +43,7 @@ function seedClinicData() {
 
 function tearDownDb() {
     return new Promise((resolve, reject) => {
-      console.warn("Deleting database");
+      console.warn('Deleting database');
       mongoose.connection.dropDatabase()
         .then(result => resolve(result))
         .catch(err => reject(err));
@@ -73,7 +73,6 @@ describe('Clinic API resource', function() {
             const clinic = new Clinic(generatedClinic);
 
             clinic.save(function(err, result) {
-                console.log('error:', err);
                 expect(result).to.exist;
                 expect(err).to.not.exist;
                 expect(result.name).to.equal(generatedClinic.name);

@@ -5,10 +5,10 @@
         <div class="lab-results-index-container">
             <span class="lab-results-index-header"><%- include ../layouts/header.ejs %></span>
             <nav class="breadcrumbs">
-                <a href="/clinics">Clinics</a> &gt
-                <a href="/clinics/show/<%= clinicId %>"><%= clinic.name %></a> &gt
-                <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
-                <a href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>"><%= patient.patientName %></a> &gt
+                <a class="breadcrumbs-clinics-link" href="/clinics">Clinics</a> &gt
+                <a class="breadcrumbs-clinic-link" href="/clinics/show/<%= clinicId %>"><%= clinic.name %></a> &gt
+                <a class="breadcrumbs-patients-link" href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
+                <a class="breadcrumbs-patient-link" href="/clinics/<%= clinicId %>/patients/show/<%= patientId %>"><%= patient.patientName %></a> &gt
                 <span>Lab Results</span>
             </nav>
             <main class="lab-results-index-main">

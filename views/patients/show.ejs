@@ -5,9 +5,9 @@
         <div class="patients-show-container">
             <span class="patients-show-header"><%- include ../layouts/header.ejs %></span>
             <nav class="breadcrumbs">
-                <a href="/clinics">Clinics</a> &gt
-                <a href="/clinics/show/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
-                <a href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
+                <a class="breadcrumbs-clinics-link" href="/clinics">Clinics</a> &gt
+                <a class="breadcrumbs-clinic-link" href="/clinics/show/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
+                <a class="breadcrumbs-patients-link" href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
                 <span><%= patient.patientName %></span>
             </nav>
             <h1 class="patient-name"><%= patient.patientName %></h1>

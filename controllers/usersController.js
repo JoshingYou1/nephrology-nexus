@@ -10,20 +10,20 @@ mongoose.Promise = global.Promise;
 
 const {protectLogin, isAuthenticated} = require('../strategies/auth');
 
-router.get('/login', protectLogin, (req, res) => {
-    const message = req.flash('message');
-    console.log('message:', message);
-    res.render('users/login', { message: message});
+router.get('/login', protectLogin, function(req, res) {
+    let vm = {};
+    vm.message = req.flash('message');
+    res.render('users/login', vm);
 });
 
-router.get('/register', protectLogin, (req, res) => {
-    const errorMessage = req.flash('errorMessage');
-    const message = req.flash('message');
-    console.log('message:', message);
-    res.render('users/register', {errorMessage: errorMessage, message: message});
+router.get('/register', protectLogin, function(req, res) {
+    let vm = {};
+    vm.message = req.flash('message');
+    vm.errorMessage = req.flash('errorMessage');
+    res.render('users/register', vm);
 });
 
-router.get('/logout', isAuthenticated, (req, res) => {
+router.get('/logout', isAuthenticated, function(req, res) {
     req.logout();
     req.flash('message', 'You have been successfully logged out!');
     res.redirect('/users/login');

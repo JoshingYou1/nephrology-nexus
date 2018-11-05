@@ -1,25 +1,25 @@
-"use strict";
+'use strict';
 
 const express = require('express');
-const morgan = require("morgan");
-const mongoose = require("mongoose");
-const flash = require("connect-flash");
-const session = require("express-session");
-const bodyParser = require("body-parser");
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const passport = require('passport');
 mongoose.Promise = global.Promise;
 
-const {DATABASE_URL, PORT} = require("./config");
+const {DATABASE_URL, PORT} = require('./config');
 const {localStrategy, registerStrategy} = require('./strategies/auth');
 const {User} = require('./models/users');
 
 const app = express();
 
-const patientsController = require("./controllers/patientsController");
-const clinicsController = require("./controllers/clinicsController");
-const labResultsController = require("./controllers/labResultsController");
+const patientsController = require('./controllers/patientsController');
+const clinicsController = require('./controllers/clinicsController');
+const labResultsController = require('./controllers/labResultsController');
 const usersController = require('./controllers/usersController');
 
 app.use(bodyParser());
@@ -31,43 +31,41 @@ app.use(methodOverride(function(req, res) {
     }
 }));
 app.use(express.static('public'));
-app.use(morgan("common"));
+app.use(morgan('common'));
 app.use(cookieParser('secret'));
 app.use(session({secret: process.env.JWT_SECRET}));
 app.use(flash());
 
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
     res.redirect('/users/login');
 });
 
 
 passport.use('local-login', localStrategy);
 passport.use('local-register', registerStrategy);
-passport.serializeUser((user, done) => {
+passport.serializeUser(function(user, done) {
     done(null, user._id);
 });
-passport.deserializeUser((_id, done) => {
-    User.findById(_id, (err, user) => {
+passport.deserializeUser(function(_id, done) {
+    User.findById(_id, function(err, user) {
         done(err, user);
     });
 });
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next) {
-    console.log('user:', req.user);
     res.locals.user = req.user;
-    console.log('res.locals.user:', res.locals.user);
     next();
 });
 app.use('/users', usersController);
-app.use("/clinics", clinicsController);
-app.use("/clinics/:clinicId/patients", (req, res, next) =>{
+app.use('/clinics', clinicsController);
+app.use('/clinics/:clinicId/patients', function(req, res, next) {
     req.clinicId = req.params.clinicId;
     next();
 }, patientsController);
-app.use("/clinics/:clinicId/patients/:patientId/lab-results", function(req, res, next) {
+app.use('/clinics/:clinicId/patients/:patientId/lab-results', function(req, res, next) {
     req.clinicId = req.params.clinicId;
     req.patientId = req.params.patientId;
     next();
@@ -83,15 +81,15 @@ let db;
 
 function runServer(databaseUrl, port = PORT) {
     return new Promise(function(resolve, reject) {
-        db = mongoose.connect(databaseUrl, err => {
+        db = mongoose.connect(databaseUrl, function(err) {
                 if (err) {
                     return reject(err);
                 }
-                server = app.listen(port, () => {
+                server = app.listen(port, function() {
                     console.log(`Your app is listening on port ${port}`);
                     resolve();
                 })
-                    .on("error", err => {
+                    .on('error', function(err) {
                         mongoose.disconnect();
                         reject(err);
                     });
@@ -102,9 +100,9 @@ function runServer(databaseUrl, port = PORT) {
 function closeServer() {
     return mongoose.disconnect()
         .then(() => {
-            return new Promise((resolve, reject) => {
-                console.log("Closing the server");
-                server.close(err => {
+            return new Promise(function(resolve, reject) {
+                console.log('Closing the server');
+                server.close(function(err) {
                     if (err) {
                         return reject(err);
                     }
@@ -115,7 +113,9 @@ function closeServer() {
 }
 
 if (require.main === module) {
-    runServer(DATABASE_URL).catch(err => console.log(err));
+    runServer(DATABASE_URL).catch(function(err) {
+        console.log(err);
+    });
 }
 
 module.exports = {db, app, runServer, closeServer};

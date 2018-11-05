@@ -9,7 +9,7 @@
                 <h3>Nephrologist Portal</h3>
                 <%- include ../layouts/messages.ejs %>
                 <form class="user-registration-form" method="POST" action="/users/register">
-                    <fieldset class="registration-requirements" name="registration requirements"></fieldset>
+                    <fieldset class="registration-requirements" name="registration requirements">
                         <label class="registration-first-name-label" for="first-name">First Name</label>
                         <input class="registration-first-name-input" type="text" id="first-name" name="firstName">
 
@@ -25,7 +25,7 @@
 
                     <button class="registration-submit-button" type="submit">Register</button>
                 </form>
-                <p class="login-p">Already have an account? <a href="/users/login">Log In here</a></p>
+                <p class="login-p">Already have an account? <a class="login-link" href="/users/login">Log In here</a></p>
             </main>
             <%- include ../layouts/footer.ejs %>
         </div>

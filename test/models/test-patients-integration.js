@@ -1,22 +1,20 @@
-"use strict";
+'use strict';
 
-const chai = require("chai");
-const chaiHttp = require("chai-http");
-const faker = require("faker");
-const mongoose = require("mongoose");
-const sinon = require("sinon");
-require("sinon-mongoose");
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const faker = require('faker');
+const mongoose = require('mongoose');
 
 const expect = chai.expect;
 
-const {Patient} = require("../../models/patients");
-const {TEST_DATABASE_URL} = require("../../config");
-const {runServer, closeServer} = require("../../server");
+const {Patient} = require('../../models/patients');
+const {TEST_DATABASE_URL} = require('../../config');
+const {runServer, closeServer} = require('../../server');
 
 chai.use(chaiHttp);
 
 function generateSex() {
-    const sexes = ["male", "female"];
+    const sexes = ['male', 'female'];
     return sexes[Math.floor(Math.random() * sexes.length)];
 }
 
@@ -29,12 +27,12 @@ function generatePatientData() {
         },
         dateOfBirth: faker.date.past(),
         sex: generateSex(),
-        socialSecurityNumber: faker.helpers.replaceSymbolWithNumber("###-##-####"),
+        socialSecurityNumber: faker.helpers.replaceSymbolWithNumber('###-##-####'),
         address: {
-            street: faker.address.streetAddress("###"),
+            street: faker.address.streetAddress('###'),
             city: faker.address.city(3),
             state: faker.address.stateAbbr(),
-            zipCode: faker.random.number({min: "0000", max: "9999"})
+            zipCode: faker.random.number({min: '0000', max: '9999'})
         },
         phoneNumbers: {
             home: faker.phone.phoneNumberFormat(0),
@@ -45,7 +43,7 @@ function generatePatientData() {
 }
 
 function seedPatientData() {
-    console.info("Seeding patient data");
+    console.info('Seeding patient data');
     const seedData = [];
     for (let i = 1; i <= 10; i++) {
         seedData.push(generatePatientData());
@@ -55,14 +53,14 @@ function seedPatientData() {
 
 function tearDownDb() {
     return new Promise((resolve, reject) => {
-      console.warn("Deleting database");
+      console.warn('Deleting database');
       mongoose.connection.dropDatabase()
         .then(result => resolve(result))
         .catch(err => reject(err));
     });
   }
 
-describe("Patient API resource", function() {
+describe('Patient API resource', function() {
     before(function() {
         return runServer(TEST_DATABASE_URL);
     });
@@ -79,8 +77,8 @@ describe("Patient API resource", function() {
         return closeServer();
     });
 
-    describe("Patient model", function() {
-        it("Should initialize patient data with the correct fields", function(done) {
+    describe('Patient model', function() {
+        it('Should initialize patient data with the correct fields', function(done) {
             const generatedPatient = generatePatientData();
             const patient = new Patient(generatedPatient);
 
@@ -99,20 +97,19 @@ describe("Patient API resource", function() {
             });
         });
 
-        it("Should format social security number correctly", function(done) {
+        it('Should format social security number correctly', function(done) {
             const generatedPatient = new Patient(generatePatientData());
 
             generatedPatient.socialSecurityNumber = '123456789';
 
             generatedPatient.save(generatedPatient, function(err, patient) {
                 expect(patient.socialSecurityNumber).to.equal(generatedPatient.socialSecurityNumber);
-                console.log('patient.formatSsn:', patient.formatSsn);
                 expect(patient.formatSsn).to.equal('123-45-6789');
                 done();
             });
         });
         
-        it("Should not create a patient if required fields are missing", function(done) {
+        it('Should not create a patient if required fields are missing', function(done) {
             const generatedPatient = {};
             const patient = new Patient(generatedPatient);
 
@@ -123,9 +120,9 @@ describe("Patient API resource", function() {
             });
         });
 
-        it("Should not create a patient if the zip code is anything other than a number", function(done) {
+        it('Should not create a patient if the zip code is anything other than a number', function(done) {
             const generatedPatient = generatePatientData();
-            generatedPatient.address.zipCode = "abc";
+            generatedPatient.address.zipCode = 'abc';
             const patient = new Patient(generatedPatient);
 
             patient.save(function(err) {

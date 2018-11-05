@@ -1,11 +1,8 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-
-const {patientsSvc} = require('../services/patients');
 const {Patient} = require('./patients');
-const {db} = require('../server');
 
 const clinicSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -30,11 +27,11 @@ const clinicSchema = mongoose.Schema({
 
 clinicSchema.pre('remove', async function(next) {
     await Patient.find({clinic: this._id})
-            .then(patients => {
-                patients.forEach(async p => {
-                    await p.remove(err => {
+            .then(function(patients) {
+                patients.forEach(async function(p) {
+                    await p.remove(function(err) {
                         if (err) {
-                            console.log(`failed to remove patient ${p._id}:`, err);
+                            console.log(`Failed to remove patient ${p._id}:`, err);
                         }
                     });
                 });
@@ -46,6 +43,6 @@ clinicSchema.virtual('managerName').get(function() {
     return `${this.clinicManager.firstName} ${this.clinicManager.lastName}`;
 });
 
-const Clinic = mongoose.model("Clinic", clinicSchema);
+const Clinic = mongoose.model('Clinic', clinicSchema);
 
 module.exports = {Clinic};

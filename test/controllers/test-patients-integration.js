@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-const chai = require("chai");
-const chaiHttp = require("chai-http");
+const chai = require('chai');
+const chaiHttp = require('chai-http');
 const request = require('supertest');
-const {TEST_DATABASE_URL} = require("../../config");
+const {TEST_DATABASE_URL} = require('../../config');
 const faker = require('faker');
-const {app, runServer, closeServer} = require("../../server");
-const {generatePatientData} = require("../models/test-patients-integration");
+const {app, runServer, closeServer} = require('../../server');
+const {generatePatientData} = require('../models/test-patients-integration');
 const {generateClinicData} = require('../models/test-clinics-integration');
-const {Patient} = require("../../models/patients");
+const {Patient} = require('../../models/patients');
 const {Clinic} = require('../../models/clinics');
 
 const expect = chai.expect;
@@ -23,7 +23,7 @@ const userCredentials = {
     password: faker.internet.password()
 }
 
-describe("Patient controller", function() {
+describe('Patient controller', function() {
     let clinicId = '';
 
     before(function() {
@@ -50,8 +50,8 @@ describe("Patient controller", function() {
         });
     });
 
-    describe("GET endpoint for patients", function() {
-        it("Should retrieve all existing patients that belong to a single clinic", function(done) {
+    describe('GET endpoint for patients', function() {
+        it('Should retrieve all existing patients that belong to a single clinic', function(done) {
             let res;
             
             
@@ -66,8 +66,8 @@ describe("Patient controller", function() {
         });
     });
 
-    describe("POST endpoint for patients", function() {
-        it("Should create a new patient", function(done) {
+    describe('POST endpoint for patients', function() {
+        it('Should create a new patient', function(done) {
 
             const newPatient = generatePatientData();
             newPatient.clinic = clinicId;
@@ -77,17 +77,16 @@ describe("Patient controller", function() {
                 .send(newPatient)
                 .then(function(res) {
                     expect(res).to.have.status(302);
-                    expect(res.body).to.be.a("object");
+                    expect(res.body).to.be.a('object');
                     return Patient
                         .findOne({
-                            "name.firstName": newPatient.name.firstName,
-                            "name.lastName": newPatient.name.lastName,
+                            'name.firstName': newPatient.name.firstName,
+                            'name.lastName': newPatient.name.lastName,
                             'sex': newPatient.sex,
                             'socialSecurityNumber': newPatient.socialSecurityNumber
                         })
                 })
                 .then(function(createdPatient) {
-                    console.log("createdPatient:", createdPatient);
                     expect(createdPatient.patientName).to.equal(`${newPatient.name.lastName}, ${newPatient.name.firstName}`);
                     expect(createdPatient.sex).to.equal(newPatient.sex);
                     expect(createdPatient.socialSecurityNumber).to.equal(newPatient.socialSecurityNumber);
@@ -96,15 +95,15 @@ describe("Patient controller", function() {
         });   
     });
 
-    describe("PUT endpoint for patients", function() {
-        it("Should update the data of an existing patient", function(done) {
+    describe('PUT endpoint for patients', function() {
+        it('Should update the data of an existing patient', function(done) {
             const updatedPatientData = {
                 name: {
-                    firstName: "Joseph",
-                    lastName: "Richardson"
+                    firstName: 'Joseph',
+                    lastName: 'Richardson'
                 },
-                sex: "Male",
-                socialSecurityNumber: "232-13-1422",
+                sex: 'Male',
+                socialSecurityNumber: '232-13-1422',
             };
 
             let patient = new Patient(generatePatientData());
@@ -130,8 +129,8 @@ describe("Patient controller", function() {
         });
     });
 
-    describe("DELETE endpoint for patients", function() {
-        it("Should delete an existing patient based on id", function(done) {
+    describe('DELETE endpoint for patients', function() {
+        it('Should delete an existing patient based on id', function(done) {
             let patient = new Patient(generatePatientData());
 
             patient.save(function(err, patient) {

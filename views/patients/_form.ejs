@@ -29,7 +29,7 @@
                     <div class="box-md-col-2">
                         <label class="patient-dob-label" for="date-of-birth">Date of Birth</label>
                         <input class="patient-dob-input" placeholder="12/34/5678" type="date" name="dateOfBirth" id="date-of-birth" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
-                            value="<%- formMethod == 'PUT' ? patient.dateOfBirth : '' %>" required>
+                            value="<%- formMethod == 'PUT' ? patient.formatHtml5BirthDate : '' %>" required>
                     </div>
                     <div class="box-md-col-1">
                         <label class="patient-ssn-label" for="ssn">SSN</label>
@@ -43,7 +43,7 @@
                         <div class="box-md-col-1">
                             <label class="patient-street-label" for="street">Street</label>
                             <input class="patient-street-input" placeholder="1 International Drive" type="text" name="address.street" id="street"
-                            v   alue="<%- formMethod == 'PUT' ? patient.address.street : '' %>" required>
+                                value="<%- formMethod == 'PUT' ? patient.address.street : '' %>" required>
                         </div>
                         <div class="box-md-col-2">
                             <label class="patient-city-label" for="city">City</label>

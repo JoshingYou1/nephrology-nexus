@@ -10,8 +10,8 @@ mongoose.Promise = global.Promise;
 const {User} = require('../models/users');
 
 const localStrategy = new LocalStrategy({usernameField: 'username', passwordField: 'password', passReqToCallback: true},
-    (req, username, password, done) => {
-        User.findOne({username: username}, (err, user) => {
+    function(req, username, password, done) {
+        User.findOne({username: username}, function(err, user) {
             if (err) {
                 return done(err);
             }
@@ -29,10 +29,10 @@ const localStrategy = new LocalStrategy({usernameField: 'username', passwordFiel
 });
 
 const registerStrategy = new LocalStrategy({usernameField: 'username', passwordField: 'password', passReqToCallback: true},
-    (req, username, password, done) => {
+    function(req, username, password, done) {
         const requiredFields = ['firstName', 'lastName', 'username', 'password'];
         const missingFields = requiredFields.filter(field => !(field in req.body));
-        console.log('missingFields:', missingFields);
+
         if (missingFields.length) {
             req.flash('message', `Missing field(s) for ${missingFields.join(', ')}`);
             return done(null, false);
@@ -67,9 +67,9 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
 
         const fieldsTooSmall = Object.keys(sizedFields).filter(field =>
                 'min' in sizedFields[field] && req.body[field].trim().length < sizedFields[field].min);
-            console.log('fieldsTooSmall:', fieldsTooSmall);
+
         if (fieldsTooSmall.length) {
-            req.flash('message', `These fields must be at least 2 characters long: ${fieldsTooSmall.join(', ')}`);
+            req.flash('message', `The following field(s) must be at least 2 characters long: ${fieldsTooSmall.join(', ')}`);
             return done(null, false);
         }
         
@@ -81,9 +81,8 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
             return done(null, false);
         }
 
-        User.findOne({username: username}, (err, user) =>{
+        User.findOne({username: username}, function(err, user) {
             if (err) {
-                console.log('registerStrategyError:', err);
                 return done(err);
             }
             if (user) {
@@ -95,8 +94,7 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
             newUser._id = new mongoose.Types.ObjectId();
             newUser.password = newUser.hashPassword(req.body.password);
 
-            newUser.save(err => {
-                console.log('registerStrategyErrorUserSave:', err);
+            newUser.save(function(err) {
                 if (err) {
                     return done(err);
                 }
@@ -105,16 +103,14 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
         });
 });
 
-const isAuthenticated = (req, res, next) => {
-    console.log('in isAuthenticated')
+const isAuthenticated = function(req, res, next) {
     if (req.isAuthenticated()) {
-        console.log('req.user:', req.user);
         return next();  
     }
     res.redirect('/users/login');
 };
 
-const protectLogin = (req, res, next) => {
+const protectLogin = function(req, res, next) {
     if (!req.isAuthenticated()) {
         return next();
     }
