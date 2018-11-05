@@ -4,13 +4,13 @@
     <body>
         <div class="clinics-show-container">
             <span class="clinics-show-header"><%- include ../layouts/header.ejs %></span>
-            <nav class="breadcrumbs">
+            <nav class="breadcrumbs" role="navigation">
                 <a class="breadcrumbs-clinics-link" href="/clinics">Clinics</a> &gt
                 <span><%= clinic.name %></span>
             </nav>
-            <main class="clinics-show-main">
+            <main class="clinics-show-main" role="main">
                 <h1><%= clinic.name %></h1>
-                <section class="clinic-info">
+                <section class="clinic-info" role="region">
                     <div class="clinic-address-div">
                         <p><%= clinic.address.street %></p>
                         <p><%= clinic.address.city %>,&nbsp;<%= clinic.address.state %>,&nbsp;<%= clinic.address.zipCode %></p>
@@ -20,7 +20,7 @@
                     <p><span class="clinic-manager-span-1">Clinic Manager:</span>&nbsp;<span class="clinic-manager-span-2"><%= clinic.managerName %></span></p>
                 </section>
                 <form  class="clinic-delete-form" method="POST" action="/clinics/<%= clinic._id %>">
-                    <button class="fas fa-trash-alt">&nbsp;<span class="delete-clinic-span">Delete</span></button>
+                    <button type="submit" class="fas fa-trash-alt">&nbsp;<span class="delete-clinic-span">Delete</span></button>
                     <input type="hidden" name="_method" value="DELETE">
                 </form>
                 <a class="fas fa-edit" href="/clinics/update/<%= clinic.id %>">&nbsp;<span class="update-clinic-span">Update</span></a>

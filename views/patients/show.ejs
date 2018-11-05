@@ -4,16 +4,16 @@
     <body>
         <div class="patients-show-container">
             <span class="patients-show-header"><%- include ../layouts/header.ejs %></span>
-            <nav class="breadcrumbs">
+            <nav class="breadcrumbs" role="region">
                 <a class="breadcrumbs-clinics-link" href="/clinics">Clinics</a> &gt
                 <a class="breadcrumbs-clinic-link" href="/clinics/show/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
                 <a class="breadcrumbs-patients-link" href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
                 <span><%= patient.patientName %></span>
             </nav>
             <h1 class="patient-name"><%= patient.patientName %></h1>
-            <main class="patients-show-main">
+            <main class="patients-show-main" role="main">
                 <%- include ../layouts/messages %>
-                <section class="patient-information">
+                <section class="patient-information" role="region">
                     <div class="patient-id-info">
                         <p><span class="sex-span-1">Sex:</span>&nbsp;<span class="sex-span-2"><%= patient.sex %></span></p>
                         <p><span class="dob-span-1">DOB:</span>&nbsp;<span class="dob-span-2"><%= patient.formatBirthDate %></span></p>

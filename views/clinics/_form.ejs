@@ -1,4 +1,4 @@
-<section class="clinic-page">
+<section class="clinic-page" role="region">
     <%- include ../layouts/messages.ejs %>
         <form class="clinic-form" role="form" method="POST" action="/clinics/<%- formMethod == 'PUT' ? clinic._id : '' %>">
             <% if (formMethod == 'PUT') { %>

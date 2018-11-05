@@ -4,12 +4,12 @@
     <body>
         <div class="patients-index-container">
             <span class="patients-index-header"><%- include ../layouts/header.ejs %></span>
-            <nav class="breadcrumbs">
+            <nav class="breadcrumbs" role="navigation">
                 <a class="breadcrumbs-clinics-link" href="/clinics">Clinics</a> &gt
                 <a class="breadcrumbs-clinic-link" href="/clinics/show/<%= clinicId %>"><%= clinic.name %></a> &gt
                 <span>Patients</span>
             </nav>
-            <main class="patients-index-main">
+            <main class="patients-index-main" role="main">
                 <img class="patient-icon" src="/patient.svg" alt="Patient Icon">
                 <h1 class="patients-h1">Patients</h1>
                 <ul class="patient-list">

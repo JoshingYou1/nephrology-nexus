@@ -4,7 +4,7 @@
     <body>
         <div class="lab-results-show-container">
             <span class="lab-results-show-header"><%- include ../layouts/header.ejs %></span>
-            <nav class="breadcrumbs">
+            <nav class="breadcrumbs" role="navigation">
                 <a class="breadcrumbs-clinics-link" href="/clinics">Clinics</a> &gt
                 <a class="breadcrumbs-clinic-link" href="/clinics/show/<%= clinicId %>"><%= patient.clinic.name %></a> &gt
                 <a class="breadcrumbs-patients-link" href="/clinics/<%= clinicId %>/patients">Patients</a> &gt
@@ -12,10 +12,10 @@
                 <a class="breadcrumbs-lab-results-link" href="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results">Lab Results</a> &gt
                 <span><%= result.formatDate %></span>
             </nav>
-            <main class="lab-results-show-main">
+            <main class="lab-results-show-main" role="main">
                 <h1><%= result.formatDate %></h1>
                 <%- include ../layouts/messages %>
-                <section class="hematology">
+                <section class="hematology" role="region">
                     <h2 class="hematology-header">Hematology</h2>
                     <p><span class="wbc-span-1">WBC Count:</span>&nbsp;
                         <span class="wbc-span-2"><%= result.hematology.wbcCount %>&nbsp;&nbsp;<span class="wbc-span-3">1000/mcL</span></span></p>
@@ -28,7 +28,7 @@
                     <p><span class="platelet-count-span-1">Platelet Count:</span>&nbsp;
                         <span class="platelet-count-span-2"><%= result.hematology.plateletCount %>&nbsp;&nbsp;<span class="platelet-count-span-3">1000/mcL</span></span></p>
                 </section>
-                <section class="chemistry">
+                <section class="chemistry" role="region">
                     <h2 class="chemistry-header">Chemistry</h2>
                     <p><span class="bun-span-1">BUN:</span>&nbsp;
                         <span class="bun-span-2"><%= result.chemistry.bun %>&nbsp;&nbsp;<span class="bun-span-3">mg/dL</span></span></p>
@@ -56,7 +56,7 @@
             </main>
             <div class="lab-results-delete-and-update-div">
                 <form  class="lab-results-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patientId %>/lab-results/<%= result._id %>">
-                    <button class="fas fa-trash-alt">&nbsp;<span class="delete-lab-results-span">Delete</span></button>
+                    <button type="submit" class="fas fa-trash-alt">&nbsp;<span class="delete-lab-results-span">Delete</span></button>
                     <input type="hidden" name="_method" value="DELETE">
                 </form>
                 <a class="fas fa-edit" 
