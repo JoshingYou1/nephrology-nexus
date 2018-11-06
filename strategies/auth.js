@@ -30,14 +30,6 @@ const localStrategy = new LocalStrategy({usernameField: 'username', passwordFiel
 
 const registerStrategy = new LocalStrategy({usernameField: 'username', passwordField: 'password', passReqToCallback: true},
     function(req, username, password, done) {
-        const requiredFields = ['firstName', 'lastName', 'username', 'password'];
-        const missingFields = requiredFields.filter(field => !(field in req.body));
-
-        if (missingFields.length) {
-            req.flash('message', `Missing field(s) for ${missingFields.join(', ')}`);
-            return done(null, false);
-        }
-
         const stringFields = ['firstName', 'lastName', 'username', 'password'];
         const nonStringFields = stringFields.filter(field => field in req.body && typeof req.body[field] !== 'string');
 
@@ -77,7 +69,7 @@ const registerStrategy = new LocalStrategy({usernameField: 'username', passwordF
                 'max' in sizedFields[field] && req.body[field].trim().length > sizedFields[field].max);
 
         if (fieldsTooLarge.length) {
-            req.flash('message', `These fields must be at most 72 characters long: ${fieldsTooLarge.join(', ')}`);
+            req.flash('message', `The following field(s) must be at most 72 characters long: ${fieldsTooLarge.join(', ')}`);
             return done(null, false);
         }
 

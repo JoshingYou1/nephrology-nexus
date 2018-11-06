@@ -11,16 +11,16 @@
                 <form class="user-registration-form" method="POST" action="/users/register">
                     <fieldset class="registration-requirements" name="registration requirements">
                         <label class="registration-first-name-label" for="first-name">First Name</label>
-                        <input class="registration-first-name-input" type="text" id="first-name" name="firstName">
+                        <input class="registration-first-name-input" type="text" id="first-name" name="firstName" required>
 
                         <label class="registration-last-name-label" for="last-name">Last Name</label>
-                        <input class="registration-last-name-input" type="text" id="last-name" name="lastName">
+                        <input class="registration-last-name-input" type="text" id="last-name" name="lastName" required>
                 
                         <label class="registration-username-label" for="username">Username</label>
-                        <input class="registration-username-input" type="text" id="username" name="username">
+                        <input class="registration-username-input" type="text" id="username" name="username" required>
 
                         <label class="registration-password-label" for="password">Password</label>
-                        <input class="registration-password-input" type="password" id="password" name="password">
+                        <input class="registration-password-input" type="password" id="password" name="password" required>
                     </fieldset>
 
                     <button class="registration-submit-button" type="submit">Register</button>
