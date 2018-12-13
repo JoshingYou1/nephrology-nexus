@@ -76,7 +76,9 @@ let patients = [
         labResults: [
             labResultsIdArray[1]
         ],
-        clinic: clinicsIdArray[0]
+        clinic: clinicsIdArray[0],
+        username: 'betty.crocker',
+        password: 'hello'
     }),
     new Patient({
         _id: patientsIdArray[2],
@@ -101,7 +103,9 @@ let patients = [
         labResults: [
             labResultsIdArray[2]
         ],
-        clinic: clinicsIdArray[1]
+        clinic: clinicsIdArray[1],
+        username: 'michael.williams',
+        password: 'hello'
     }),
     new Patient({
         _id: patientsIdArray[3],
@@ -126,7 +130,9 @@ let patients = [
         labResults: [
             labResultsIdArray[3]
         ],
-        clinic: clinicsIdArray[2]
+        clinic: clinicsIdArray[2],
+        username: 'meredith.edwards',
+        password: 'hello'
     }),
     new Patient({
         _id: patientsIdArray[4],
@@ -151,7 +157,9 @@ let patients = [
         labResults: [
             labResultsIdArray[4]
         ],
-        clinic: clinicsIdArray[3]
+        clinic: clinicsIdArray[3],
+        username: 'david.baker',
+        password: 'hello'
     })
 ]
 
