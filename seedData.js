@@ -25,7 +25,7 @@ const patientsIdArray = getIds();
 const clinicsIdArray = getIds();
 const labResultsIdArray = getIds();
 
-const patients = [
+let patients = [
     new Patient({
         _id: patientsIdArray[0],
         name: {
@@ -49,7 +49,9 @@ const patients = [
         labResults: [
             labResultsIdArray[0]
         ],
-        clinic: clinicsIdArray[0]
+        clinic: clinicsIdArray[0],
+        username: 'robert.jones',
+        password: 'hello'
     }),
     new Patient({
         _id: patientsIdArray[1],
@@ -375,7 +377,11 @@ const labResults = [
         },
         patient: patientsIdArray[4]
     })
-]
+];
+
+patients.forEach(patient => {
+    patient.password = patient.hashPassword(patient.password);
+});
 
 exec()
     .then(function() {

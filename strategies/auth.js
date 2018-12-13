@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
-const express = require('express');
-const router = express.Router();
-const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 mongoose.Promise = global.Promise;
 
 const {User} = require('../models/users');

@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-
+let bcrypt = require('bcryptjs');
 const {LabResults} = require('./lab-results');
 
 
@@ -33,8 +33,31 @@ const patientSchema = mongoose.Schema({
     labResults: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'LabResults'
-    }]
+    }],
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    } 
 });
+
+patientSchema.methods.serialize = function() {
+    return {
+        id: this._id
+    };
+}
+
+patientSchema.methods.validatePassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+};
+
+patientSchema.methods.hashPassword = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(11), null);
+};
 
 patientSchema.pre('remove', function(next) {
     LabResults.deleteMany({_id: {$in: this.labResults}}).exec();
