@@ -9,11 +9,13 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const passport = require('passport');
+const cors = require('cors');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL, PORT} = require('./config');
 const {localStrategy, registerStrategy} = require('./strategies/auth');
 const {User} = require('./models/users');
+const {CLIENT_ORIGIN} = require('./config');
 
 const app = express();
 
@@ -36,6 +38,11 @@ app.use(morgan('common'));
 app.use(cookieParser('secret'));
 app.use(session({secret: process.env.JWT_SECRET}));
 app.use(flash());
+app.use(
+    cors({
+        origin: CLIENT_ORIGIN
+    })
+);
 
 app.set('view engine', 'ejs');
 
