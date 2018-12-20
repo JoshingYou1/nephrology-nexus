@@ -5,31 +5,28 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const {JWT_SECRET, JWT_EXPIRY} = require('../config');
 const passport = require('passport');
-const {patientStrategy, jwtStrategy} = require('../strategies/authPatient');
-
-passport.use('patientLogin', patientStrategy);
-passport.use('jwt', jwtStrategy);
 
 const patientAuth = passport.authenticate('patientLogin', {session: false});
-const jwtAuth = passport.authenticate('jwt', {session: false})
+const jwtAuth = passport.authenticate('jwt', {session: false});
 
-const createAuthToken = function(patient) {
-    return jwt.sign({patient}, JWT_SECRET, {
-        subject: patient.username,
+const createAuthToken = function(user) {
+    console.log('user', user);
+    return jwt.sign({user}, JWT_SECRET, {
+        subject: user.username,
         expiresIn: JWT_EXPIRY,
         algorithm: 'HS256'
     });
 };
 
 router.post('/login', patientAuth, function(req, res) {
-    const authToken = createAuthToken(req.patient.serialize());
+    const authToken = createAuthToken(req.user.serialize());
     res.json({
         authToken
     });
 });
 
 router.post('/refresh', jwtAuth, function(req, res) {
-    const authToken = createAuthToken(req.patient);
+    const authToken = createAuthToken(req.user);
     res.json({
         authToken
     });

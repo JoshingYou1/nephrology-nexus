@@ -47,7 +47,8 @@ const patientSchema = mongoose.Schema({
 
 patientSchema.methods.serialize = function() {
     return {
-        id: this._id
+        id: this._id,
+        username: this.username
     };
 }
 

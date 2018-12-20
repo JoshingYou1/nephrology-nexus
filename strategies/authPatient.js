@@ -44,7 +44,7 @@ const jwtStrategy = new JwtStrategy({
     algorithms: ['HS256']
 },
     (payload, done) => {
-        done(null, payload.patient);
+        done(null, payload.user);
 });
 
 module.exports = {patientStrategy, jwtStrategy};

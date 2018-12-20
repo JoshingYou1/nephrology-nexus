@@ -16,6 +16,7 @@ const {DATABASE_URL, PORT} = require('./config');
 const {localStrategy, registerStrategy} = require('./strategies/auth');
 const {User} = require('./models/users');
 const {CLIENT_ORIGIN} = require('./config');
+const {patientStrategy, jwtStrategy} = require('./strategies/authPatient');
 
 const app = express();
 
@@ -24,6 +25,8 @@ const clinicsController = require('./controllers/clinicsController');
 const labResultsController = require('./controllers/labResultsController');
 const usersController = require('./controllers/usersController');
 const patientAuthController = require('./controllers/patientAuthController');
+const apiPatientsController = require('./controllers/api/apiPatientsController');
+
 
 app.use(bodyParser());
 app.use(methodOverride(function(req, res) {
@@ -50,7 +53,8 @@ app.get('/', (req, res) => {
     res.redirect('/users/login');
 });
 
-
+passport.use('patientLogin', patientStrategy);
+passport.use('jwt', jwtStrategy);
 passport.use('local-login', localStrategy);
 passport.use('local-register', registerStrategy);
 passport.serializeUser(function(user, done) {
@@ -79,6 +83,7 @@ app.use('/clinics/:clinicId/patients/:patientId/lab-results', function(req, res,
     next();
 }, labResultsController);
 app.use('/patient/auth', patientAuthController);
+app.use('/api/patients', apiPatientsController);
 
 
 app.use('*', function (req, res) {
