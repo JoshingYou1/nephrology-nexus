@@ -10,6 +10,7 @@ const co = require('co');
 const {Patient} = require('./models/patients');
 const {Clinic} = require('./models/clinics');
 const {LabResults} = require('./models/lab-results');
+const {Doctor} = require('./models/doctors');
 
 mongoose.set('debug', true);
 
@@ -24,6 +25,7 @@ function getIds() {
 const patientsIdArray = getIds();
 const clinicsIdArray = getIds();
 const labResultsIdArray = getIds();
+const doctorsIdArray = getIds();
 
 let patients = [
     new Patient({
@@ -46,10 +48,36 @@ let patients = [
             cell: '904-212-3312',
             work: null
         },
+        primaryInsurance: {
+            insuranceCompany: 'Cigna',
+            nameOfCardHolder: {
+                firstName: 'Robert',
+                lastName: 'Jones'
+            },
+            policyNumber: 843892938,
+            dateOfBirthOfCardHolder: '05/12/1968',
+            socialSecurityNumberOfCardHolder: '127371989'
+        },
+        secondaryInsurance: {
+            insuranceCompany: 'Ally Health',
+            nameOfCardHolder: {
+                firstName: 'Robert',
+                lastName: 'Jones'
+            },
+            policyNumber: 542343443,
+            dateOfBirthOfCardHolder: '05/12/1968',
+            socialSecurityNumberOfCardHolder: '127371989'
+        },
+        treatmentDays: 'Tue/Thu/Sat',
+        treatmentTime: '9:30 a.m.',
         labResults: [
             labResultsIdArray[0]
         ],
         clinic: clinicsIdArray[0],
+        doctors: [
+            doctorsIdArray[0],
+            doctorsIdArray[1]
+        ],
         username: 'robert.jones',
         password: 'hello'
     }),
@@ -387,6 +415,109 @@ const labResults = [
     })
 ];
 
+const doctors = [
+    new Doctor({
+        _id: doctorsIdArray[0],
+        name: {
+            firstName: 'Joseph',
+            lastName: 'Armstrong'
+        },
+        practice: 'Hematology',
+        company: 'Mayo Clinic',
+        address: {
+            street: '436 East Rutherford Dr',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 34232
+        },
+        phoneNumber: '904-743-9433',
+        faxNumber: '904-743-2743',
+        patients: [
+            patientsIdArray[0]
+        ]
+    }),
+    new Doctor({
+        _id: doctorsIdArray[1],
+        name: {
+            firstName: 'Andrea',
+            lastName: 'Whiteside'
+        },
+        practice: 'Nephrology',
+        company: 'Nephrologists of Northeast Florida',
+        address: {
+            street: '34 West Parkland St',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 37233
+        },
+        phoneNumber: '904-221-2244',
+        faxNumber: '904-221-4321',
+        patients: [
+            patientsIdArray[0]
+        ]
+    }),
+    new Doctor({
+        _id: doctorsIdArray[2],
+        name: {
+            firstName: 'Matthew',
+            lastName: 'Caldwell-Pope'
+        },
+        practice: 'Nephrology',
+        company: 'Nephrologists of Northeast Florida',
+        address: {
+            street: '34 West Parkland St',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 37233
+        },
+        phoneNumber: '904-221-2244',
+        faxNumber: '904-221-4321',
+        patients: [
+            patientsIdArray[1]
+        ]
+    }),
+    new Doctor({
+        _id: doctorsIdArray[3],
+        name: {
+            firstName: 'Rena',
+            lastName: 'Kurosaki'
+        },
+        practice: 'Oncologist',
+        company: 'North Florida Oncology',
+        address: {
+            street: '12 Crystal Springs Place',
+            city: 'Orange Park',
+            state: 'FL',
+            zipCode: 32633
+        },
+        phoneNumber: '904-932-9498',
+        faxNumber: '904-932-2384',
+        patients: [
+            patientsIdArray[2]
+        ]
+    }),
+    new Doctor({
+        _id: doctorsIdArray[4],
+        name: {
+            firstName: 'Ryan',
+            lastName: 'McMann'
+        },
+        practice: 'Immunology',
+        company: 'St. Vincent\'s Medical Center',
+        address: {
+            street: '4302 Langston Rd',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 35322
+        },
+        phoneNumber: '904-903-3221',
+        faxNumber: '904-903-3119',
+        patients: [
+            patientsIdArray[3]
+        ]
+    })
+];
+
 patients.forEach(patient => {
     patient.password = patient.hashPassword(patient.password);
 });
@@ -407,7 +538,6 @@ function exec() {
         // clear the patients collection
         console.log('Removing patients collection');
         yield patient.remove();
-    
         //make clinic schema for this db connection
         const clinic = db.model('Clinic', Clinic.schema);
         // clear the clinics collection
@@ -418,6 +548,11 @@ function exec() {
         // clear the lab results collection
         console.log('Removing lab results collection');
         yield labResult.remove();
+        //make lab results schema for this db connection
+        const doctor = db.model('Doctor', Doctor.schema);
+        // clear the lab results collection
+        console.log('Removing doctors collection');
+        yield doctor.remove();
     
         // seed the patient data
         console.log('Seeding patients..');
@@ -427,10 +562,14 @@ function exec() {
         console.log('Seeding clinics..');
         yield clinic.insertMany(clinics).then(() => ({ ok: 1 }));
         console.log('Clinics successfully imported!');
-         // seed the lab results
+         // seed the lab results data
         console.log('Seeding lab results..');
         yield labResult.insertMany(labResults).then(() => ({ ok: 1 }));
         console.log('Lab results successfully imported!');
+        // seed the doctor data
+        console.log('Seeding doctors..');
+        yield doctor.insertMany(doctors).then(() => ({ ok: 1 }));
+        console.log('Doctors successfully imported!');
     
         console.log('~Data successfully imported~');
     });

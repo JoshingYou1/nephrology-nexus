@@ -26,6 +26,28 @@ const patientSchema = mongoose.Schema({
         cell: {type: String},
         work: {type: String}
     },
+    primaryInsurance: {
+        insuranceCompany: {type: String},
+        nameOfCardHolder: {
+            firstName: {type: String},
+            lastName: {type: String}
+        },
+        policyNumber: {type: Number},
+        dateOfBirthOfCardHolder: {type: String},
+        socialSecurityNumberOfCardHolder: {type: String}
+    },
+    secondaryInsurance: {
+        insuranceCompany: {type: String},
+        nameOfCardHolder: {
+            firstName: {type: String},
+            lastName: {type: String}
+        },
+        policyNumber: {type: Number},
+        dateOfBirthOfCardHolder: {type: String},
+        socialSecurityNumberOfCardHolder: {type: String}
+    },
+    treatmentDays: {type: String},
+    treatmentTime: {type: String},
     clinic: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Clinic'
@@ -33,6 +55,14 @@ const patientSchema = mongoose.Schema({
     labResults: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'LabResults'
+    }],
+    appointments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Appointment'
+    }],
+    doctors: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Doctor'
     }],
     username: {
         type: String,
