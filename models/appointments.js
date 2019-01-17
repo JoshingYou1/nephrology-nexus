@@ -8,7 +8,9 @@ const appointmentSchema = mongoose.Schema({
     description: {type: String},
     date: {type: Date},
     time: {type: String},
-    doctor: {type: String},
+    with: {type: String},
+    title: {type: String},
+    where: {type: String},
     address: {
         street: {type: String},
         city: {type: String},

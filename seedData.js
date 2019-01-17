@@ -11,6 +11,7 @@ const {Patient} = require('./models/patients');
 const {Clinic} = require('./models/clinics');
 const {LabResults} = require('./models/lab-results');
 const {Doctor} = require('./models/doctors');
+const {Appointment} = require('./models/appointments');
 
 mongoose.set('debug', true);
 
@@ -26,6 +27,7 @@ const patientsIdArray = getIds();
 const clinicsIdArray = getIds();
 const labResultsIdArray = getIds();
 const doctorsIdArray = getIds();
+const appointmentsIdArray = getIds();
 
 let patients = [
     new Patient({
@@ -76,7 +78,8 @@ let patients = [
         clinic: clinicsIdArray[0],
         doctors: [
             doctorsIdArray[0],
-            doctorsIdArray[1]
+            doctorsIdArray[1],
+            doctorsIdArray[2]
         ],
         username: 'robert.jones',
         password: 'hello'
@@ -336,7 +339,7 @@ const labResults = [
             cholesterol: 152,
             triglycerides: 65
         },
-        patient: patientsIdArray[1]
+        patient: patientsIdArray[0]
     }),
     new LabResults({
         _id: labResultsIdArray[2],
@@ -361,7 +364,7 @@ const labResults = [
             cholesterol: 43,
             triglycerides: 65
         },
-        patient: patientsIdArray[2]
+        patient: patientsIdArray[0]
     }),
     new LabResults({
         _id: labResultsIdArray[3],
@@ -386,7 +389,7 @@ const labResults = [
             cholesterol: 253,
             triglycerides: 54
         },
-        patient: patientsIdArray[3]
+        patient: patientsIdArray[0]
     }),
     new LabResults({
         _id: labResultsIdArray[4],
@@ -411,7 +414,7 @@ const labResults = [
             cholesterol: 210,
             triglycerides: 186
         },
-        patient: patientsIdArray[4]
+        patient: patientsIdArray[0]
     })
 ];
 
@@ -462,18 +465,18 @@ const doctors = [
             firstName: 'Matthew',
             lastName: 'Caldwell-Pope'
         },
-        practice: 'Nephrology',
-        company: 'Nephrologists of Northeast Florida',
+        practice: 'Primary care',
+        company: 'Baptist Medical Center',
         address: {
-            street: '34 West Parkland St',
+            street: '483 Palmetto Rd',
             city: 'Jacksonville',
             state: 'FL',
-            zipCode: 37233
+            zipCode: 37432
         },
         phoneNumber: '904-221-2244',
         faxNumber: '904-221-4321',
         patients: [
-            patientsIdArray[1]
+            patientsIdArray[0]
         ]
     }),
     new Doctor({
@@ -482,7 +485,7 @@ const doctors = [
             firstName: 'Rena',
             lastName: 'Kurosaki'
         },
-        practice: 'Oncologist',
+        practice: 'Oncology',
         company: 'North Florida Oncology',
         address: {
             street: '12 Crystal Springs Place',
@@ -518,6 +521,43 @@ const doctors = [
     })
 ];
 
+const appointments = [
+    new Appointment({
+        _id: appointmentsIdArray[0],
+        description: 'Back pain',
+        date: '01/19/19',
+        time: '12:30 p.m.',
+        with: 'Jessica Brown',
+        title: 'Primary care physician',
+        where: 'Baptist Primary Care',
+        address: {
+            street: '632 Oak St',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 34423
+        },
+        phoneNumber: '904-233-1114',
+        patient: patientsIdArray[0]
+    }),
+    new Appointment({
+        _id: appointmentsIdArray[1],
+        description: 'Access evaluation',
+        date: '01/04/19',
+        time: '2:15 p.m.',
+        with: 'Jason Strickland',
+        title: 'MD',
+        where: 'Vascular Access Center',
+        address: {
+            street: '402 South Lakeside Dr',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 35423
+        },
+        phoneNumber: '904-943-2942',
+        patient: patientsIdArray[0]
+    })
+];
+
 patients.forEach(patient => {
     patient.password = patient.hashPassword(patient.password);
 });
@@ -548,11 +588,16 @@ function exec() {
         // clear the lab results collection
         console.log('Removing lab results collection');
         yield labResult.remove();
-        //make lab results schema for this db connection
+        //make doctor schema for this db connection
         const doctor = db.model('Doctor', Doctor.schema);
-        // clear the lab results collection
+        // clear the doctors collection
         console.log('Removing doctors collection');
         yield doctor.remove();
+        //make appointment schema for this db connection
+        const appointment = db.model('Appointment', Appointment.schema);
+        // clear the appointments collection
+        console.log('Removing appointments collection');
+        yield appointment.remove();
     
         // seed the patient data
         console.log('Seeding patients..');
@@ -570,6 +615,10 @@ function exec() {
         console.log('Seeding doctors..');
         yield doctor.insertMany(doctors).then(() => ({ ok: 1 }));
         console.log('Doctors successfully imported!');
+        // seed the appointment data
+        console.log('Seeding appointments..');
+        yield appointment.insertMany(appointments).then(() => ({ ok: 1 }));
+        console.log('Appointments successfully imported!');
     
         console.log('~Data successfully imported~');
     });
