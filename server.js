@@ -25,7 +25,10 @@ const clinicsController = require('./controllers/clinicsController');
 const labResultsController = require('./controllers/labResultsController');
 const usersController = require('./controllers/usersController');
 const patientAuthController = require('./controllers/patientAuthController');
+
 const apiPatientsController = require('./controllers/api/apiPatientsController');
+const apiAppointmentsController = require('./controllers/api/apiAppointmentsController');
+const apiDoctorsController = require('./controllers/api/apiDoctorsController');
 
 
 app.use(bodyParser());
@@ -83,8 +86,19 @@ app.use('/clinics/:clinicId/patients/:patientId/lab-results', function(req, res,
     next();
 }, labResultsController);
 app.use('/patient/auth', patientAuthController);
-app.use('/api/patients', apiPatientsController);
 
+app.use('/api/patients/:patientId', function(req, res, next) {
+    req.patientId = req.params.patientId;
+    next();
+}, apiPatientsController);
+app.use('/api/patients/:patientId/appointments', function(req, res, next) {
+    req.patientId = req.params.patientId;
+    next();
+}, apiAppointmentsController);
+app.use('/api/patients/:patientId/doctors', function(req, res, next) {
+    req.patientId = req.params.patientId;
+    next();
+}, apiDoctorsController);
 
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Not Found' });

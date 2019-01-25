@@ -555,6 +555,23 @@ const appointments = [
         },
         phoneNumber: '904-943-2942',
         patient: patientsIdArray[0]
+    }),
+    new Appointment({
+        _id: appointmentsIdArray[2],
+        description: 'Vein mapping',
+        date: '02/04/19',
+        time: '2:10 p.m.',
+        with: 'Jason Strickland',
+        title: 'MD',
+        where: 'Vascular Access Center',
+        address: {
+            street: '402 South Lakeside Dr',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 35423
+        },
+        phoneNumber: '904-943-2942',
+        patient: patientsIdArray[0]
     })
 ];
 

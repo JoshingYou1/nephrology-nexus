@@ -10,19 +10,11 @@ const {Doctor} = require('../../models/doctors');
 const {Appointment} = require('../../models/appointments');
 
 const {labResultsSvc} = require('../../services/lab-results');
-const {appointmentsSvc} = require('../../services/appointments');
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-router.get('/:patientId/lab-results', jwtAuth, function(req, res) {
-    labResultsSvc.getAllLabResultsByPatientChronologically(req.params.patientId)
-        .then(function(labResults) {
-            res.json(labResults);
-        });
-});
-
-router.get('/:patientId', jwtAuth, function(req, res) {
+router.get('/', jwtAuth, function(req, res) {
     Patient
-        .findById(req.params.patientId)
+        .findById(req.patientId)
         .populate('clinic')
         .populate('doctors')
         .then(function(patient) {
@@ -30,12 +22,47 @@ router.get('/:patientId', jwtAuth, function(req, res) {
         });
 });
 
-router.get('/:patientId/appointments', jwtAuth, function(req, res) {
-    appointmentsSvc.getAllAppointmentsByPatientChronologically(req.params.patientId)
-        .then(function(appointments) {
-            res.json(appointments);
+router.get('/lab-results', jwtAuth, function(req, res) {
+    labResultsSvc.getAllLabResultsByPatientChronologically(req.patientId)
+        .then(function(labResults) {
+            res.json(labResults);
         });
 });
+
+router.put('/:id', jwtAuth, function(req, res) {
+    if (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
+        res.status(400).json({
+          error: 'Request path id and request body id values must match'
+        });
+    }
+
+    if (typeof req.body.socialSecurityNumber !== 'string') {
+        return res.status(400).json({
+            message: 'Incorrect field type',
+            reason: 'ValidationError',
+            location: 'socialSecurityNumber'
+        });
+    }
+
+    const updated = {};
+    const updateableFields = ['socialSecurityNumber', 'address', 'phoneNumbers'];
+    updateableFields.forEach(field => {
+        if (field in req.body) {
+        updated[field] = req.body[field];
+        }
+    });
+
+    Patient
+        .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+        .then(updatedPatient => {
+            res.status(204).end();
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Something went wrong' });
+        });
+
+    return res.status(204);
+})
 
 module.exports = router;
 
