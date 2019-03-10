@@ -16,7 +16,7 @@ router.get('/', jwtAuth, function(req, res) {
     Patient
         .findById(req.patientId)
         .populate('clinic')
-        .populate('doctors')
+        // .populate('doctors')
         .then(function(patient) {
             res.json(patient);
         });
@@ -29,8 +29,8 @@ router.get('/lab-results', jwtAuth, function(req, res) {
         });
 });
 
-router.put('/:id', jwtAuth, function(req, res) {
-    if (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
+router.put('/', jwtAuth, function(req, res) {
+    if (!(req.patientId && req.body._id && req.patientId === req.body._id)) {
         res.status(400).json({
           error: 'Request path id and request body id values must match'
         });
@@ -53,9 +53,10 @@ router.put('/:id', jwtAuth, function(req, res) {
     });
 
     Patient
-        .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+        .findByIdAndUpdate(req.patientId, { $set: updated }, { new: true })
+        .populate('clinic')
         .then(updatedPatient => {
-            res.status(204).end();
+            res.status(200).json(updatedPatient);
         })
         .catch(err => {
             res.status(500).json({ message: 'Something went wrong' });

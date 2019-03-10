@@ -135,7 +135,7 @@ describe('Patient controller', function() {
 
             patient.save(function(err, patient) {
                 authenticatedUser
-                    .delete(`/clinics/${clinicId}/patients/${patient._id}`)
+                    .delete(`/clinics/${clinicId}/patients/${patientId}`)
                     .end(function(err, res) {
                         expect(res).to.have.status(302);
                         done();

@@ -11,6 +11,6 @@ function getAllAppointmentsByPatientChronologically(patientId) {
 
 const appointmentsSvc = {
     getAllAppointmentsByPatientChronologically: getAllAppointmentsByPatientChronologically
-}
+};
 
 module.exports = {appointmentsSvc};

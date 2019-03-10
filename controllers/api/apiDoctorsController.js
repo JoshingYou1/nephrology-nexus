@@ -8,26 +8,41 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const {Doctor} = require('../../models/doctors')
 const jwtAuth = passport.authenticate('jwt', {session: false});
+const {doctorsSvc} = require('../../services/doctors');
+const {Patient} = require('../../models/patients');
 
-router.post('/', jwtAuth, function(req, res) {
-    if (typeof req.body.name.firstName !== 'string') {
-        return res.status(400).json({
-            message: 'Incorrect field type',
-            reason: 'ValidationError',
-            location: 'name.firstName'
+router.get('/', function(req, res) {
+    doctorsSvc.getAllDoctorsByPatientChronologically(req.patientId)
+        .then(function(doctors) {
+            res.json(doctors);
         });
-    }
+});
+
+router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
+    // if (typeof req.body.name.firstName !== 'string') {
+    //     return res.status(400).json({
+    //         message: 'Incorrect field type',
+    //         reason: 'ValidationError',
+    //         location: 'name.firstName'
+    //     });
+    // }
     // else if () {
 
     // }
+    console.log('req.body', req.body);
     let doctorData = new Doctor(req.body);
     doctorData._id = new mongoose.Types.ObjectId();
+    doctorData.patients = [mongoose.Types.ObjectId(req.patientId)];
     doctorData
         .save(function(err, doctor) {
             if (err) {
                 console.log(err);
             }
-            res.status(201).json(doctor);
+            Patient
+                .update({_id: req.patientId}, {$push: {doctors: doctor}})
+                .then(() => {
+                res.status(201).json(doctor);
+            });
         });
     return res.status(204);
 });
@@ -58,7 +73,7 @@ router.put('/:id', jwtAuth, bodyParser.json(), function(req,res) {
     Doctor
         .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
         .then(updatedDoctor => {
-            res.status(204).end();
+            res.status(200).json(updatedDoctor);
         })
         .catch(err => {
             res.status(500).json({ message: 'Something went wrong' });

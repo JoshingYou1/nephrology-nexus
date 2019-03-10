@@ -21,6 +21,7 @@ router.get('/', jwtAuth, function(req, res) {
 router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
     // Validate the field types
     if (typeof req.body.date !== 'string') {
+        console.log('req.body.date', req.body.date);
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
@@ -32,6 +33,7 @@ router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
     // }
     let appointmentData = new Appointment(req.body);
     appointmentData._id = new mongoose.Types.ObjectId();
+    appointmentData.patient = mongoose.Types.ObjectId(req.patientId);
     appointmentData
         .save(function(err, appointment) {
             if (err) {
@@ -68,7 +70,7 @@ router.put('/:id', jwtAuth, bodyParser.json(), function(req,res) {
     Appointment
         .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
         .then(updatedAppointment => {
-            res.status(204).end();
+            res.status(200).json(updatedAppointment);
         })
         .catch(err => {
             res.status(500).json({ message: 'Something went wrong' });
