@@ -9,6 +9,7 @@ const {Appointment} = require('../../models/appointments');
 const bodyParser = require('body-parser');
 const {appointmentsSvc} = require('../../services/appointments');
 const jwtAuth = passport.authenticate('jwt', {session: false});
+const moment = require('moment');
 
 
 router.get('/', jwtAuth, function(req, res) {
@@ -19,8 +20,7 @@ router.get('/', jwtAuth, function(req, res) {
 });
 
 router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
-    // Validate the field types
-    if (typeof req.body.date !== 'string') {
+    if (!moment.isDate(new Date(req.body.date))) {
         console.log('req.body.date', req.body.date);
         return res.status(400).json({
             message: 'Incorrect field type',
@@ -28,15 +28,25 @@ router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
             location: 'date'
         });
     }
-    // else if () {
-
-    // }
+    else if (typeof Number(req.body.address.zipCode) !== 'number') {
+        console.log('req.body.address.zipCode', req.body.address.zipCode);
+        return res.status(400).json({
+            message: 'Incorrect field type',
+            reason: 'ValidationError',
+            location: 'address.zipCode'
+        });
+    }
+    else {
+        console.log(req.body);
+    }
+    
     let appointmentData = new Appointment(req.body);
     appointmentData._id = new mongoose.Types.ObjectId();
     appointmentData.patient = mongoose.Types.ObjectId(req.patientId);
     appointmentData
         .save(function(err, appointment) {
             if (err) {
+                res.status(400).json(err);
                 console.log(err);
             }
             res.status(201).json(appointment);
@@ -51,12 +61,24 @@ router.put('/:id', jwtAuth, bodyParser.json(), function(req,res) {
         });
     }
 
-    if (typeof req.body.date !== 'string') {
+    if (!moment.isDate(new Date(req.body.date))) {
+        console.log('req.body.date', req.body.date);
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
             location: 'date'
         });
+    }
+    else if (typeof Number(req.body.address.zipCode) !== 'number') {
+        console.log('req.body.address.zipCode', req.body.address.zipCode);
+        return res.status(400).json({
+            message: 'Incorrect field type',
+            reason: 'ValidationError',
+            location: 'address.zipCode'
+        });
+    }
+    else {
+        console.log(req.body);
     }
 
     const updated = {};

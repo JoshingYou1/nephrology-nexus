@@ -73,7 +73,11 @@ let patients = [
         treatmentDays: 'Tue/Thu/Sat',
         treatmentTime: '9:30 a.m.',
         labResults: [
-            labResultsIdArray[0]
+            labResultsIdArray[0],
+            labResultsIdArray[1],
+            labResultsIdArray[2],
+            labResultsIdArray[3],
+            labResultsIdArray[4]
         ],
         clinic: clinicsIdArray[0],
         doctors: [

@@ -19,17 +19,14 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
-    // if (typeof req.body.name.firstName !== 'string') {
-    //     return res.status(400).json({
-    //         message: 'Incorrect field type',
-    //         reason: 'ValidationError',
-    //         location: 'name.firstName'
-    //     });
-    // }
-    // else if () {
-
-    // }
-    console.log('req.body', req.body);
+    if (typeof Number(req.body.address.zipCode) !== 'number') {
+        console.log('req.body.address.zipCode', req.body.address.zipCode);
+        return res.status(400).json({
+            message: 'Incorrect field type',
+            reason: 'ValidationError',
+            location: 'address.zipCode'
+        });
+    }
     let doctorData = new Doctor(req.body);
     doctorData._id = new mongoose.Types.ObjectId();
     doctorData.patients = [mongoose.Types.ObjectId(req.patientId)];
@@ -54,11 +51,12 @@ router.put('/:id', jwtAuth, bodyParser.json(), function(req,res) {
         });
     }
 
-    if (typeof req.body.name.firstName !== 'string') {
+    if (typeof Number(req.body.address.zipCode) !== 'number') {
+        console.log('req.body.address.zipCode', req.body.address.zipCode);
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
-            location: 'name.firstName'
+            location: 'address.zipCode'
         });
     }
 
