@@ -85,6 +85,11 @@ let patients = [
             doctorsIdArray[1],
             doctorsIdArray[2]
         ],
+        appointments: [
+            appointmentsIdArray[0],
+            appointmentsIdArray[1],
+            appointmentsIdArray[2]
+        ],
         username: 'robert.jones',
         password: 'hello'
     }),
