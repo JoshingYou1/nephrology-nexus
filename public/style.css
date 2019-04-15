@@ -658,7 +658,7 @@ fieldset {
     margin-right: auto;
 }
 
-.patient-address-header, .patient-phone-numbers-header, .hematology-header, .chemistry-header {
+.patient-address-header, .patient-phone-numbers-header, .hematology-header, .chemistry-header, .clinic-address-header {
     margin-top: 2em;
     text-decoration: underline;
 }
