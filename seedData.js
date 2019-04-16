@@ -577,7 +577,7 @@ const appointments = [
             street: '402 South Lakeside Dr',
             city: 'Jacksonville',
             state: 'FL',
-            zipCode: 35423
+            zipCode: 35422
         },
         phoneNumber: '904-943-2942',
         patient: patientsIdArray[0]
