@@ -24,7 +24,7 @@ const patientsController = require('./controllers/patientsController');
 const clinicsController = require('./controllers/clinicsController');
 const labResultsController = require('./controllers/labResultsController');
 const usersController = require('./controllers/usersController');
-const patientAuthController = require('./controllers/patientAuthController');
+const apiPatientAuthController = require('./controllers/api/apiPatientAuthController');
 
 const apiPatientsController = require('./controllers/api/apiPatientsController');
 const apiAppointmentsController = require('./controllers/api/apiAppointmentsController');
@@ -85,7 +85,7 @@ app.use('/clinics/:clinicId/patients/:patientId/lab-results', function(req, res,
     req.patientId = req.params.patientId;
     next();
 }, labResultsController);
-app.use('/patient/auth', patientAuthController);
+app.use('/api/patient/auth', apiPatientAuthController);
 
 app.use('/api/patients/:patientId', function(req, res, next) {
     req.patientId = req.params.patientId;

@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const {JWT_SECRET, JWT_EXPIRY} = require('../config');
+const {JWT_SECRET, JWT_EXPIRY} = require('../../config');
 const passport = require('passport');
 
 const patientAuth = passport.authenticate('patientLogin', {session: false});

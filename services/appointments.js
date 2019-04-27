@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {Appointment} = require('../models/appointments');
+const {Appointment} = require('../models/api/appointments');
 
 function getAllAppointmentsByPatientChronologically(patientId) {
     return Appointment.find({patient: patientId}).sort({'date': 1});

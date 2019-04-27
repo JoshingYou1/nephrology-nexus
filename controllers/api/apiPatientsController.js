@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const passport = require('passport');
 const {Patient} = require('../../models/patients');
-const {Doctor} = require('../../models/doctors');
-const {Appointment} = require('../../models/appointments');
+const {Doctor} = require('../../models/api/doctors');
+const {Appointment} = require('../../models/api/appointments');
 
 const {labResultsSvc} = require('../../services/lab-results');
 const jwtAuth = passport.authenticate('jwt', {session: false});

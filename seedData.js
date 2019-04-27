@@ -402,7 +402,7 @@ const labResults = [
     }),
     new LabResults({
         _id: labResultsIdArray[4],
-        date: '6/19/2012',
+        date: '06/19/2012',
         hematology: {
             wbcCount: 6.42,
             rbcCount: 4.79,
