@@ -11,6 +11,8 @@ const {generateAppointmentData} = require('../../models/api/test-appointments-in
 const {generatePatientData} = require('../../models/test-patients-integration');
 const {Appointment} = require('../../../models/api/appointments');
 const {Patient} = require('../../../models/patients');
+const secret = 'neverShareYourSecret';
+const JWT_EXPIRY = '7d';
 
 
 const expect = chai.expect;
@@ -21,7 +23,6 @@ const authenticatedUser = request.agent(app);
 
 describe('Appointment controller', function() {
     let patientId;
-    let token;
 
     before(function() {
         return runServer(TEST_DATABASE_URL);
@@ -38,16 +39,21 @@ describe('Appointment controller', function() {
             username: patient.username,
             password: patient.password
         };
+        let token = jwt.sign({patient}, secret, {
+            subject: patient.username,
+            expiresIn: JWT_EXPIRY,
+            algorithm: 'HS256'
+        });
         patient.save(function(err, patient) {
             patientId = patient._id;
 
             authenticatedUser
                 .post('/api/patient/auth/login')
                 .send(userCredentials)
+                .set('Authorization', `Bearer ${token}`)
                 .end(function (err, response) {
                     expect('Location', `/api/patients/${patientId}/appointments`);
                     expect(response.statusCode).to.equal(302);
-                    token = response.body.token;
                     done();
                 });
         });
