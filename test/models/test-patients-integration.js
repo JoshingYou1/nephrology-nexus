@@ -38,7 +38,31 @@ function generatePatientData() {
             home: faker.phone.phoneNumberFormat(0),
             cell: faker.phone.phoneNumberFormat(0),
             work: faker.phone.phoneNumberFormat(0)
-        }
+        },
+        primaryInsurance: {
+            insuranceCompany: faker.company.companyName(),
+            nameOfCardHolder: {
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName()
+            },
+            policyNumber: faker.random.number(100000000),
+            dateOfBirthOfCardHolder: faker.date.past(),
+            socialSecurityNumberOfCardHolder: faker.helpers.replaceSymbolWithNumber('###-##-####')
+        },
+        secondaryInsurance: {
+            insuranceCompany: faker.company.companyName(),
+            nameOfCardHolder: {
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName()
+            },
+            policyNumber: faker.random.number(100000000),
+            dateOfBirthOfCardHolder: faker.date.past(),
+            socialSecurityNumberOfCardHolder: faker.helpers.replaceSymbolWithNumber('###-##-####')
+        },
+        treatmentDays: faker.fake('{{date.weekday}}/{{date.weekday}}/{{date.weekday}}'),
+        treatmentTime: faker.random.word(),
+        username: faker.internet.userName(),
+        password: faker.internet.password()
     };
 }
 

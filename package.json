@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "seed": "node seedData.js",
-    "test": "mocha --recursive --exit",
+    "test": "mocha --recursive --exit --timeout 10000",
     "start": "node server.js"
   },
   "author": "Joshua Drumm",

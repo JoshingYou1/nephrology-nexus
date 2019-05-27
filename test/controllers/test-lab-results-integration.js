@@ -23,7 +23,7 @@ const userCredentials = {
     lastName: faker.name.lastName(),
     username: faker.internet.userName(),
     password: faker.internet.password()
-}
+};
 
 describe('Lab results controller', function() {
     let clinicId = '';

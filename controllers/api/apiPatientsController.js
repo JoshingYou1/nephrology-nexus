@@ -36,14 +36,6 @@ router.put('/', jwtAuth, function(req, res) {
         });
     }
 
-    if (typeof req.body.socialSecurityNumber !== 'string') {
-        return res.status(400).json({
-            message: 'Incorrect field type',
-            reason: 'ValidationError',
-            location: 'socialSecurityNumber'
-        });
-    }
-
     const updated = {};
     const updateableFields = ['socialSecurityNumber', 'address', 'phoneNumbers'];
     updateableFields.forEach(field => {

@@ -10,8 +10,8 @@ const co = require('co');
 const {Patient} = require('./models/patients');
 const {Clinic} = require('./models/clinics');
 const {LabResults} = require('./models/lab-results');
-const {Doctor} = require('./models/doctors');
-const {Appointment} = require('./models/appointments');
+const {Doctor} = require('./models/api/doctors');
+const {Appointment} = require('./models/api/appointments');
 
 mongoose.set('debug', true);
 
@@ -91,7 +91,7 @@ let patients = [
             appointmentsIdArray[2]
         ],
         username: 'robert.jones',
-        password: 'hello'
+        password: 'rjones'
     }),
     new Patient({
         _id: patientsIdArray[1],
@@ -118,7 +118,7 @@ let patients = [
         ],
         clinic: clinicsIdArray[0],
         username: 'betty.crocker',
-        password: 'hello'
+        password: 'bcrocker'
     }),
     new Patient({
         _id: patientsIdArray[2],
@@ -145,7 +145,7 @@ let patients = [
         ],
         clinic: clinicsIdArray[1],
         username: 'michael.williams',
-        password: 'hello'
+        password: 'mwilliams'
     }),
     new Patient({
         _id: patientsIdArray[3],
@@ -172,7 +172,7 @@ let patients = [
         ],
         clinic: clinicsIdArray[2],
         username: 'meredith.edwards',
-        password: 'hello'
+        password: 'medwards'
     }),
     new Patient({
         _id: patientsIdArray[4],
@@ -199,7 +199,7 @@ let patients = [
         ],
         clinic: clinicsIdArray[3],
         username: 'david.baker',
-        password: 'hello'
+        password: 'dbaker'
     })
 ]
 

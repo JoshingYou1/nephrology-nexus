@@ -21,7 +21,7 @@ const userCredentials = {
     lastName: faker.name.lastName(),
     username: faker.internet.userName(),
     password: faker.internet.password()
-}
+};
 
 describe('Patient controller', function() {
     let clinicId = '';
