@@ -16,7 +16,6 @@ router.get('/', jwtAuth, function(req, res) {
     Patient
         .findById(req.patientId)
         .populate('clinic')
-        // .populate('doctors')
         .then(function(patient) {
             res.json(patient);
         });
