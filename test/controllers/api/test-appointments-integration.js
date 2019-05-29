@@ -59,7 +59,6 @@ describe('Appointment controller', function() {
                 expect(response.statusCode).to.equal(302);
                 done();
             });
-            done();
 
             // authenticatedUser
             //     .post('/api/patient/auth/login')
@@ -129,7 +128,6 @@ describe('Appointment controller', function() {
         //             expect(resAppointment.with).to.equal(appointment.with);
         //             done();
         //         });
-        //         done();
         // });
     });
 });
