@@ -11,8 +11,8 @@ const {generateAppointmentData} = require('../../models/api/test-appointments-in
 const {generatePatientData} = require('../../models/test-patients-integration');
 const {Appointment} = require('../../../models/api/appointments');
 const {Patient} = require('../../../models/patients');
-const secret = 'neverShareYourSecret';
-const JWT_EXPIRY = '7d';
+const {JWT_SECRET, JWT_EXPIRY} = require('../../../config');
+
 
 
 const expect = chai.expect;
@@ -25,6 +25,7 @@ const patient = new Patient(generatePatientData());
 describe('Appointment controller', function() {
     let patientId;
     let userCredentials;
+    let patientCredentials;
     let token;
 
     before(function() {
@@ -36,55 +37,41 @@ describe('Appointment controller', function() {
     });
 
     before(function (done) {
-        userCredentials = {
-            username: patient.username,
-            password: patient.password
-        };
-        token = jwt.sign({patient}, secret, {
-            subject: patient.username,
-            expiresIn: JWT_EXPIRY,
-            algorithm: 'HS256'
-        });
-        patient.save(function(err, patient) {
-            patientId = patient._id;
 
-            authenticatedUser
-            .post('/api/patient/auth/login')
+        userCredentials = {
+            firstName: faker.name.firstName(),
+            lastName: faker.name.lastName(),
+            username: faker.internet.userName(),
+            password: faker.internet.password()
+        }
+
+        authenticatedUser
+            .post('/users/register')
             .send(userCredentials)
-            .set('Authorization', `Bearer ${token}`)
             .end(function (err, response) {
-                console.log("authenticatedUser.end");
-                console.log(err);
-                expect('Location', `/api/patients/${patientId}/appointments`);
                 expect(response.statusCode).to.equal(302);
                 done();
             });
-
-            // authenticatedUser
-            //     .post('/api/patient/auth/login')
-            //     .send(userCredentials)
-            //     .set('Authorization', `Bearer ${token}`)
-            //     .end(function (err, response) {
-            //         expect('Location', `/api/patients/${patientId}/appointments`);
-            //         expect(response.statusCode).to.equal(302);
-            //         done();
-            //     });
         });
-    });
 
     describe('GET endpoint for appointments', function() {
         it('Should retrieve all existing appointments that belong to a given user', function(done) {
             let res;
 
-            token = jwt.sign({patient}, secret, {
+            patientCredentials = {
+                username: patient.username,
+                password: patient.password
+            };
+            console.log('patient', patient)
+            token = jwt.sign({patient}, JWT_SECRET, {
                 subject: patient.username,
                 expiresIn: JWT_EXPIRY,
                 algorithm: 'HS256'
             });
     
             authenticatedUser
-                // .post('/api/patient/auth/login')
-                // .send(userCredentials)
+                .post('/api/patient/auth/login')
+                .send(patientCredentials)
                 .get(`/api/patients/${patientId}/appointments`)
                 .set('Authorization', `Bearer ${token}`)
                 .then(function(_res) {
