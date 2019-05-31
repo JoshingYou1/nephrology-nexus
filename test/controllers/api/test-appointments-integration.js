@@ -57,6 +57,8 @@ describe('Appointment controller', function() {
     describe('GET endpoint for appointments', function() {
         it('Should retrieve all existing appointments that belong to a given user', function(done) {
             let res;
+            patientId = patient._id;
+            console.log('patientId:', patientId);
 
             patientCredentials = {
                 username: patient.username,
@@ -68,12 +70,14 @@ describe('Appointment controller', function() {
                 expiresIn: JWT_EXPIRY,
                 algorithm: 'HS256'
             });
+            console.log('token:', token);
+            console.log('authenticatedUser', authenticatedUser)
     
             authenticatedUser
                 .post('/api/patient/auth/login')
                 .send(patientCredentials)
-                .get(`/api/patients/${patientId}/appointments`)
                 .set('Authorization', `Bearer ${token}`)
+                .get(`/api/patients/${patientId}/appointments`)
                 .then(function(_res) {
                     res = _res;
                     expect(res).to.have.status(200);

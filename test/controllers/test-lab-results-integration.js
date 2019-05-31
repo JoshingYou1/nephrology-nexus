@@ -42,20 +42,20 @@ describe('Lab results controller', function() {
         clinic.save(function(err, clinic) {
             clinicId = clinic._id;
 
-        const patient = new Patient(generatePatientData());
-        patient.clinic = clinicId;
-        patient.save(function(err, patient) {
-            patientId = patient._id;
+            const patient = new Patient(generatePatientData());
+            patient.clinic = clinicId;
+            patient.save(function(err, patient) {
+                patientId = patient._id;
 
-        authenticatedUser
-            .post('/users/register')
-            .send(userCredentials)
-            .end(function (err, response) {
-                expect('Location', '/patients');
-                expect(response.statusCode).to.equal(302);
-                done();
+            authenticatedUser
+                .post('/users/register')
+                .send(userCredentials)
+                .end(function (err, response) {
+                    expect('Location', '/patients');
+                    expect(response.statusCode).to.equal(302);
+                    done();
+                });
             });
-        });
         });
     });
 
