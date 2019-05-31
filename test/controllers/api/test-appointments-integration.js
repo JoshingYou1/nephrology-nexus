@@ -36,20 +36,24 @@ describe('Appointment controller', function() {
 
     before(function (done) {
         const patient = new Patient(generatePatientData());
+        console.log('patient.username:', patient.username);
+        console.log('patient.password:', patient.password);
         patient.save(function(err, patient) {
             patientId = patient._id;
+            console.log('patientId:', patientId);
 
             patientCredentials = {
                 username: patient.username,
                 password: patient.password
             };
+            console.log('patientCredentials:', patientCredentials);
 
             authenticatedUser
                 .post('/api/patient/auth/login')
                 .send(patientCredentials)
                 .set('Authorization', `Bearer ${token}`)
                 .end(function (err, response) {
-                    console.log('response:', response);
+                    // console.log('response:', response);
                     token = response.body.authToken;
                     done();
                 });

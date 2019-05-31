@@ -62,7 +62,86 @@ function generatePatientData() {
         treatmentDays: faker.fake('{{date.weekday}}/{{date.weekday}}/{{date.weekday}}'),
         treatmentTime: faker.random.word(),
         username: faker.internet.userName(),
-        password: faker.internet.password()
+        password: faker.internet.password(),
+        appointments: [
+            {
+                _id: new mongoose.Types.ObjectId(),
+                description: faker.random.words(),
+                date: faker.date.past(),
+                time: faker.random.word(),
+                with: faker.name.lastName(),
+                title: faker.name.jobTitle(),
+                where: faker.company.companyName(),
+                address: {
+                    street: faker.address.streetAddress('###'),
+                    city: faker.address.city(3),
+                    state: faker.address.stateAbbr(),
+                    zipCode: faker.random.number({min: '0000', max: '9999'})
+                },
+                phoneNumber: faker.phone.phoneNumberFormat(0)
+            }
+        ],
+        doctors: [
+            {
+                _id: new mongoose.Types.ObjectId(),
+                name: {
+                    firstName: faker.name.firstName(),
+                    lastName: faker.name.lastName()
+                },
+                practice: faker.name.jobTitle(),
+                company: faker.company.companyName(),
+                address: {
+                    street: faker.address.streetAddress('###'),
+                    city: faker.address.city(3),
+                    state: faker.address.stateAbbr(),
+                    zipCode: faker.random.number({min: '0000', max: '9999'})
+                },
+                phoneNumber: faker.phone.phoneNumberFormat(0),
+                faxNumber: faker.phone.phoneNumberFormat(0)
+            }
+        ],
+        labResults: [
+            {
+                _id: new mongoose.Types.ObjectId(),
+                date: faker.date.past(2),
+                hematology: {
+                    wbcCount: Number(faker.finance.amount(0,20,2)),
+                    rbcCount: Number(faker.finance.amount(0,10,2)),
+                    hemoglobin: Number(faker.finance.amount(0,20,1)),
+                    hematocrit: Number(faker.finance.amount(0,75,1)),
+                    plateletCount: Number(faker.finance.amount(0,600,0))
+                },
+                chemistry: {
+                    bun: Number(faker.finance.amount(0,75,0)),
+                    creatinine: Number(faker.finance.amount(0,20,2)),
+                    sodium: Number(faker.finance.amount(0,250,0)),
+                    potassium: Number(faker.finance.amount(0,15,1)),
+                    calcium: Number(faker.finance.amount(0,20,1)),
+                    phosphorus: Number(faker.finance.amount(0,15,1)),
+                    albumin: Number(faker.finance.amount(0,10,1)),
+                    glucose: Number(faker.finance.amount(0,400,0)),
+                    iron: Number(faker.finance.amount(0,300,0)),
+                    cholesterol: Number(faker.finance.amount(0,500,0)),
+                    triglycerides: Number(faker.finance.amount(0,500,0))
+                }
+            }
+        ],
+        clinic: {
+            _id: new mongoose.Types.ObjectId(),
+            name: faker.company.companyName(),
+            address: {
+                street: faker.address.streetAddress('###'),
+                city: faker.address.city(3),
+                state: faker.address.stateAbbr(),
+                zipCode: faker.random.number({min: '0000', max: '9999'})
+            },
+            phoneNumber: faker.phone.phoneNumberFormat(0),
+            faxNumber: faker.phone.phoneNumberFormat(0),
+            clinicManager: {
+                firstName: faker.name.firstName(),
+                lastName: faker.name.lastName()
+            }
+        }
     };
 }
 
