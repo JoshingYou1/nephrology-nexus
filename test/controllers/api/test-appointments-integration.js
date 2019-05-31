@@ -73,7 +73,7 @@ describe('Appointment controller', function() {
             console.log('token:', token);
             console.log('authenticatedUser', authenticatedUser)
     
-            return authenticatedUser
+            authenticatedUser
                 .post('/api/patient/auth/login')
                 .send(patientCredentials)
                 .set('Authorization', `Bearer ${token}`)
