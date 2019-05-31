@@ -20,13 +20,11 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 const authenticatedUser = request.agent(app);
-const patient = new Patient(generatePatientData());
+let token;
 
 describe('Appointment controller', function() {
     let patientId;
-    let userCredentials;
     let patientCredentials;
-    let token;
 
     before(function() {
         return runServer(TEST_DATABASE_URL);
@@ -37,47 +35,36 @@ describe('Appointment controller', function() {
     });
 
     before(function (done) {
-
-        userCredentials = {
-            firstName: faker.name.firstName(),
-            lastName: faker.name.lastName(),
-            username: faker.internet.userName(),
-            password: faker.internet.password()
-        }
-
-        authenticatedUser
-            .post('/users/register')
-            .send(userCredentials)
-            .end(function (err, response) {
-                expect(response.statusCode).to.equal(302);
-                done();
-            });
-        });
-
-    describe('GET endpoint for appointments', function() {
-        it('Should retrieve all existing appointments that belong to a given user', function(done) {
-            let res;
+        const patient = new Patient(generatePatientData());
+        patient.save(function(err, patient) {
             patientId = patient._id;
-            console.log('patientId:', patientId);
 
             patientCredentials = {
                 username: patient.username,
                 password: patient.password
             };
-            console.log('patient', patient)
-            token = jwt.sign({patient}, JWT_SECRET, {
-                subject: patient.username,
-                expiresIn: JWT_EXPIRY,
-                algorithm: 'HS256'
-            });
-            console.log('token:', token);
-            console.log('authenticatedUser', authenticatedUser)
-    
+
             authenticatedUser
                 .post('/api/patient/auth/login')
                 .send(patientCredentials)
                 .set('Authorization', `Bearer ${token}`)
+                .end(function (err, response) {
+                    console.log('response:', response);
+                    token = response.body.authToken;
+                    done();
+                });
+        });
+    });
+
+    describe('GET endpoint for appointments', function() {
+        it('Should retrieve all existing appointments that belong to a given user', function(done) {
+            let res;
+
+            console.log('token:', token);
+    
+            authenticatedUser
                 .get(`/api/patients/${patientId}/appointments`)
+                .set('Authorization', `Bearer ${token}`)
                 .then(function(_res) {
                     res = _res;
                     expect(res).to.have.status(200);
