@@ -20,11 +20,17 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 
 const authenticatedUser = request.agent(app);
-let token;
+const patient = new Patient(generatePatientData());
 
 describe('Appointment controller', function() {
     let patientId;
     let patientCredentials;
+    // let token;
+    let token = jwt.sign({patient}, JWT_SECRET, {
+            subject: patient.username,
+            expiresIn: JWT_EXPIRY,
+            algorithm: 'HS256'
+        });
 
     before(function() {
         return runServer(TEST_DATABASE_URL);
@@ -35,26 +41,20 @@ describe('Appointment controller', function() {
     });
 
     before(function (done) {
-        const patient = new Patient(generatePatientData());
-        console.log('patient.username:', patient.username);
-        console.log('patient.password:', patient.password);
         patient.save(function(err, patient) {
             patientId = patient._id;
-            console.log('patientId:', patientId);
 
             patientCredentials = {
                 username: patient.username,
                 password: patient.password
             };
-            console.log('patientCredentials:', patientCredentials);
 
             authenticatedUser
                 .post('/api/patient/auth/login')
                 .send(patientCredentials)
                 .set('Authorization', `Bearer ${token}`)
                 .end(function (err, response) {
-                    // console.log('response:', response);
-                    token = response.body.authToken;
+                    // token = response.body.authToken;
                     done();
                 });
         });
@@ -67,8 +67,10 @@ describe('Appointment controller', function() {
             console.log('token:', token);
     
             authenticatedUser
-                .get(`/api/patients/${patientId}/appointments`)
+                .post('/api/patient/auth/login')
+                // .send(patientCredentials)
                 .set('Authorization', `Bearer ${token}`)
+                .get(`/api/patients/${patientId}/appointments`)
                 .then(function(_res) {
                     res = _res;
                     expect(res).to.have.status(200);
@@ -81,11 +83,11 @@ describe('Appointment controller', function() {
         // it("Should return appointments with the correct fields", function(done) {
         //     let resAppointment;
 
-        //     token = jwt.sign({patient}, secret, {
-        //         subject: patient.username,
-        //         expiresIn: JWT_EXPIRY,
-        //         algorithm: 'HS256'
-        //     });
+            // token = jwt.sign({patient}, secret, {
+            //     subject: patient.username,
+            //     expiresIn: JWT_EXPIRY,
+            //     algorithm: 'HS256'
+            // });
         //     console.log('token', token);
         //     console.log('patientId', patientId);
             
