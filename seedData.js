@@ -113,6 +113,16 @@ let patients = [
             cell: null,
             work: null
         },
+        primaryInsurance: {
+            insuranceCompany: 'Medicaid',
+            nameOfCardHolder: {
+                firstName: 'Betty',
+                lastName: 'Crocker'
+            },
+            policyNumber: 843818238,
+            dateOfBirthOfCardHolder: '08/02/1951',
+            socialSecurityNumberOfCardHolder: '380748274'
+        },
         labResults: [
             labResultsIdArray[1]
         ],
@@ -139,6 +149,16 @@ let patients = [
             home: '904-828-8211',
             cell: '904-912-9233',
             work: '904-903-1283'
+        },
+        primaryInsurance: {
+            insuranceCompany: 'Medicaid',
+            nameOfCardHolder: {
+                firstName: 'Michael',
+                lastName: 'Williams'
+            },
+            policyNumber: 924218238,
+            dateOfBirthOfCardHolder: '02/17/1974',
+            socialSecurityNumberOfCardHolder: '086785372'
         },
         labResults: [
             labResultsIdArray[2]
@@ -167,6 +187,16 @@ let patients = [
             cell: '904-875-9239',
             work: null
         },
+        primaryInsurance: {
+            insuranceCompany: 'Ally Health',
+            nameOfCardHolder: {
+                firstName: 'Meredith',
+                lastName: 'Edwards'
+            },
+            policyNumber: 924291025,
+            dateOfBirthOfCardHolder: '03/09/1948',
+            socialSecurityNumberOfCardHolder: '378472109'
+        },
         labResults: [
             labResultsIdArray[3]
         ],
@@ -193,6 +223,16 @@ let patients = [
             home: null,
             cell: null,
             work: null
+        },
+        primaryInsurance: {
+            insuranceCompany: 'Cigna',
+            nameOfCardHolder: {
+                firstName: 'David',
+                lastName: 'Baker'
+            },
+            policyNumber: 736411025,
+            dateOfBirthOfCardHolder: '11/30/1943',
+            socialSecurityNumberOfCardHolder: '938848321'
         },
         labResults: [
             labResultsIdArray[4]

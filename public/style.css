@@ -24,7 +24,7 @@ button:hover {
 
 label {
     color: #545149;
-    font-size: 0.9em;
+    font-size: 1em;
     font-weight: bold;
 }
 
@@ -58,8 +58,8 @@ header {
     grid-column-end: last;
     grid-row-start: row1-start;
     grid-row-end: row1-end;
-    margin-bottom: 0.2em;
     background-color: #DDD5CA;
+    height: 70px;
 }
 
 a {
@@ -124,7 +124,7 @@ footer {
         vertical-align: middle;
 }
 
-.clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1, .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .wbc-span-1,
+.clinic-phone-number-span-1, .clinic-fax-number-span-1, .clinic-manager-span-1, .sex-span-1, .dob-span-1, .ssn-span-1, .wbc-span-1,
     .rbc-span-1, .hemoglobin-span-1, .hematocrit-span-1, .platelet-count-span-1, .bun-span-1, .creatinine-span-1, .sodium-span-1,.potassium-span-1,
     .calcium-span-1, .phosphorus-span-1, .albumin-span-1, .glucose-span-1, .iron-span-1, .cholesterol-span-1, .triglycerides-span-1 {
         font-weight: bold;
@@ -142,15 +142,25 @@ footer {
 
 .sex-span-1, .dob-span-1, .ssn-span-1, .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
     float: left;
-    margin-left: 4em;
+    margin-left: 3em;
+}
+
+.insurance-span-1 {
+    float: left;
+    margin-left: 2em;
 }
 
 .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
     float: right;
-    margin-right: 4em;
+    margin-right: 3em;
 }
 
-.cell-phone-span-1, .work-phone-span-1 {
+.insurance-span-2-container, .insurance-span-2 {
+    float: right;
+    margin-right: 2em;
+}
+
+.home-phone-span-1, .cell-phone-span-1, .work-phone-span-1, .insurance-span-1 {
     font-weight: bold;
 }
 
@@ -176,6 +186,7 @@ h1 {
 }
 
 h3 {
+    font-size: 1.3em;
     text-align: center;
 }
 
@@ -224,7 +235,7 @@ fieldset {
 }
 
 .register-p, .login-p {
-    font-size: 0.8em;
+    font-size: 1em;
     text-align: center;
 }
 
@@ -279,13 +290,13 @@ fieldset {
 
 .header-title {
     background-color: #DDD5CA;
+    display: inline-block;
+    padding-top: 10px;
 }
 
 .logo {
-    height: 2.5em;
-    margin-top: 0.5em;
+    height: 50px;
     margin-left: 1em;
-    margin-bottom: 0.2em;
     background-color: #DDD5CA;
 }
 
@@ -296,15 +307,16 @@ fieldset {
 }
 
 .header-nav {
-    float: right;
-    margin-top: 1.2em;
-    margin-right: 1em;
-    font-size: 0.8em;
+    position: absolute;
+    right: 1em;
+    top: 17.4px;
+    font-size: 1em;
     background-color: #DDD5CA;
 }
 
-.username-span {
+.username-p {
     background-color: #DDD5CA;
+    margin: 0;
 }
 
 .logout-link {
@@ -477,12 +489,13 @@ fieldset {
     margin-top: 2em;
 }
 
-.clinic-data, .clinic-address-data, .manager-data, .patient-data, .patient-address-data, .patient-phone-number-data {
+.clinic-data, .clinic-address-data, .manager-data, .patient-data, .patient-address-data, .patient-phone-number-data,
+    .patient-primary-insurance-data, .patient-secondary-insurance-data {
     padding: 0;
     margin: 0;
 }
 
-.clinic-address-data, .patient-address-data {
+.clinic-address-data, .patient-address-data, .patient-phone-number-data, .patient-primary-insurance-data {
     margin-bottom: 4em;
 }
 
@@ -642,13 +655,18 @@ fieldset {
 }
 
 .patient-first-name-label, .patient-last-name-label, .patient-dob-label, .patient-sex-label, .patient-ssn-label, .patient-street-label,
-    .patient-city-label, .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
+    .patient-city-label, .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, 
+    .patient-work-phone-label, .patient-username-label, .patient-password-label, .patient-insurance-company-label, 
+    .patient-insurance-first-name-label, .patient-insurance-last-name-label, .patient-insurance-policy-number-label,
+    .patient-insurance-dob-label, .patient-insurance-ssn-label {
         display: block;
         margin-bottom: 0.2em;
 }
 
 .patient-last-name-label, .patient-dob-label, .patient-sex-label, .patient-ssn-label, .patient-street-label, .patient-city-label,
-    .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label {
+    .patient-state-label, .patient-zip-code-label, .patient-home-phone-label, .patient-cell-phone-label, .patient-work-phone-label,
+    .patient-username-label, .patient-password-label, .patient-insurance-company-label, .patient-insurance-first-name-label, 
+    .patient-insurance-last-name-label, .patient-insurance-policy-number-label, .patient-insurance-dob-label, .patient-insurance-ssn-label {
         margin-top: 1em;
 }
 
@@ -970,6 +988,23 @@ fieldset {
     padding: 1em;
 }
 
+.demo {
+    text-align: center;
+    font-size: 1em;
+}
+
+.demo-span {
+    color: #83190A;
+}
+
+.logo-link {
+    background-color: #DDD5CA;
+}
+
+.button-container {
+    padding-top: 1.5em;
+}
+
 @media only screen and (min-width: 375px) {
     .login-container, .registration-container {
         min-height: 100%;
@@ -1140,7 +1175,7 @@ fieldset {
     .login-container, .registration-container {
         min-height: 100%;
         display: grid;
-        grid-template-columns: [first] 1fr [line2] 2fr [line3] 1fr [last];
+        grid-template-columns: [first] 1fr [line2] 3fr [line3] 1fr [last];
         grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
         grid-template-areas:
             "title title title"
@@ -1275,8 +1310,7 @@ fieldset {
 
 @media only screen and (min-width: 768px) {
     header {
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
+        height: 80px
     }
 
     .message-p, .success-message-p, .error-message-p {
@@ -1288,8 +1322,10 @@ fieldset {
         margin-left: auto;
         margin-right: auto;
         text-align: center;
-        font-size: 1.2em;
+        font-size: 1.6em;
         font-style: italic;
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
 
     .logo {
@@ -1298,6 +1334,11 @@ fieldset {
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 0;
+    }
+
+    .header-nav {
+        font-size: 1.1em;
+        top: 20px;
     }
 
     .login-requirements, .registration-requirements {
@@ -1309,33 +1350,26 @@ fieldset {
     }
 
     .register-p {
-        font-size: 1em;
+        font-size: 1.2em;
     }
 
     .login-p {
-        font-size: 1em;
+        font-size: 1.2em;
     }
 
     .title-span {
         display: inline-block;
+        vertical-align: middle;
     }
 
     h1 {
         font-size: 2.5em;
     }
 
-    .header-nav {
-        margin-top: -3.1em;
-    }
-
-    .header-title {
-        font-size: 1.3em;
-    }
-
     .login-container, .registration-container {
         min-height: 100%;
         display: grid;
-        grid-template-columns: [first] 1fr [line2] 1fr [line3] 1fr [last];
+        grid-template-columns: [first] 1fr [line2] 1.4fr [line3] 1fr [last];
         grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
         grid-template-areas:
             "title title title"
@@ -1346,14 +1380,6 @@ fieldset {
 
     .title {
         font-size: 3em;
-    }
-
-    .register-p {
-        font-size: 0.9em;
-    }
-
-    .login-p {
-        font-size: 0.9em;
     }
 
     h3 {
@@ -1405,17 +1431,17 @@ fieldset {
         margin-left: 10em;
     }
 
+    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
+        float: right;
+        margin-right: 10em;
+    }
+
     .patient-address-p-1, .patient-address-p-2 {
         font-size: 1.2em;
     }
 
     .home-phone-span-1, .cell-phone-span-1, .work-phone-span-1 {
         font-size: 1.2em;
-    }
-
-    .sex-span-2, .dob-span-2, .ssn-span-2, .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
-        float: right;
-        margin-right: 10em;
     }
 
     .home-phone-span-2, .cell-phone-span-2, .work-phone-span-2 {
@@ -1457,7 +1483,7 @@ fieldset {
         font-size: 1.7em;
     }
 
-    .patient-dob-input {
+    .patient-dob-input, .patient-insurance-dob-input {
         padding: 0.2em;
     }
 
@@ -1673,13 +1699,17 @@ fieldset {
     .lab-results-icon {
         height: 11em;
     }
+
+    .demo {
+        font-size: 1.2em;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
     .login-container, .registration-container {
         min-height: 100%;
         display: grid;
-        grid-template-columns: [first] 1fr [line2] 0.67fr [line3] 1fr [last];
+        grid-template-columns: [first] 1fr [line2] 0.9fr [line3] 1fr [last];
         grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
         grid-template-areas:
             "title title title"
@@ -1771,7 +1801,7 @@ fieldset {
     .login-container, .registration-container {
         min-height: 100%;
         display: grid;
-        grid-template-columns: [first] 1fr [line2] 0.44fr [line3] 1fr [last];
+        grid-template-columns: [first] 1fr [line2] 0.55fr [line3] 1fr [last];
         grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
         grid-template-areas:
             "title title title"
@@ -1859,7 +1889,7 @@ fieldset {
     .login-container, .registration-container {
         min-height: 100%;
         display: grid;
-        grid-template-columns: [first] 1fr [line2] 0.44fr [line3] 1fr [last];
+        grid-template-columns: [first] 1fr [line2] 0.5fr [line3] 1fr [last];
         grid-template-rows: [row1-start] auto [row1-end] 1fr [third-line] auto [last-line];
         grid-template-areas:
             "title title title"

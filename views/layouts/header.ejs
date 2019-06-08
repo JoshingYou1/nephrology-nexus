@@ -1,9 +1,14 @@
 <header role="banner">
-    <span class="header-title"><img src="/kidney.svg" class="logo" alt="Nephrology Nexus Logo">&nbsp;&nbsp;<span class="title-span">Nephrology Nexus</span></span>
+    <div class="header-title">
+        <a class="logo-link" href="/clinics">
+            <img src="/kidney.svg" class="logo" alt="Nephrology Nexus Logo">
+            <span class="title-span">Nephrology Nexus</span>
+        </a>
+    </div>
     <nav class="header-nav" role="navigation">
         <% if (user) { %>
-            <span class="username-span"><%= user.username %></span>
-            <div><a class="logout-link" href="/users/logout">Logout</a></div>
+            <p class="username-p"><%= user.username %></p>
+            <a class="logout-link" href="/users/logout">Logout</a>
         <% } %>
     </nav>
 </header>

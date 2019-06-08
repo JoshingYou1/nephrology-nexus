@@ -27,14 +27,14 @@ const patientSchema = mongoose.Schema({
         work: {type: String}
     },
     primaryInsurance: {
-        insuranceCompany: {type: String},
+        insuranceCompany: {type: String, required: true},
         nameOfCardHolder: {
-            firstName: {type: String},
-            lastName: {type: String}
+            firstName: {type: String, required: true},
+            lastName: {type: String, required: true}
         },
-        policyNumber: {type: Number},
-        dateOfBirthOfCardHolder: {type: String},
-        socialSecurityNumberOfCardHolder: {type: String}
+        policyNumber: {type: Number, required: true},
+        dateOfBirthOfCardHolder: {type: String, required: true},
+        socialSecurityNumberOfCardHolder: {type: String, required: true}
     },
     secondaryInsurance: {
         insuranceCompany: {type: String},

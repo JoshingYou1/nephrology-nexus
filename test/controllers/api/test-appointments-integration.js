@@ -65,12 +65,11 @@ describe('Appointment controller', function() {
             let res;
 
             console.log('token:', token);
+            console.log('patientId:', patientId);
     
             authenticatedUser
-                .post('/api/patient/auth/login')
-                // .send(patientCredentials)
-                .set('Authorization', `Bearer ${token}`)
                 .get(`/api/patients/${patientId}/appointments`)
+                .set('Authorization', `Bearer ${token}`)
                 .then(function(_res) {
                     res = _res;
                     expect(res).to.have.status(200);
