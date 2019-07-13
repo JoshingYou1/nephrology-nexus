@@ -18,28 +18,17 @@ mongoose.set('debug', true);
 
 function getIds() {
     let arr = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 6; i++) {
         arr.push(new mongoose.Types.ObjectId());
     }
     return arr;
 }
 
-const usersIdArray = getIds();
 const patientsIdArray = getIds();
 const clinicsIdArray = getIds();
 const labResultsIdArray = getIds();
 const doctorsIdArray = getIds();
 const appointmentsIdArray = getIds();
-
-let users = [
-    new User({
-        _id: usersIdArray[0],
-        username: 'kidney',
-        password: 'dialysis1',
-        firstName: 'John',
-        lastName: 'Doe'
-    })
-];
 
 let patients = [
     new Patient({
@@ -721,11 +710,6 @@ exec()
 function exec() {
     return co(function* () {
         const db = mongoose.createConnection(config.DATABASE_URL);
-        //make user schema for this db connection
-        const user = db.model('User', User.schema);
-        // clear the users collection
-        console.log('Removing users collection');
-        yield user.remove();
         //make patient schema for this db connection
         const patient = db.model('Patient', Patient.schema);
         // clear the patients collection
@@ -752,10 +736,6 @@ function exec() {
         console.log('Removing appointments collection');
         yield appointment.remove();
     
-        //seed the user data
-        console.log('Seeding users..');
-        yield user.insertMany(users).then(() => ({ ok: 1 }));
-        console.log('Users successfully imported!');
         // seed the patient data
         console.log('Seeding patients..');
         yield patient.insertMany(patients).then(() => ({ ok: 1 }));
