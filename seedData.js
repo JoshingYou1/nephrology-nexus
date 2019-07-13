@@ -10,6 +10,7 @@ const co = require('co');
 const {Patient} = require('./models/patients');
 const {Clinic} = require('./models/clinics');
 const {LabResults} = require('./models/lab-results');
+const {User} = require('./models/users');
 const {Doctor} = require('./models/api/doctors');
 const {Appointment} = require('./models/api/appointments');
 
@@ -23,11 +24,22 @@ function getIds() {
     return arr;
 }
 
+const usersIdArray = getIds();
 const patientsIdArray = getIds();
 const clinicsIdArray = getIds();
 const labResultsIdArray = getIds();
 const doctorsIdArray = getIds();
 const appointmentsIdArray = getIds();
+
+let users = [
+    new User({
+        _id: usersIdArray[0],
+        username: 'kidney',
+        password: 'dialysis1',
+        firstName: 'John',
+        lastName: 'Doe'
+    })
+];
 
 let patients = [
     new Patient({
@@ -123,6 +135,7 @@ let patients = [
             dateOfBirthOfCardHolder: '08/02/1951',
             socialSecurityNumberOfCardHolder: '380748274'
         },
+        secondaryInsurance: null,
         labResults: [
             labResultsIdArray[1]
         ],
@@ -160,6 +173,7 @@ let patients = [
             dateOfBirthOfCardHolder: '02/17/1974',
             socialSecurityNumberOfCardHolder: '086785372'
         },
+        secondaryInsurance: null,
         labResults: [
             labResultsIdArray[2]
         ],
@@ -197,6 +211,7 @@ let patients = [
             dateOfBirthOfCardHolder: '03/09/1948',
             socialSecurityNumberOfCardHolder: '378472109'
         },
+        secondaryInsurance: null,
         labResults: [
             labResultsIdArray[3]
         ],
@@ -234,14 +249,53 @@ let patients = [
             dateOfBirthOfCardHolder: '11/30/1943',
             socialSecurityNumberOfCardHolder: '938848321'
         },
+        secondaryInsurance: null,
         labResults: [
             labResultsIdArray[4]
         ],
         clinic: clinicsIdArray[3],
         username: 'david.baker',
         password: 'dbaker'
-    })
-]
+    }),
+    new Patient({
+        _id: patientsIdArray[5],
+        name: {
+            firstName: 'Carley',
+            lastName: 'Grey'
+        },
+        dateOfBirth: '01/13/1982',
+        sex: 'Female',
+        socialSecurityNumber: '837294847',
+        address: {
+            street: '39 Palm St',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: '33298'
+        },
+        phoneNumbers: {
+            home: '904-111-2222',
+            cell: '904-111-1111',
+            work: '904-329-3932'
+        },
+        primaryInsurance: {
+            insuranceCompany: 'Medicaid',
+            nameOfCardHolder: {
+                firstName: 'Carley',
+                lastName: 'Grey'
+            },
+            policyNumber: 924218238,
+            dateOfBirthOfCardHolder: '01/13/1982',
+            socialSecurityNumberOfCardHolder: '837294847'
+        },
+        secondaryInsurance: null,
+        labResults: [
+            labResultsIdArray[5]
+        ],
+        clinic: clinicsIdArray[1],
+        username: 'demo',
+        password: 'patient'
+    }),
+];
 
 const clinics = [
     {
@@ -337,7 +391,7 @@ const clinics = [
             lastName: 'McNabb'
         }
     }
-]
+];
 
 const labResults = [
     new LabResults({
@@ -464,6 +518,31 @@ const labResults = [
             triglycerides: 186
         },
         patient: patientsIdArray[0]
+    }),
+    new LabResults({
+        _id: labResultsIdArray[5],
+        date: '07/21/2017',
+        hematology: {
+            wbcCount: 5.32,
+            rbcCount: 4.01,
+            hemoglobin: 11.3,
+            hematocrit: 38.3,
+            plateletCount: 211
+        },
+        chemistry: {
+            bun: 42,
+            creatinine: 9.13,
+            sodium: 131,
+            potassium: 4.4,
+            calcium: 10.7,
+            phosphorus: 4.1,
+            albumin: 3.6,
+            glucose: 131,
+            iron: 49,
+            cholesterol: 172,
+            triglycerides: 410
+        },
+        patient: patientsIdArray[5]
     })
 ];
 
@@ -505,7 +584,8 @@ const doctors = [
         phoneNumber: '904-221-2244',
         faxNumber: '904-221-4321',
         patients: [
-            patientsIdArray[0]
+            patientsIdArray[0],
+            patientsIdArray[5]
         ]
     }),
     new Doctor({
@@ -545,7 +625,8 @@ const doctors = [
         phoneNumber: '904-932-9498',
         faxNumber: '904-932-2384',
         patients: [
-            patientsIdArray[2]
+            patientsIdArray[2],
+            patientsIdArray[5]
         ]
     }),
     new Doctor({
@@ -640,6 +721,12 @@ exec()
 function exec() {
     return co(function* () {
         const db = mongoose.createConnection(config.DATABASE_URL);
+        //make user schema for this db connection
+        const user = db.model('User', User.schema);
+        // clear the users collection
+        console.log('Removing users collection');
+        yield user.remove();
+        //make patient schema for this db connection
         const patient = db.model('Patient', Patient.schema);
         // clear the patients collection
         console.log('Removing patients collection');
@@ -665,6 +752,10 @@ function exec() {
         console.log('Removing appointments collection');
         yield appointment.remove();
     
+        //seed the user data
+        console.log('Seeding users..');
+        yield user.insertMany(users).then(() => ({ ok: 1 }));
+        console.log('Users successfully imported!');
         // seed the patient data
         console.log('Seeding patients..');
         yield patient.insertMany(patients).then(() => ({ ok: 1 }));

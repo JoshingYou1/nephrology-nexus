@@ -103,6 +103,14 @@ patientSchema.virtual('formatSsn').get(function() {
     return `${this.socialSecurityNumber[0]}${this.socialSecurityNumber[1]}${this.socialSecurityNumber[2]}-${this.socialSecurityNumber[3]}${this.socialSecurityNumber[4]}-${this.socialSecurityNumber[5]}${this.socialSecurityNumber[6]}${this.socialSecurityNumber[7]}${this.socialSecurityNumber[8]}`;
 });
 
+patientSchema.virtual('formatPrimaryInsuranceSsn').get(function() {
+    return `${this.primaryInsurance.socialSecurityNumberOfCardHolder[0]}${this.primaryInsurance.socialSecurityNumberOfCardHolder[1]}${this.primaryInsurance.socialSecurityNumberOfCardHolder[2]}-${this.primaryInsurance.socialSecurityNumberOfCardHolder[3]}${this.primaryInsurance.socialSecurityNumberOfCardHolder[4]}-${this.primaryInsurance.socialSecurityNumberOfCardHolder[5]}${this.primaryInsurance.socialSecurityNumberOfCardHolder[6]}${this.primaryInsurance.socialSecurityNumberOfCardHolder[7]}${this.primaryInsurance.socialSecurityNumberOfCardHolder[8]}`;
+});
+
+patientSchema.virtual('formatSecondaryInsuranceSsn').get(function() {
+    return `${this.secondaryInsurance.socialSecurityNumberOfCardHolder[0]}${this.secondaryInsurance.socialSecurityNumberOfCardHolder[1]}${this.secondaryInsurance.socialSecurityNumberOfCardHolder[2]}-${this.secondaryInsurance.socialSecurityNumberOfCardHolder[3]}${this.secondaryInsurance.socialSecurityNumberOfCardHolder[4]}-${this.secondaryInsurance.socialSecurityNumberOfCardHolder[5]}${this.secondaryInsurance.socialSecurityNumberOfCardHolder[6]}${this.secondaryInsurance.socialSecurityNumberOfCardHolder[7]}${this.secondaryInsurance.socialSecurityNumberOfCardHolder[8]}`;
+});
+
 patientSchema.virtual('formatHtml5BirthDate').get(function()  {
     let day = this.dateOfBirth.getDate();
     if (day < 10) {
