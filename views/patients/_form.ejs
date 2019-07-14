@@ -175,62 +175,60 @@
                         </div>
                     </div>
                 </fieldset>
-                <% if (patient.secondaryInsurance.insuranceCompany != null) { %>
-                    <fieldset class="patient-secondary-insurance-data">
-                        <legend class="patient-secondary-insurance-legend">Secondary Insurance</legend>
-                        <div class="grid-md-2">
-                            <div class="box-md-col-1">
-                                <label class="patient-insurance-company-label" for="secondary-insurance-company">Company:</label>
-                                <input 
-                                    class="patient-insurance-company-input" placeholder="Ally Health" type="text" 
-                                    name="secondary.insuranceCompany" id="secondary-insurance-company"
-                                    value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.insuranceCompany : '' %>"
-                                >
-                            </div>
-                            <div class="box-md-col-2">
-                                <label class="patient-insurance-first-name-label" for="secondary-insurance-first-name">Cardholder's First Name:</label>
-                                <input 
-                                    class="patient-insurance-first-name-input" placeholder="John" type="text" 
-                                    name="secondaryInsurance.nameOfCardHolder.firstName" id="secondary-insurance-first-name"
-                                    value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.nameOfCardHolder.firstName : '' %>"
-                                >
-                            </div>
-                            <div class="box-md-col-1">
-                                <label class="patient-insurance-last-name-label" for="secondary-insurance-last-name">Cardholder's Last Name:</label>
-                                <input 
-                                    class="patient-insurance-last-name-input" placeholder="Doe" type="text" 
-                                    name="secondaryInsurance.nameOfCardHolder.lastName" id="secondary-insurance-last-name"
-                                    value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.nameOfCardHolder.lastName : '' %>"
-                                >
-                            </div>
-                            <div class="box-md-col-2">
-                                <label class="patient-insurance-policy-number-label" for="secondary-insurance-policy-number">Policy Number:</label>
-                                <input 
-                                    class="patient-insurance-policy-number-input" placeholder="123456789" type="number" 
-                                    name="secondaryInsurance.policyNumber" id="secondary-insurance-policy-number"
-                                    value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.policyNumber : '' %>"
-                                >
-                            </div>
-                            <div class="box-md-col-1">
-                                <label class="patient-insurance-dob-label" for="secondary-insurance-dob">Cardholder's DOB:</label>
-                                <input 
-                                    class="patient-insurance-dob-input" placeholder="12/34/5678" type="date" id="secondary-insurance-dob"
-                                    name="secondaryInsurance.dateOfBirthOfCardHolder" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
-                                    value="<%- formMethod == 'PUT' ? patient.formatHtml5SecondaryInsuranceBirthDate : '' %>"
-                                >
-                            </div>
-                            <div class="box-md-col-2">
-                                <label class="patient-insurance-ssn-label" for="secondary-insurance-ssn">Cardholder's SSN:</label>
-                                <input 
-                                    class="patient-insurance-ssn-input" placeholder="123456789" type="text" id="secondary-insurance-dob"
-                                    name="secondaryInsurance.socialSecurityNumberOfCardHolder" pattern="[0-9]{9}"
-                                    value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.socialSecurityNumberOfCardHolder : '' %>"
-                                >
-                            </div>
+                <fieldset class="patient-secondary-insurance-data">
+                    <legend class="patient-secondary-insurance-legend">Secondary Insurance</legend>
+                    <div class="grid-md-2">
+                        <div class="box-md-col-1">
+                            <label class="patient-insurance-company-label" for="secondary-insurance-company">Company:</label>
+                            <input 
+                                class="patient-insurance-company-input" placeholder="Ally Health" type="text" 
+                                name="secondary.insuranceCompany" id="secondary-insurance-company"
+                                value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.insuranceCompany : '' %>"
+                            >
                         </div>
-                    </fieldset>
+                        <div class="box-md-col-2">
+                            <label class="patient-insurance-first-name-label" for="secondary-insurance-first-name">Cardholder's First Name:</label>
+                            <input 
+                                class="patient-insurance-first-name-input" placeholder="John" type="text" 
+                                name="secondaryInsurance.nameOfCardHolder.firstName" id="secondary-insurance-first-name"
+                                value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.nameOfCardHolder.firstName : '' %>"
+                            >
+                        </div>
+                        <div class="box-md-col-1">
+                            <label class="patient-insurance-last-name-label" for="secondary-insurance-last-name">Cardholder's Last Name:</label>
+                            <input 
+                                class="patient-insurance-last-name-input" placeholder="Doe" type="text" 
+                                name="secondaryInsurance.nameOfCardHolder.lastName" id="secondary-insurance-last-name"
+                                value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.nameOfCardHolder.lastName : '' %>"
+                            >
+                        </div>
+                        <div class="box-md-col-2">
+                            <label class="patient-insurance-policy-number-label" for="secondary-insurance-policy-number">Policy Number:</label>
+                            <input 
+                                class="patient-insurance-policy-number-input" placeholder="123456789" type="number" 
+                                name="secondaryInsurance.policyNumber" id="secondary-insurance-policy-number"
+                                value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.policyNumber : '' %>"
+                            >
+                        </div>
+                        <div class="box-md-col-1">
+                            <label class="patient-insurance-dob-label" for="secondary-insurance-dob">Cardholder's DOB:</label>
+                            <input 
+                                class="patient-insurance-dob-input" placeholder="12/34/5678" type="date" id="secondary-insurance-dob"
+                                name="secondaryInsurance.dateOfBirthOfCardHolder" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}"
+                                value="<%- formMethod == 'PUT' ? patient.formatHtml5SecondaryInsuranceBirthDate : '' %>"
+                            >
+                        </div>
+                        <div class="box-md-col-2">
+                            <label class="patient-insurance-ssn-label" for="secondary-insurance-ssn">Cardholder's SSN:</label>
+                            <input 
+                                class="patient-insurance-ssn-input" placeholder="123456789" type="text" id="secondary-insurance-dob"
+                                name="secondaryInsurance.socialSecurityNumberOfCardHolder" pattern="[0-9]{9}"
+                                value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.socialSecurityNumberOfCardHolder : '' %>"
+                            >
+                        </div>
+                    </div>
                 </fieldset>
-            <% } %>
+            </fieldset>
         </div>
             <button type="submit" class="patient-form-button">Submit</button>
             </form>
