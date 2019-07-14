@@ -54,7 +54,9 @@
                         <% if (formMethod == 'PUT') { %>
                             <input class="patient-password-input" placeholder="john09204" type="text" name="password" id="password">
                         <% } %>
-                        <input class="patient-password-input" placeholder="john09204" type="text" name="password" id="password" required>
+                        <% if (formMethod != 'PUT') { %>
+                            <input class="patient-password-input" placeholder="john09204" type="text" name="password" id="password" required>
+                        <% } %>
                     </div>
                 </div>
                 <fieldset class="patient-address-data" name="address">
