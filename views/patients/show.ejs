@@ -69,7 +69,7 @@
                         </p>
                         <p>
                             <span class="insurance-span-1">Cardholder's DOB:</span>&nbsp;
-                            <span class="insurance-span-2"><%= patient.primaryInsurance.dateOfBirthOfCardHolder %></span>
+                            <span class="insurance-span-2"><%= patient.formatPrimaryInsuranceBirthDate %></span>
                         </p>
                         <p>
                             <span class="insurance-span-1">Cardholder's SSN:</span>&nbsp;
@@ -96,7 +96,7 @@
                             </p>
                             <p>
                                 <span class="insurance-span-1">Cardholder's DOB:</span>&nbsp;
-                                <span class="insurance-span-2"><%= patient.secondaryInsurance.dateOfBirthOfCardHolder %></span>
+                                <span class="insurance-span-2"><%= patient.formatSecondaryInsuranceBirthDate %></span>
                             </p>
                             <p>
                                 <span class="insurance-span-1">Cardholder's SSN:</span>&nbsp;

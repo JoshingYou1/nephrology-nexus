@@ -33,7 +33,7 @@ const patientSchema = mongoose.Schema({
             lastName: {type: String, required: true}
         },
         policyNumber: {type: Number, required: true},
-        dateOfBirthOfCardHolder: {type: String, required: true},
+        dateOfBirthOfCardHolder: {type: Date, required: true},
         socialSecurityNumberOfCardHolder: {type: String, required: true}
     },
     secondaryInsurance: {
@@ -43,7 +43,7 @@ const patientSchema = mongoose.Schema({
             lastName: {type: String}
         },
         policyNumber: {type: Number},
-        dateOfBirthOfCardHolder: {type: String},
+        dateOfBirthOfCardHolder: {type: Date},
         socialSecurityNumberOfCardHolder: {type: String}
     },
     treatmentDays: {type: String},
@@ -112,28 +112,80 @@ patientSchema.virtual('formatSecondaryInsuranceSsn').get(function() {
 });
 
 patientSchema.virtual('formatHtml5BirthDate').get(function()  {
-    let day = this.dateOfBirth.getDate();
+    let day = this.dateOfBirth.getUTCDate();
     if (day < 10) {
         day = `0${day}`
     }
-    let month = this.dateOfBirth.getMonth() + 1;
+    let month = this.dateOfBirth.getUTCMonth() + 1;
     if (month < 10) {
         month = `0${month}`;
     }
-    const year = this.dateOfBirth.getFullYear();
+    const year = this.dateOfBirth.getUTCFullYear();
     return `${year}-${month}-${day}`;
 });
 
 patientSchema.virtual('formatBirthDate').get(function()  {
-    let day = this.dateOfBirth.getDate();
+    let day = this.dateOfBirth.getUTCDate();
     if (day < 10) {
         day = `0${day}`
     }
-    let month = this.dateOfBirth.getMonth() + 1;
+    let month = this.dateOfBirth.getUTCMonth() + 1;
     if (month < 10) {
         month = `0${month}`;
     }
-    const year = this.dateOfBirth.getFullYear();
+    const year = this.dateOfBirth.getUTCFullYear();
+    return `${month}/${day}/${year}`;
+});
+
+patientSchema.virtual('formatHtml5PrimaryInsuranceBirthDate').get(function()  {
+    let day = this.primaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.primaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.primaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
+    return `${year}-${month}-${day}`;
+});
+
+patientSchema.virtual('formatPrimaryInsuranceBirthDate').get(function()  {
+    let day = this.primaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.primaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.primaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
+    return `${month}/${day}/${year}`;
+});
+
+patientSchema.virtual('formatHtml5SecondaryInsuranceBirthDate').get(function()  {
+    let day = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
+    return `${year}-${month}-${day}`;
+});
+
+patientSchema.virtual('formatSecondaryInsuranceBirthDate').get(function()  {
+    let day = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
     return `${month}/${day}/${year}`;
 });
 
