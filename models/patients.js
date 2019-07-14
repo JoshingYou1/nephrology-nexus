@@ -163,33 +163,31 @@ patientSchema.virtual('formatPrimaryInsuranceBirthDate').get(function()  {
     return `${month}/${day}/${year}`;
 });
 
-if (this.secondaryInsurance != null) {
-    patientSchema.virtual('formatHtml5SecondaryInsuranceBirthDate').get(function()  {
-        let day = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
-        if (day < 10) {
-            day = `0${day}`
-        }
-        let month = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
-        if (month < 10) {
-            month = `0${month}`;
-        }
-        const year = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
-        return `${year}-${month}-${day}`;
-    });
+patientSchema.virtual('formatHtml5SecondaryInsuranceBirthDate').get(function()  {
+    let day = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
+    return `${year}-${month}-${day}`;
+});
 
-    patientSchema.virtual('formatSecondaryInsuranceBirthDate').get(function()  {
-        let day = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
-        if (day < 10) {
-            day = `0${day}`
-        }
-        let month = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
-        if (month < 10) {
-            month = `0${month}`;
-        }
-        const year = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
-        return `${month}/${day}/${year}`;
-    });
-};
+patientSchema.virtual('formatSecondaryInsuranceBirthDate').get(function()  {
+    let day = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCDate();
+    if (day < 10) {
+        day = `0${day}`
+    }
+    let month = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCMonth() + 1;
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    const year = this.secondaryInsurance.dateOfBirthOfCardHolder.getUTCFullYear();
+    return `${month}/${day}/${year}`;
+});
 
 patientSchema.virtual('emptyHomePhoneValue').get(function() {
     return this.phoneNumbers.home ? this.phoneNumbers.home : 'N/A';
