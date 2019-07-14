@@ -51,6 +51,9 @@
                     </div>
                     <div class="box-md-col-1">
                         <label class="patient-password-label" for="password">Password</label>
+                        <% if (formMethod == 'PUT') { %>
+                            <input class="patient-password-input" placeholder="john09204" type="text" name="password" id="password">
+                        <% } %>
                         <input class="patient-password-input" placeholder="john09204" type="text" name="password" id="password" required>
                     </div>
                 </div>
