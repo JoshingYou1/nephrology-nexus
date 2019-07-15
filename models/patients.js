@@ -92,7 +92,6 @@ patientSchema.methods.hashPassword = function(password) {
 };
 
 patientSchema.pre('save', function (next) {
-    // store reference
     const patient = this;
     if (patient.password === undefined) {
         return next();
