@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 let bcrypt = require('bcryptjs');
 const {LabResults} = require('./lab-results');
+const SALT_WORK_FACTOR = 10;
 
 
 const patientSchema = mongoose.Schema({
@@ -82,34 +83,33 @@ patientSchema.methods.serialize = function() {
     };
 }
 
-// patientSchema.pre('save', function(next) {
-//     let patient = this;
-//     if (!patient.isModified('password')) {
-//         return next();
-//     }
-//     bcrypt.genSalt(11, (err, salt) => {
-//         if (err) {
-//             return next(err);
-//     }
-//     bcrypt.hash(patient.password, salt, null, (error, hash) => {
-//         if (error) {
-//             return next(error);
-//             }
-//             console.log('HASH: ', hash);
-//             patient.password = hash;
-//             console.log('USER.PASSWORD: ', patient.password);
-//             next();
-//         });
-//     });
-// });
-
 patientSchema.methods.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
 patientSchema.methods.hashPassword = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(11), null);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
+
+patientSchema.pre('save', function (next) {
+    // store reference
+    const patient = this;
+    if (patient.password === undefined) {
+        return next();
+    }
+    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+        if (err) {
+            console.log(err);
+        }
+        bcrypt.hash(patient.password, salt, function (err, hash) {
+            if (err) {
+                console.log(err);
+            }
+            patient.password = hash;
+            next();
+        });
+    });
+});
 
 patientSchema.pre('remove', function(next) {
     LabResults.deleteMany({_id: {$in: this.labResults}}).exec();
