@@ -104,6 +104,7 @@
                             </p>
                         </div>
                     <% } %>
+                    <p><%= patient.password %></p>
                 </section>
                 <div class="button-container">
                     <form  class="patient-delete-form" method="POST" action="/clinics/<%= clinicId %>/patients/<%= patient._id %>">

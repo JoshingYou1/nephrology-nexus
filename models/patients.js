@@ -82,6 +82,27 @@ patientSchema.methods.serialize = function() {
     };
 }
 
+// patientSchema.pre('save', function(next) {
+//     let patient = this;
+//     if (!patient.isModified('password')) {
+//         return next();
+//     }
+//     bcrypt.genSalt(11, (err, salt) => {
+//         if (err) {
+//             return next(err);
+//     }
+//     bcrypt.hash(patient.password, salt, null, (error, hash) => {
+//         if (error) {
+//             return next(error);
+//             }
+//             console.log('HASH: ', hash);
+//             patient.password = hash;
+//             console.log('USER.PASSWORD: ', patient.password);
+//             next();
+//         });
+//     });
+// });
+
 patientSchema.methods.validatePassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };

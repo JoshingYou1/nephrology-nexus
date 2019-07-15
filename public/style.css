@@ -28,7 +28,7 @@ label {
     font-weight: bold;
 }
 
-input {
+input, select {
     display: block;
     width: 100%;
     border: 1.5px solid #68665A;

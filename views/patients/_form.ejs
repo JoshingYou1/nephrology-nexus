@@ -52,10 +52,10 @@
                     <div class="box-md-col-1">
                         <label class="patient-password-label" for="password">Password</label>
                         <% if (formMethod == 'PUT') { %>
-                            <input class="patient-password-input" placeholder="john09204" type="text" name="password" id="password">
+                            <input class="patient-password-input" placeholder="john09204" type="password" name="password" id="password">
                         <% } %>
                         <% if (formMethod != 'PUT') { %>
-                            <input class="patient-password-input" placeholder="john09204" type="text" name="password" id="password" required>
+                            <input class="patient-password-input" placeholder="john09204" type="password" name="password" id="password" required>
                         <% } %>
                     </div>
                 </div>
@@ -78,11 +78,64 @@
                         </div>
                         <div class="box-md-col-1">
                             <label class="patient-state-label" for="state">State</label>
-                            <input 
+                            <!-- <input 
                                 class="patient-state-input" placeholder="FL" type="text" name="address.state" id="state" 
                                 pattern="^(?-i:A[LKSZRAEP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADLN]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY])$"
                                 value="<%- formMethod == 'PUT' ? patient.address.state : '' %>" required
-                            >
+                            > -->
+                            <select class="patient-state-input" placeholder="FL" type="text" name="address.state" id="state" value="<%- formMethod == 'PUT' ? patient.address.state : '' %>" required>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AR">AR</option>	
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>	
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>	
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>	
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>			
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>	
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>
                         </div>
                         <div class="box-md-col-2">
                             <label class="patient-zip-code-label" for="zip-code">Zip Code</label>
@@ -168,7 +221,7 @@
                         <div class="box-md-col-2">
                             <label class="patient-insurance-ssn-label" for="primary-insurance-ssn">Cardholder's SSN:</label>
                             <input 
-                                class="patient-insurance-ssn-input" placeholder="123456789" type="text" id="primary-insurance-dob"
+                                class="patient-insurance-ssn-input" placeholder="123456789" type="text" id="primary-insurance-ssn"
                                 name="primaryInsurance.socialSecurityNumberOfCardHolder" pattern="[0-9]{9}"
                                 value="<%- formMethod == 'PUT' ? patient.primaryInsurance.socialSecurityNumberOfCardHolder : '' %>" required
                             >
@@ -221,7 +274,7 @@
                         <div class="box-md-col-2">
                             <label class="patient-insurance-ssn-label" for="secondary-insurance-ssn">Cardholder's SSN:</label>
                             <input 
-                                class="patient-insurance-ssn-input" placeholder="123456789" type="text" id="secondary-insurance-dob"
+                                class="patient-insurance-ssn-input" placeholder="123456789" type="text" id="secondary-insurance-ssn"
                                 name="secondaryInsurance.socialSecurityNumberOfCardHolder" pattern="[0-9]{9}"
                                 value="<%- formMethod == 'PUT' ? patient.secondaryInsurance.socialSecurityNumberOfCardHolder : '' %>"
                             >

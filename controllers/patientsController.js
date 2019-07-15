@@ -72,11 +72,14 @@ router.get('/create', isAuthenticated, function(req, res) {
 router.post('/', isAuthenticated, function(req, res) {
     let patientData = new Patient(req.body);
     patientData._id = new mongoose.Types.ObjectId();
+    let patientPassword = patientData.hashPassword(patientData.password);
+    console.log('patientData.password', patientPassword);
     let vm = {};
     patientData
         .save(function(err, patient) {
             if (err) {
                 vm.clinicId = req.clinicId;
+                vm.patientPassword = req.patient.password;
                 console.log(err);
                 res.render('patients/create', {message: 'Sorry, your request was invalid.', formMethod: 'POST', ...vm});
             }
