@@ -32,7 +32,7 @@ UserSchema.methods.validatePassword = function(password) {
 };
 
 UserSchema.methods.hashPassword = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(11), null);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
 const User = mongoose.model('User', UserSchema);
