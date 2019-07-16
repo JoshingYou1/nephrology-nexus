@@ -99,12 +99,10 @@ router.put('/:id', isAuthenticated, function(req, res) {
     Clinic
         .findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
         .then(function() {
-            console.log('Clinic put success!');
             req.flash('successMessage', 'Clinic successfully updated!');
             res.redirect(`/clinics/show/${req.params.id}`);
         })
         .catch(function(err) {
-            console.log('Clinic put failed');
             console.log(err);
 
             Clinic

@@ -63,9 +63,6 @@ describe('Appointment controller', function() {
     describe('GET endpoint for appointments', function() {
         it('Should retrieve all existing appointments that belong to a given user', function(done) {
             let res;
-
-            console.log('token:', token);
-            console.log('patientId:', patientId);
     
             authenticatedUser
                 .get(`/api/patients/${patientId}/appointments`)

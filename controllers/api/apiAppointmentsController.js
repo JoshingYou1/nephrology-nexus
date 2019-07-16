@@ -21,23 +21,18 @@ router.get('/', jwtAuth, function(req, res) {
 
 router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
     if (!moment.isDate(new Date(req.body.date))) {
-        console.log('req.body.date', req.body.date);
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
             location: 'date'
         });
     }
-    else if (typeof Number(req.body.address.zipCode) !== 'number') {
-        console.log('req.body.address.zipCode', req.body.address.zipCode);
+    if (typeof Number(req.body.address.zipCode) !== 'number') {
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
             location: 'address.zipCode'
         });
-    }
-    else {
-        console.log(req.body);
     }
     
     let appointmentData = new Appointment(req.body);
@@ -60,25 +55,19 @@ router.put('/:id', jwtAuth, bodyParser.json(), function(req,res) {
           error: 'Request path id and request body id values must match'
         });
     }
-
     if (!moment.isDate(new Date(req.body.date))) {
-        console.log('req.body.date', req.body.date);
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
             location: 'date'
         });
     }
-    else if (typeof Number(req.body.address.zipCode) !== 'number') {
-        console.log('req.body.address.zipCode', req.body.address.zipCode);
+    if (typeof Number(req.body.address.zipCode) !== 'number') {
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
             location: 'address.zipCode'
         });
-    }
-    else {
-        console.log(req.body);
     }
 
     const updated = {};

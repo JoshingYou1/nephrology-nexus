@@ -10,7 +10,6 @@ const patientAuth = passport.authenticate('patientLogin', {session: false});
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 const createAuthToken = function(user) {
-    console.log('user', user);
     return jwt.sign({user}, JWT_SECRET, {
         subject: user.username,
         expiresIn: JWT_EXPIRY,

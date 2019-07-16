@@ -20,7 +20,6 @@ router.get('/', function(req, res) {
 
 router.post('/', jwtAuth, bodyParser.json(), function(req, res) {
     if (typeof Number(req.body.address.zipCode) !== 'number') {
-        console.log('req.body.address.zipCode', req.body.address.zipCode);
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
@@ -52,7 +51,6 @@ router.put('/:id', jwtAuth, bodyParser.json(), function(req,res) {
     }
 
     if (typeof Number(req.body.address.zipCode) !== 'number') {
-        console.log('req.body.address.zipCode', req.body.address.zipCode);
         return res.status(400).json({
             message: 'Incorrect field type',
             reason: 'ValidationError',
