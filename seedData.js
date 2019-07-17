@@ -223,6 +223,10 @@ let patients = [
             labResultsIdArray[3]
         ],
         clinic: clinicsIdArray[2],
+        doctors: [
+            doctorsIdArray[1]
+        ],
+        appointments: null,
         username: 'meredith.edwards',
         password: 'medwards'
     }),
@@ -299,6 +303,12 @@ let patients = [
             labResultsIdArray[5]
         ],
         clinic: clinicsIdArray[1],
+        doctors: [
+            doctorsIdArray[1]
+        ],
+        appointments: [
+            appointmentsIdArray[3]
+        ],
         username: 'demo',
         password: 'patient'
     }),
@@ -592,6 +602,7 @@ const doctors = [
         faxNumber: '904-221-4321',
         patients: [
             patientsIdArray[0],
+            patientsIdArray[3],
             patientsIdArray[5]
         ]
     }),
@@ -709,6 +720,23 @@ const appointments = [
         },
         phoneNumber: '904-943-2942',
         patient: patientsIdArray[0]
+    }),
+    new Appointment({
+        _id: appointmentsIdArray[3],
+        description: 'Annual Checkup',
+        date: '04/23/19',
+        time: '1:30 p.m.',
+        with: 'Jennifer Stanson',
+        title: 'Primary care physician',
+        where: 'Northeast Primary Care',
+        address: {
+            street: '82 South Jackson St',
+            city: 'Jacksonville',
+            state: 'FL',
+            zipCode: 38321
+        },
+        phoneNumber: '904-812-2999',
+        patient: patientsIdArray[5]
     })
 ];
 
