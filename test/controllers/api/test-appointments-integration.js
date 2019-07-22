@@ -60,21 +60,21 @@ describe('Appointment controller', function() {
         });
     });
 
-    describe('GET endpoint for appointments', function() {
-        it('Should retrieve all existing appointments that belong to a given user', function(done) {
-            let res;
+    // describe('GET endpoint for appointments', function() {
+    //     it('Should retrieve all existing appointments that belong to a given user', function(done) {
+    //         let res;
     
-            authenticatedUser
-                .get(`/api/patients/${patientId}/appointments`)
-                .set('Authorization', `Bearer ${token}`)
-                .then(function(_res) {
-                    res = _res;
-                    expect(res).to.have.status(200);
-                    expect(res).to.be.json;
-                    expect(res.body).to.be.a('array')
-                    done();
-                });
-        });
+    //         authenticatedUser
+    //             .get(`/api/patients/${patientId}/appointments`)
+    //             .set('Authorization', `Bearer ${token}`)
+    //             .then(function(_res) {
+    //                 res = _res;
+    //                 expect(res).to.have.status(200);
+    //                 expect(res).to.be.json;
+    //                 expect(res.body).to.be.a('array')
+    //                 done();
+    //             });
+    //     });
 
         // it("Should return appointments with the correct fields", function(done) {
         //     let resAppointment;
@@ -109,5 +109,5 @@ describe('Appointment controller', function() {
         //             done();
         //         });
         // });
-    });
+    // });
 });
